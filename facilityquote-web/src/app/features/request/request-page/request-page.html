@@ -1,0 +1,872 @@
+@if (submitSuccess()) {
+
+<section class="success-section">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <span class="eyebrow">
+            Anfrage erhalten
+        </span>
+
+        <h1>
+            Vielen Dank für Ihre Anfrage!
+        </h1>
+
+        <p>
+            Wir haben Ihre Anfrage erfolgreich erhalten
+            und melden uns schnellstmöglich bei Ihnen.
+        </p>
+
+        @if (requestId()) {
+
+        <div class="request-number">
+
+            <span>
+                Anfrage-Nr.
+            </span>
+
+            <strong>
+                {{ requestId() }}
+            </strong>
+
+        </div>
+
+        }
+
+    </div>
+
+</section>
+
+} @else {
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="brand">
+            FacilityQuote
+        </div>
+
+        <div class="hero-copy">
+
+            <span class="eyebrow">
+                Ihre Anfrage
+            </span>
+
+            <h1>
+                Was dürfen wir<br />
+                für Sie erledigen?
+            </h1>
+
+            <p>
+                Reinigung, Räumung und Gartenarbeiten –
+                einfach und unverbindlich anfragen.
+            </p>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ============================================================
+     MAIN
+     ============================================================ -->
+
+<main class="content">
+
+
+    <!-- ========================================================
+         PROGRESS
+         ======================================================== -->
+
+    <nav class="progress" aria-label="Anfragefortschritt">
+
+        <!-- Schritt 1 -->
+
+        <div class="progress-step" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+
+            <span class="step-number">
+
+                @if (currentStep > 1) {
+                ✓
+                } @else {
+                1
+                }
+
+            </span>
+
+            <span>
+                Dienstleistung
+            </span>
+
+        </div>
+
+
+        <div class="progress-line"></div>
+
+
+        <!-- Schritt 2 -->
+
+        <div class="progress-step" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+
+            <span class="step-number">
+
+                @if (currentStep > 2) {
+                ✓
+                } @else {
+                2
+                }
+
+            </span>
+
+            <span>
+                Einsatzort
+            </span>
+
+        </div>
+
+
+        <div class="progress-line"></div>
+
+
+        <!-- Schritt 3 -->
+
+        <div class="progress-step" [class.active]="currentStep === 3" [class.completed]="currentStep > 3">
+
+            <span class="step-number">
+
+                @if (currentStep > 3) {
+                ✓
+                } @else {
+                3
+                }
+
+            </span>
+
+            <span>
+                Termin
+            </span>
+
+        </div>
+
+
+        <div class="progress-line"></div>
+
+
+        <!-- Schritt 4 -->
+
+        <div class="progress-step" [class.active]="currentStep === 4">
+
+            <span class="step-number">
+                4
+            </span>
+
+            <span>
+                Ihre Angaben
+            </span>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ========================================================
+         STEP 1 - SERVICE
+         ======================================================== -->
+
+    @if (currentStep === 1) {
+
+    <section class="step-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                Schritt 1 von 4
+            </span>
+
+            <h2>
+                Wählen Sie eine Dienstleistung
+            </h2>
+
+            <p>
+                Was können wir für Sie tun?
+            </p>
+
+        </div>
+
+
+        @if (services$ | async; as services) {
+
+        @for (category of categories; track category) {
+
+        <section class="service-category">
+
+            <div class="category-heading">
+
+                <h3>
+                    {{ getCategoryLabel(category) }}
+                </h3>
+
+            </div>
+
+
+            <div class="service-grid">
+
+                @for (service of services; track service.id) {
+
+                @if (service.category === category) {
+
+                <button type="button" class="service-card" [class.selected]="isSelected(service)"
+                    (click)="selectService(service)">
+
+                    <div class="card-top">
+
+                        <span class="category-label">
+                            {{ getCategoryLabel(service.category) }}
+                        </span>
+
+                        <span class="selection-indicator">
+
+                            @if (isSelected(service)) {
+                            ✓
+                            } @else {
+                            +
+                            }
+
+                        </span>
+
+                    </div>
+
+
+                    <h4>
+                        {{ service.name }}
+                    </h4>
+
+
+                    @if (service.description) {
+
+                    <p>
+                        {{ service.description }}
+                    </p>
+
+                    }
+
+                </button>
+
+                }
+
+                }
+
+            </div>
+
+        </section>
+
+        }
+
+        }
+
+
+        <div class="actions actions-end">
+
+            <button type="button" class="next-button" [disabled]="!canContinueFromStep1()" (click)="goToStep(2)">
+
+                <span>
+                    Weiter
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+    }
+
+
+
+    <!-- ========================================================
+         STEP 2 - LOCATION
+         ======================================================== -->
+
+    @if (currentStep === 2) {
+
+    <section class="step-section location-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                Schritt 2 von 4
+            </span>
+
+            <h2>
+                Wo findet der Einsatz statt?
+            </h2>
+
+            <p>
+                Bitte geben Sie uns die Adresse des Einsatzortes an.
+            </p>
+
+        </div>
+
+
+        <div class="location-card">
+
+
+            <div class="form-field">
+
+                <label for="street">
+                    Strasse / Hausnummer
+                </label>
+
+                <input id="street" type="text" placeholder="z. B. Bahnhofstrasse 25"
+                    [(ngModel)]="draft.location.street" />
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-field postal-code">
+
+                    <label for="postalCode">
+                        PLZ
+                    </label>
+
+                    <input id="postalCode" type="text" inputmode="numeric" maxlength="4" placeholder="8000"
+                        [(ngModel)]="draft.location.postalCode" />
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="city">
+                        Ort
+                    </label>
+
+                    <input id="city" type="text" placeholder="Zürich" [(ngModel)]="draft.location.city" />
+
+                </div>
+
+            </div>
+
+
+            <div class="location-hint">
+
+                <span class="hint-icon">
+                    i
+                </span>
+
+                <p>
+                    Der Einsatzort hilft uns später dabei,
+                    den möglichen Anfahrtsaufwand zu berücksichtigen.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button type="button" class="back-button" (click)="goToStep(1)">
+
+                <span>
+                    ←
+                </span>
+
+                <span>
+                    Zurück
+                </span>
+
+            </button>
+
+
+            <button type="button" class="next-button" [disabled]="!canContinueFromStep2()" (click)="goToStep(3)">
+
+                <span>
+                    Weiter
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+    }
+
+
+
+    <!-- ========================================================
+         STEP 3 - APPOINTMENT
+         ======================================================== -->
+
+    @if (currentStep === 3) {
+
+    <section class="step-section appointment-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                Schritt 3 von 4
+            </span>
+
+            <h2>
+                Wann passt es Ihnen?
+            </h2>
+
+            <p>
+                Wählen Sie einen gewünschten Termin und ein Zeitfenster.
+            </p>
+
+        </div>
+
+
+        <div class="appointment-card">
+
+            <div class="date-heading">
+
+                <span>
+                    Gewünschter Termin
+                </span>
+
+            </div>
+
+
+            <div class="date-grid">
+
+                @for (date of availableDates; track date.date) {
+
+                <button type="button" class="date-card" [class.selected]="isDateSelected(date.date)"
+                    (click)="selectDate(date.date)">
+
+                    <span class="weekday">
+                        {{ date.weekday }}
+                    </span>
+
+                    <span class="date">
+                        {{ date.label }}
+                    </span>
+
+                </button>
+
+                }
+
+            </div>
+
+
+            @if (draft.appointment.date) {
+
+            <div class="time-section">
+
+                <div class="time-heading">
+
+                    <span>
+                        Gewünschtes Zeitfenster
+                    </span>
+
+                </div>
+
+
+                <div class="time-grid">
+
+
+                    <!-- Vormittag -->
+
+                    <button type="button" class="time-card" [class.selected]="isTimeSlotSelected('morning')"
+                        (click)="selectTimeSlot('morning')">
+
+                        <span class="time-icon">
+                            ☀
+                        </span>
+
+                        <span class="time-content">
+
+                            <strong>
+                                Vormittag
+                            </strong>
+
+                            <small>
+                                08:00 – 12:00
+                            </small>
+
+                        </span>
+
+                    </button>
+
+
+                    <!-- Nachmittag -->
+
+                    <button type="button" class="time-card" [class.selected]="isTimeSlotSelected('afternoon')"
+                        (click)="selectTimeSlot('afternoon')">
+
+                        <span class="time-icon">
+                            ◐
+                        </span>
+
+                        <span class="time-content">
+
+                            <strong>
+                                Nachmittag
+                            </strong>
+
+                            <small>
+                                13:00 – 17:00
+                            </small>
+
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+
+        <div class="actions">
+
+            <button type="button" class="back-button" (click)="goToStep(2)">
+
+                <span>
+                    ←
+                </span>
+
+                <span>
+                    Zurück
+                </span>
+
+            </button>
+
+
+            <button type="button" class="next-button" [disabled]="!canContinueFromStep3()" (click)="goToStep(4)">
+
+                <span>
+                    Weiter
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+    }
+
+
+
+    <!-- ========================================================
+         STEP 4 - CUSTOMER
+         ======================================================== -->
+
+    @if (currentStep === 4) {
+
+    <section class="step-section customer-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                Schritt 4 von 4
+            </span>
+
+            <h2>
+                Wie können wir Sie erreichen?
+            </h2>
+
+            <p>
+                Wir verwenden Ihre Angaben nur, um Ihre Anfrage
+                zu bearbeiten und Sie zu kontaktieren.
+            </p>
+
+        </div>
+
+
+
+        <!-- ====================================================
+             CUSTOMER
+             ==================================================== -->
+
+        <div class="customer-card">
+
+            <div class="card-section-heading">
+
+                <span class="section-number">
+                    01
+                </span>
+
+                <div>
+
+                    <h3>
+                        Ihre Kontaktdaten
+                    </h3>
+
+                    <p>
+                        Damit wir uns bei Ihnen melden können.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-field">
+
+                    <label for="firstName">
+                        Vorname
+                    </label>
+
+                    <input id="firstName" type="text" autocomplete="given-name" placeholder="Max"
+                        [(ngModel)]="draft.customer.firstName" />
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="lastName">
+                        Nachname
+                    </label>
+
+                    <input id="lastName" type="text" autocomplete="family-name" placeholder="Muster"
+                        [(ngModel)]="draft.customer.lastName" />
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-field">
+
+                    <label for="email">
+                        E-Mail
+                    </label>
+
+                    <input id="email" type="email" autocomplete="email" placeholder="max@muster.ch"
+                        [(ngModel)]="draft.customer.email" />
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="phone">
+                        Telefon
+                    </label>
+
+                    <input id="phone" type="tel" autocomplete="tel" placeholder="+41 79 123 45 67"
+                        [(ngModel)]="draft.customer.phone" />
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ====================================================
+             MESSAGE
+             ==================================================== -->
+
+        <div class="customer-card message-card">
+
+            <div class="card-section-heading">
+
+                <span class="section-number">
+                    02
+                </span>
+
+                <div>
+
+                    <h3>
+                        Weitere Informationen
+                    </h3>
+
+                    <p>
+                        Gibt es etwas, das wir über den Auftrag wissen sollten?
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="message">
+                    Ihre Nachricht
+                </label>
+
+                <textarea id="message" rows="5" placeholder="Beschreiben Sie den Auftrag gerne etwas genauer..."
+                    [(ngModel)]="draft.description"></textarea>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ====================================================
+             SUMMARY
+             ==================================================== -->
+
+        <div class="summary-card">
+
+            <div class="summary-heading">
+
+                <span class="eyebrow">
+                    Ihre Anfrage
+                </span>
+
+                <h3>
+                    Fast geschafft
+                </h3>
+
+            </div>
+
+
+            <div class="summary-list">
+
+
+                <div class="summary-item">
+
+                    <span class="summary-label">
+                        Dienstleistung
+                    </span>
+
+                    <strong>
+                        {{ selectedServiceName }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span class="summary-label">
+                        Einsatzort
+                    </span>
+
+                    <strong>
+                        {{ draft.location.street }}<br />
+                        {{ draft.location.postalCode }}
+                        {{ draft.location.city }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span class="summary-label">
+                        Wunschtermin
+                    </span>
+
+                    <strong>
+                        {{ selectedDateLabel }}
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span class="summary-label">
+                        Zeitfenster
+                    </span>
+
+                    <strong>
+                        {{ selectedTimeSlotLabel }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ====================================================
+             ACTIONS
+             ==================================================== -->
+
+        <div class="actions">
+
+
+            <button type="button" class="back-button" (click)="goToStep(3)">
+
+                <span>
+                    ←
+                </span>
+
+                <span>
+                    Zurück
+                </span>
+
+            </button>
+
+
+            <button type="button" class="submit-button" [disabled]="!canSubmit() || isSubmitting()"
+                (click)="submitRequest()">
+
+                @if (isSubmitting()) {
+
+                <span>
+                    Anfrage wird gesendet ...
+                </span>
+
+                } @else {
+
+                <span>
+                    Anfrage senden
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
+                }
+
+            </button>
+
+        </div>
+
+    </section>
+
+    }
+
+</main>
+
+}

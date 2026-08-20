@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="FacilityQuote.Api/FacilityQuote.Api.csproj" />
+  <Project Path="FacilityQuote.Application/FacilityQuote.Application.csproj" />
+  <Project Path="FacilityQuote.Domain/FacilityQuote.Domain.csproj" />
+  <Project Path="FacilityQuote.Infrastructure/FacilityQuote.Infrastructure.csproj" />
+  <Project Path="FacilityQuote.Tests/FacilityQuote.Tests.csproj" />
+</Solution>

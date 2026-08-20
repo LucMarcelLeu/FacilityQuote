@@ -1,0 +1,38 @@
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: facilityquote-postgres
+    environment:
+      POSTGRES_DB: facilityquote
+      POSTGRES_USER: facilityquote
+      POSTGRES_PASSWORD: facilityquote
+    ports:
+      - "5432:5432"
+    volumes:
+      - facilityquote-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U facilityquote -d facilityquote"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:9
+    container_name: facilityquote-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@facilityquote.dev
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - facilityquote-pgadmin-data:/var/lib/pgadmin
+    restart: unless-stopped
+
+volumes:
+  facilityquote-postgres-data:
+  facilityquote-pgadmin-data:
