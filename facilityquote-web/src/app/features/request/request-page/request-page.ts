@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +8,7 @@ import {
   ServiceCategory
 } from '../models/service.model';
 import { RequestDraft } from '../models/request-draft.model';
+import { Availability } from '../models/availability.model';
 
 type RequestStep = 1 | 2 | 3 | 4;
 
@@ -17,6 +18,8 @@ interface AvailableDate {
   date: string;
   label: string;
   weekday: string;
+  morningAvailable: boolean;
+  afternoonAvailable: boolean;
 }
 
 @Component({
@@ -30,7 +33,7 @@ interface AvailableDate {
   styleUrl: './request-page.scss'
 })
 
-export class RequestPage {
+export class RequestPage implements OnInit  {
   private readonly api = inject(ApiService);
 
   readonly services$ = this.api.getServices();
@@ -70,7 +73,14 @@ export class RequestPage {
     description: ''
   };
 
+  availableDates: AvailableDate[] = [];
+
+
   selectedServiceName = '';
+
+  ngOnInit(): void {
+    this.loadAvailability();
+  }
 
   selectService(service: Service): void {
     this.draft.serviceId = service.id;
@@ -115,32 +125,63 @@ export class RequestPage {
     // Wird später durch Reactive Forms ersetzt.
   }
 
-  readonly availableDates: AvailableDate[] =
-    this.createAvailableDates();
-
-  private createAvailableDates(): AvailableDate[] {
-    const dates: AvailableDate[] = [];
+  private loadAvailability(): void {
 
     const today = new Date();
 
-    for (let i = 1; i <= 14; i++) {
-      const date = new Date(today);
+    const from = this.toDateString(today);
 
-      date.setDate(today.getDate() + i);
+    const toDate = new Date(today);
+    toDate.setDate(today.getDate() + 14);
 
-      dates.push({
-        date: this.toDateString(date),
-        label: date.toLocaleDateString('de-CH', {
-          day: '2-digit',
-          month: '2-digit'
-        }),
-        weekday: date.toLocaleDateString('de-CH', {
-          weekday: 'short'
-        })
+    const to = this.toDateString(toDate);
+
+    this.api.getAvailability(from, to)
+      .subscribe({
+        next: availability => {
+
+          this.availableDates = availability.map(item => {
+
+            const date = new Date(item.date + 'T12:00:00');
+
+            return {
+              date: item.date,
+
+              label: date.toLocaleDateString('de-CH', {
+                day: '2-digit',
+                month: '2-digit'
+              }),
+
+              weekday: date.toLocaleDateString('de-CH', {
+                weekday: 'short'
+              }),
+
+              morningAvailable: item.morningAvailable,
+              afternoonAvailable: item.afternoonAvailable
+            };
+          });
+
+        },
+
+        error: error => {
+          console.error(
+            'Failed to load availability',
+            error
+          );
+        }
       });
+  }
+
+  getSelectedDate(): AvailableDate | undefined {
+    const selectedDate = this.draft.appointment.date;
+
+    if (!selectedDate) {
+      return undefined;
     }
 
-    return dates;
+    return this.availableDates.find(
+      x => x.date === selectedDate
+    );
   }
 
   private toDateString(date: Date): string {
@@ -149,6 +190,29 @@ export class RequestPage {
 
   selectDate(date: string): void {
     this.draft.appointment.date = date;
+
+    const selected = this.availableDates.find(
+      x => x.date === date
+    );
+
+    if (!selected) {
+      this.draft.appointment.timeSlot = null;
+      return;
+    }
+
+    if (
+      this.draft.appointment.timeSlot === 'morning' &&
+      !selected.morningAvailable
+    ) {
+      this.draft.appointment.timeSlot = null;
+    }
+
+    if (
+      this.draft.appointment.timeSlot === 'afternoon' &&
+      !selected.afternoonAvailable
+    ) {
+      this.draft.appointment.timeSlot = null;
+    }
   }
 
   selectTimeSlot(slot: TimeSlot): void {

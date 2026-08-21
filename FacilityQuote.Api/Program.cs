@@ -1,7 +1,9 @@
 using System.Text.Json.Serialization;
+using FacilityQuote.Application.Availability;
 using FacilityQuote.Application.Requests;
 using FacilityQuote.Application.Services;
 using FacilityQuote.Infrastructure.Persistence;
+using FacilityQuote.Infrastructure.Repositories;
 using FacilityQuote.Infrastructure.Seeding;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,8 +24,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<RequestService>();
 builder.Services.AddScoped<ServicesService>();
+builder.Services.AddScoped<AvailabilityService>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
 
 builder.Services.AddDbContext<FacilityQuoteDbContext>(options =>
     options.UseNpgsql(

@@ -492,6 +492,7 @@
 
 
                     <!-- Vormittag -->
+                    @if (getSelectedDate()?.morningAvailable) {
 
                     <button type="button" class="time-card" [class.selected]="isTimeSlotSelected('morning')"
                         (click)="selectTimeSlot('morning')">
@@ -514,29 +515,35 @@
 
                     </button>
 
+                    }
+
 
                     <!-- Nachmittag -->
 
+                    @if (getSelectedDate()?.afternoonAvailable) {
+                    
                     <button type="button" class="time-card" [class.selected]="isTimeSlotSelected('afternoon')"
                         (click)="selectTimeSlot('afternoon')">
-
+                    
                         <span class="time-icon">
                             ◐
                         </span>
-
+                    
                         <span class="time-content">
-
+                    
                             <strong>
                                 Nachmittag
                             </strong>
-
+                    
                             <small>
                                 13:00 – 17:00
                             </small>
-
+                    
                         </span>
-
+                    
                     </button>
+                    
+                    }
 
                 </div>
 

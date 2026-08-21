@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Service } from '../../features/request/models/service.model';
 import { RequestDraft } from '../../features/request/models/request-draft.model';
+import { Availability } from '../../features/request/models/availability.model';
 
 @Injectable({
     providedIn: 'root'
@@ -58,6 +59,22 @@ export class ApiService {
         return this.http.post<{ id: string }>(
             `${this.baseUrl}/requests`,
             apiRequest
+        );
+    }
+
+    getAvailability(
+        from: string,
+        to: string
+    ): Observable<Availability[]> {
+
+        return this.http.get<Availability[]>(
+            '/api/availability',
+            {
+                params: {
+                    from,
+                    to
+                }
+            }
         );
     }
 }
