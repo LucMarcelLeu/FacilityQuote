@@ -14,4 +14,7 @@ public interface IAvailabilityRepository
     Task AddAsync(
         AvailabilitySlot availability,
         CancellationToken cancellationToken = default);
+
+    Task SaveChangesAsync(
+        CancellationToken cancellationToken = default);
 }

@@ -8,7 +8,7 @@ import {
   ServiceCategory
 } from '../models/service.model';
 import { RequestDraft } from '../models/request-draft.model';
-import { Availability } from '../models/availability.model';
+import { Availability } from '../../availability/models/availability.model';
 
 type RequestStep = 1 | 2 | 3 | 4;
 
@@ -33,7 +33,7 @@ interface AvailableDate {
   styleUrl: './request-page.scss'
 })
 
-export class RequestPage implements OnInit  {
+export class RequestPage implements OnInit {
   private readonly api = inject(ApiService);
 
   readonly services$ = this.api.getServices();
@@ -136,30 +136,37 @@ export class RequestPage implements OnInit  {
 
     const to = this.toDateString(toDate);
 
-    this.api.getAvailability(from, to)
+    this.api.getAvailableDates(from, to)
       .subscribe({
         next: availability => {
 
-          this.availableDates = availability.map(item => {
+          this.availableDates = availability
+            .filter(item =>
+              item.morningAvailable ||
+              item.afternoonAvailable
+            )
+            .map(item => {
 
-            const date = new Date(item.date + 'T12:00:00');
+              const date = new Date(
+                item.date + 'T12:00:00'
+              );
 
-            return {
-              date: item.date,
+              return {
+                date: item.date,
 
-              label: date.toLocaleDateString('de-CH', {
-                day: '2-digit',
-                month: '2-digit'
-              }),
+                label: date.toLocaleDateString('de-CH', {
+                  day: '2-digit',
+                  month: '2-digit'
+                }),
 
-              weekday: date.toLocaleDateString('de-CH', {
-                weekday: 'short'
-              }),
+                weekday: date.toLocaleDateString('de-CH', {
+                  weekday: 'short'
+                }),
 
-              morningAvailable: item.morningAvailable,
-              afternoonAvailable: item.afternoonAvailable
-            };
-          });
+                morningAvailable: item.morningAvailable,
+                afternoonAvailable: item.afternoonAvailable
+              };
+            });
 
         },
 

@@ -1,0 +1,218 @@
+<header class="page-header">
+
+    <div class="page-header-inner">
+
+        <div>
+
+            <span class="eyebrow">
+                Verwaltung
+            </span>
+
+            <h1>
+                Verfügbarkeit
+            </h1>
+
+            <p>
+                Legen Sie fest, wann Sie Einsätze annehmen können.
+            </p>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="availability-page">
+
+    @if (loading()) {
+
+    <div class="loading">
+
+        <div class="loading-spinner"></div>
+
+        <span>
+            Verfügbarkeit wird geladen …
+        </span>
+
+    </div>
+
+    } @else {
+
+    <section class="availability-list">
+
+        @for (
+        day of days();
+        track day.date
+        ) {
+
+        <article class="availability-card">
+
+
+            <!-- DAY -->
+
+            <div class="day">
+
+                <span class="weekday">
+                    {{ day.weekday }}
+                </span>
+
+                <strong>
+                    {{ day.label }}
+                </strong>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="day-content">
+
+
+                <!-- TIME SLOTS -->
+
+                <div class="slots">
+
+
+                    <!-- MORNING -->
+
+                    <button type="button" class="slot" [class.available]="day.morningAvailable"
+                        (click)="toggleMorning(day)">
+
+                        <span class="slot-icon">
+                            ☀
+                        </span>
+
+
+                        <span class="slot-content">
+
+                            <strong>
+                                Vormittag
+                            </strong>
+
+                            <small>
+                                08:00 – 12:00
+                            </small>
+
+                        </span>
+
+
+                        <span class="slot-status" [class.active]="day.morningAvailable">
+
+                            @if (
+                            day.morningAvailable
+                            ) {
+
+                            ✓
+
+                            } @else {
+
+                            –
+
+                            }
+
+                        </span>
+
+                    </button>
+
+
+                    <!-- AFTERNOON -->
+
+                    <button type="button" class="slot" [class.available]="day.afternoonAvailable"
+                        (click)="toggleAfternoon(day)">
+
+                        <span class="slot-icon">
+                            ◐
+                        </span>
+
+
+                        <span class="slot-content">
+
+                            <strong>
+                                Nachmittag
+                            </strong>
+
+                            <small>
+                                13:00 – 17:00
+                            </small>
+
+                        </span>
+
+
+                        <span class="slot-status" [class.active]="day.afternoonAvailable">
+
+                            @if (
+                            day.afternoonAvailable
+                            ) {
+
+                            ✓
+
+                            } @else {
+
+                            –
+
+                            }
+
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+                <!-- SAVE -->
+
+                <div class="day-actions">
+
+                    <button type="button" class="save-button" [class.saved]="
+                                    savedDate() === day.date
+                                " [disabled]="
+                                    savingDate() === day.date ||
+                                    savedDate() === day.date
+                                " (click)="save(day)">
+
+                        @if (
+                        savingDate() === day.date
+                        ) {
+
+                        <span>
+                            Speichern …
+                        </span>
+
+                        } @else if (
+                        savedDate() === day.date
+                        ) {
+
+                        <span>
+                            ✓ Gespeichert
+                        </span>
+
+                        } @else {
+
+                        <span>
+                            Speichern
+                        </span>
+
+                        <span class="save-arrow">
+                            →
+                        </span>
+
+                        }
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+        }
+
+    </section>
+
+    }
+
+</main>

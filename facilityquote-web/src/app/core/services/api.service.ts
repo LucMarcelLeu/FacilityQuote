@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Service } from '../../features/request/models/service.model';
 import { RequestDraft } from '../../features/request/models/request-draft.model';
-import { Availability } from '../../features/request/models/availability.model';
+import { Availability } from '../../features/availability/models/availability.model';
 
 @Injectable({
     providedIn: 'root'
@@ -62,18 +62,60 @@ export class ApiService {
         );
     }
 
+    getAvailableDates(
+        from: string,
+        to: string
+    ): Observable<Availability[]> {
+
+        return this.http.get<Availability[]>(
+            '/api/requests/available-dates',
+            {
+                params: {
+                    from,
+                    to
+                }
+            }
+        );
+    }
+
+    getAdminAvailability(
+        from: string,
+        to: string
+    ): Observable<Availability[]> {
+
+        return this.http.get<Availability[]>(
+            '/api/admin/availability',
+            {
+                params: {
+                    from,
+                    to
+                }
+            }
+        );
+    }
+
     getAvailability(
         from: string,
         to: string
     ): Observable<Availability[]> {
 
         return this.http.get<Availability[]>(
-            '/api/availability',
+            `/api/availability?from=${from}&to=${to}`
+        );
+    }
+
+
+    setAvailability(
+        date: string,
+        morningAvailable: boolean,
+        afternoonAvailable: boolean
+    ): Observable<Availability> {
+
+        return this.http.put<Availability>(
+            `/api/admin/availability/${date}`,
             {
-                params: {
-                    from,
-                    to
-                }
+                morningAvailable,
+                afternoonAvailable
             }
         );
     }

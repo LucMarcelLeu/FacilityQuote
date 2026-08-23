@@ -63,4 +63,25 @@ public class AvailabilityController : ControllerBase
             availability.AfternoonAvailable
         });
     }
+
+    [HttpPut("{date}")]
+    public async Task<IActionResult> Update(
+        DateOnly date,
+        UpdateAvailabilityRequest request,
+        CancellationToken cancellationToken)
+    {
+        var availability = await _availabilityService.UpdateAsync(
+            date,
+            request.MorningAvailable,
+            request.AfternoonAvailable,
+            cancellationToken);
+
+        return Ok(new
+        {
+            availability.Id,
+            availability.Date,
+            availability.MorningAvailable,
+            availability.AfternoonAvailable
+        });
+    }
 }

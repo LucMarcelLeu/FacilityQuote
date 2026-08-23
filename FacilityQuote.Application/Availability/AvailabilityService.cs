@@ -50,4 +50,64 @@ public class AvailabilityService
 
         return availability;
     }
+
+    public async Task<AvailabilitySlot> UpdateAsync(
+        DateOnly date,
+        bool morningAvailable,
+        bool afternoonAvailable,
+        CancellationToken cancellationToken = default)
+    {
+        var availability = await _repository.GetByDateAsync(
+            date,
+            cancellationToken);
+
+        if (availability is null)
+        {
+            throw new InvalidOperationException(
+                $"Availability for '{date}' was not found.");
+        }
+
+        availability.Update(
+            morningAvailable,
+            afternoonAvailable);
+
+        await _repository.SaveChangesAsync(
+            cancellationToken);
+
+        return availability;
+    }
+
+    public async Task<AvailabilitySlot> SetAsync(
+        DateOnly date,
+        bool morningAvailable,
+        bool afternoonAvailable,
+        CancellationToken cancellationToken = default)
+    {
+        var availability = await _repository.GetByDateAsync(
+            date,
+            cancellationToken);
+
+        if (availability is null)
+        {
+            availability = new AvailabilitySlot(
+                date,
+                morningAvailable,
+                afternoonAvailable);
+
+            await _repository.AddAsync(
+                availability,
+                cancellationToken);
+
+            return availability;
+        }
+
+        availability.Update(
+            morningAvailable,
+            afternoonAvailable);
+
+        await _repository.SaveChangesAsync(
+            cancellationToken);
+
+        return availability;
+    }
 }

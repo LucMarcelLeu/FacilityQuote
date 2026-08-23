@@ -1,0 +1,550 @@
+:host {
+    display: block;
+
+    min-height: 100vh;
+
+    background: #f7f7f5;
+}
+
+
+// ---------------------------------------------------------
+// HEADER
+// ---------------------------------------------------------
+
+.page-header {
+    padding: 3.5rem 2rem 2.5rem;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e8e8e5;
+}
+
+
+.page-header-inner {
+    max-width: 1100px;
+
+    margin: 0 auto;
+}
+
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 0.65rem;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+
+    color: #777;
+}
+
+
+.page-header h1 {
+    margin: 0;
+
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+
+    line-height: 1;
+
+    letter-spacing: -0.045em;
+
+    color: #181818;
+}
+
+
+.page-header p {
+    max-width: 620px;
+
+    margin: 1rem 0 0;
+
+    font-size: 1rem;
+
+    line-height: 1.6;
+
+    color: #6c6c6c;
+}
+
+
+// ---------------------------------------------------------
+// MAIN
+// ---------------------------------------------------------
+
+.availability-page {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 2rem 2rem 5rem;
+}
+
+
+.availability-list {
+    display: grid;
+
+    gap: 1rem;
+}
+
+
+// ---------------------------------------------------------
+// DAY CARD
+// ---------------------------------------------------------
+
+.availability-card {
+    display: grid;
+
+    grid-template-columns: 180px minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: 2rem;
+
+    padding: 1.25rem;
+
+    background: #ffffff;
+
+    border: 1px solid #e6e6e3;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.035);
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.availability-card:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+
+// ---------------------------------------------------------
+// DAY
+// ---------------------------------------------------------
+
+.day {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.25rem;
+
+    padding-left: 0.5rem;
+}
+
+
+.weekday {
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+
+    color: #888;
+}
+
+
+.day strong {
+    font-size: 1.25rem;
+
+    letter-spacing: -0.02em;
+
+    color: #181818;
+}
+
+
+// ---------------------------------------------------------
+// CONTENT
+// ---------------------------------------------------------
+
+.day-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.75rem;
+
+    min-width: 0;
+}
+
+
+// ---------------------------------------------------------
+// SLOTS
+// ---------------------------------------------------------
+
+.slots {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 0.9rem;
+}
+
+
+.slot {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.9rem;
+
+    width: 100%;
+
+    min-width: 0;
+
+    padding: 1rem;
+
+    background: #fafaf8;
+
+    border: 1px solid #e5e5e2;
+
+    border-radius: 14px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.15s ease;
+}
+
+
+.slot:hover {
+    transform: translateY(-1px);
+
+    border-color: #cfcfcb;
+}
+
+
+.slot.available {
+    background: #f5f5f2;
+
+    border-color: #222;
+}
+
+
+// ---------------------------------------------------------
+// SLOT ICON
+// ---------------------------------------------------------
+
+.slot-icon {
+    display: grid;
+
+    place-items: center;
+
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    border-radius: 12px;
+
+    background: #ededeb;
+
+    font-size: 1.15rem;
+}
+
+
+.slot.available .slot-icon {
+    background: #222;
+
+    color: #ffffff;
+}
+
+
+// ---------------------------------------------------------
+// SLOT CONTENT
+// ---------------------------------------------------------
+
+.slot-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.2rem;
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.slot-content strong {
+    overflow: hidden;
+
+    font-size: 0.92rem;
+    font-weight: 650;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    color: #222;
+}
+
+
+.slot-content small {
+    font-size: 0.78rem;
+
+    color: #777;
+}
+
+
+// ---------------------------------------------------------
+// SLOT STATUS
+// ---------------------------------------------------------
+
+.slot-status {
+    display: grid;
+
+    place-items: center;
+
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 28px;
+
+    border-radius: 50%;
+
+    background: #e9e9e7;
+
+    color: #999;
+
+    font-size: 0.8rem;
+
+    font-weight: 700;
+}
+
+
+.slot-status.active {
+    background: #222;
+
+    color: #ffffff;
+}
+
+
+// ---------------------------------------------------------
+// SAVE
+// ---------------------------------------------------------
+
+.day-actions {
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+
+.save-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 0.5rem;
+
+    min-width: 120px;
+
+    padding: 0.7rem 1rem;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: #222;
+
+    color: #ffffff;
+
+    font-size: 0.82rem;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+
+.save-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+
+    background: #111111;
+}
+
+
+.save-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+
+.save-button:disabled {
+    cursor: wait;
+
+    opacity: 0.55;
+}
+
+
+.save-arrow {
+    font-size: 0.8rem;
+}
+
+
+// ---------------------------------------------------------
+// LOADING
+// ---------------------------------------------------------
+
+.loading {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 1rem;
+
+    min-height: 300px;
+
+    color: #777;
+}
+
+
+.loading-spinner {
+    width: 28px;
+    height: 28px;
+
+    border: 3px solid #e5e5e2;
+
+    border-top-color: #222;
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+}
+
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+// ---------------------------------------------------------
+// TABLET
+// ---------------------------------------------------------
+
+@media (max-width: 850px) {
+
+    .availability-card {
+        grid-template-columns: 140px minmax(0, 1fr);
+
+        gap: 1.25rem;
+    }
+
+
+    .slots {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+// ---------------------------------------------------------
+// MOBILE
+// ---------------------------------------------------------
+
+@media (max-width: 650px) {
+
+    .page-header {
+        padding: 2.5rem 1rem 2rem;
+    }
+
+
+    .availability-page {
+        padding: 1rem 1rem 3rem;
+    }
+
+
+    .availability-card {
+        grid-template-columns: 1fr;
+
+        gap: 1rem;
+
+        padding: 1rem;
+
+        border-radius: 16px;
+    }
+
+
+    .day {
+        padding-left: 0;
+    }
+
+
+    .slots {
+        grid-template-columns: 1fr;
+
+        gap: 0.7rem;
+    }
+
+
+    .slot {
+        padding: 0.85rem;
+    }
+
+
+    .day-actions {
+        justify-content: stretch;
+    }
+
+
+    .save-button {
+        width: 100%;
+    }
+
+}
+
+
+// ---------------------------------------------------------
+// SMALL MOBILE
+// ---------------------------------------------------------
+
+@media (max-width: 400px) {
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+
+    .page-header p {
+        font-size: 0.9rem;
+    }
+
+
+    .slot-icon {
+        width: 36px;
+        height: 36px;
+
+        flex-basis: 36px;
+    }
+
+}
