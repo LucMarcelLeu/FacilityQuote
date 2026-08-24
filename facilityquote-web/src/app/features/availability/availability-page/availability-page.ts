@@ -76,17 +76,14 @@ export class AvailabilityPage {
     );
 
 
-    this.api.getAvailability(from, to)
+    this.api.getAdminAvailability(from, to)
       .subscribe({
 
         next: availability => {
-
           console.log(
             'Availability received:',
             availability
           );
-
-
           const availabilityMap =
             new Map<string, Availability>(
               availability.map(item => [
@@ -94,7 +91,6 @@ export class AvailabilityPage {
                 item
               ])
             );
-
 
           const days =
             this.createDays(

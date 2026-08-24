@@ -1,11 +1,13 @@
 using FacilityQuote.Api.Models.Availability;
 using FacilityQuote.Application.Availability;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FacilityQuote.Api.Controllers;
 
 [ApiController]
 [Route("api/admin/availability")]
+[Authorize(Roles = "admin")]
 public class AdminAvailabilityController : ControllerBase
 {
     private readonly AvailabilityService _availabilityService;

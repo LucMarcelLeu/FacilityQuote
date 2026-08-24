@@ -104,7 +104,6 @@ export class ApiService {
         );
     }
 
-
     setAvailability(
         date: string,
         morningAvailable: boolean,

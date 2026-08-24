@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
+
 import { AvailabilityPage } from './features/availability/availability-page/availability-page';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
     {
@@ -7,9 +9,11 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/request/request-page/request-page')
                 .then(m => m.RequestPage)
-    }, 
+    },
+
     {
         path: 'availability',
-        component: AvailabilityPage
-    },
+        component: AvailabilityPage,
+        canActivate: [adminGuard]
+    }
 ];
