@@ -1,23 +1,21 @@
 <nav class="admin-nav">
-
-    <div class="admin-nav__brand">
-        <span class="admin-nav__title">FacilityQuote</span>
-        <span class="admin-nav__subtitle">Administration</span>
-    </div>
-
-    <div class="admin-nav__links">
-
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            Anfrage
-        </a>
-
         @if (isLoggedIn && isAdmin) {
-        <a routerLink="/availability" routerLinkActive="active">
-            Verfügbarkeit
-        </a>
-        }
-
-    </div>
+            <div class="admin-nav__brand">
+                <span class="admin-nav__title">FacilityQuote</span>
+                <span class="admin-nav__subtitle">Administration</span>
+            </div>
+            <div class="admin-nav__links">
+                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    Anfrage
+                </a>
+                <a routerLink="/availability" routerLinkActive="active">
+                    Verfügbarkeit
+                </a>
+                <a routerLink="/customers" routerLinkActive="active">
+                    Kunden
+                </a>
+            </div>
+    }
 
     <div class="admin-nav__actions">
 

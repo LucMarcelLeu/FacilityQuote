@@ -7,6 +7,8 @@ import { Service } from '../../features/request/models/service.model';
 import { RequestDraft } from '../../features/request/models/request-draft.model';
 import { Availability } from '../../features/availability/models/availability.model';
 
+import { Customer } from '../../features/customer/models/customer.model';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -116,6 +118,18 @@ export class ApiService {
                 morningAvailable,
                 afternoonAvailable
             }
+        );
+    }
+
+    getCustomers(): Observable<Customer[]> {
+        return this.http.get<Customer[]>(
+            `/api/admin/customers`
+        );
+    }
+
+    getCustomer(id: string): Observable<Customer> {
+        return this.http.get<Customer>(
+            `/api/admin/customers/${id}`
         );
     }
 }

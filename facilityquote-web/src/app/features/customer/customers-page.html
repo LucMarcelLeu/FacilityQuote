@@ -1,0 +1,238 @@
+<div class="customers-page">
+
+    <header class="page-header">
+
+        <div>
+            <div class="eyebrow">Administration</div>
+
+            <h1>Kunden</h1>
+
+            <p>
+                Übersicht und Verwaltung deiner Kunden.
+            </p>
+        </div>
+
+        <div class="customer-count">
+            <strong>{{ customers().length }}</strong>
+            <span>Kunden</span>
+        </div>
+
+    </header>
+
+
+    @if (loading()) {
+
+    <div class="loading">
+
+        <div class="spinner"></div>
+
+        <span>
+            Kunden werden geladen …
+        </span>
+
+    </div>
+
+    } @else if (error()) {
+
+    <div class="error-message">
+
+        <p>
+            {{ error() }}
+        </p>
+
+        <button type="button" (click)="loadCustomers()">
+
+            Erneut versuchen
+
+        </button>
+
+    </div>
+
+    } @else {
+
+    <div class="toolbar">
+
+        <div class="search">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input type="search" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
+                placeholder="Kunden suchen …" aria-label="Kunden suchen">
+
+            @if (searchTerm()) {
+
+            <button type="button" class="clear-search" (click)="searchTerm.set('')" aria-label="Suche löschen">
+
+                ×
+
+            </button>
+
+            }
+
+        </div>
+
+        <div class="result-count">
+
+            {{ filteredCustomers().length }}
+
+            @if (filteredCustomers().length === 1) {
+            Treffer
+            } @else {
+            Treffer
+            }
+
+        </div>
+
+    </div>
+
+
+    @if (filteredCustomers().length > 0) {
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Kunde</th>
+                    <th>Firma</th>
+                    <th>E-Mail</th>
+                    <th>Telefon</th>
+                    <th>Ort</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @for (
+                customer of filteredCustomers();
+                track customer.id
+                ) {
+
+                <tr>
+
+<td>
+    <a class="customer-link" [routerLink]="['/customers', customer.id]">
+
+        <div class="customer-name">
+            {{ getFullName(customer) }}
+        </div>
+
+    </a>
+</td>
+
+                    <td>
+
+                        @if (customer.companyName) {
+
+                        {{ customer.companyName }}
+
+                        } @else {
+
+                        <span class="muted">
+                            —
+                        </span>
+
+                        }
+
+                    </td>
+
+                    <td>
+
+                        <a [href]="'mailto:' + customer.email" class="email">
+
+                            {{ customer.email }}
+
+                        </a>
+
+                    </td>
+
+                    <td>
+
+                        @if (customer.phone) {
+
+                        {{ customer.phone }}
+
+                        } @else {
+
+                        <span class="muted">
+                            —
+                        </span>
+
+                        }
+
+                    </td>
+
+                    <td>
+
+                        <div class="location">
+
+                            <span>
+                                {{ customer.postalCode }}
+                            </span>
+
+                            <span>
+                                {{ customer.city }}
+                            </span>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    } @else {
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+            ◌
+        </div>
+
+        @if (searchTerm()) {
+
+        <h2>
+            Keine Treffer
+        </h2>
+
+        <p>
+            Für „{{ searchTerm() }}“ wurden keine Kunden gefunden.
+        </p>
+
+        <button type="button" (click)="searchTerm.set('')">
+
+            Suche zurücksetzen
+
+        </button>
+
+        } @else {
+
+        <h2>
+            Noch keine Kunden
+        </h2>
+
+        <p>
+            Sobald eine Anfrage eingeht, werden Kunden hier angezeigt.
+        </p>
+
+        }
+
+    </div>
+
+    }
+
+    }
+
+</div>

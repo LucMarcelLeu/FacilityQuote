@@ -1,0 +1,234 @@
+<div class="page">
+
+    @if (loading()) {
+
+    <div class="loading">
+        <div class="spinner"></div>
+        <span>Kundendaten werden geladen …</span>
+    </div>
+
+    } @else if (error()) {
+
+    <div class="error-message">
+        <div>
+            {{ error() }}
+        </div>
+
+        <button type="button" (click)="goBack()">
+            Zurück zu Kunden
+        </button>
+    </div>
+
+    } @else if (customer(); as c) {
+
+    <header class="page-header">
+
+        <div class="header-main">
+
+            <button type="button" class="back-button" (click)="goBack()">
+                <span class="back-icon">←</span>
+                Kunden
+            </button>
+
+            <div class="eyebrow">
+                Administration · Kunde
+            </div>
+
+            <h1>
+                {{ fullName() }}
+            </h1>
+
+            @if (c.companyName) {
+            <p class="subtitle">
+                {{ c.companyName }}
+            </p>
+            } @else {
+            <p class="subtitle">
+                Kundendetails und Anfragen
+            </p>
+            }
+
+        </div>
+
+    </header>
+
+
+    <div class="content-grid">
+
+        <!-- Kundendaten -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-eyebrow">
+                        Kontakt
+                    </div>
+
+                    <h2>
+                        Kundendaten
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="details">
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Name
+                    </div>
+
+                    <div class="detail-value">
+                        {{ c.firstName }} {{ c.lastName }}
+                    </div>
+
+                </div>
+
+
+                @if (c.companyName) {
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Firma
+                    </div>
+
+                    <div class="detail-value">
+                        {{ c.companyName }}
+                    </div>
+
+                </div>
+
+                }
+
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        E-Mail
+                    </div>
+
+                    <div class="detail-value">
+
+                        <a class="email-link" [href]="'mailto:' + c.email">
+
+                            {{ c.email }}
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                @if (c.phone) {
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Telefon
+                    </div>
+
+                    <div class="detail-value">
+                        {{ c.phone }}
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+        </section>
+
+
+        <!-- Adresse -->
+
+        <section class="card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-eyebrow">
+                        Adresse
+                    </div>
+
+                    <h2>
+                        Kundenadresse
+                    </h2>
+                </div>
+
+                <div class="address-icon">
+                    ⌖
+                </div>
+
+            </div>
+
+
+            <div class="address">
+
+                <div class="address-street">
+                    {{ c.street }}
+                </div>
+
+                <div class="address-location">
+                    {{ c.postalCode }}
+                    {{ c.city }}
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Anfragen -->
+
+        <section class="card requests-card">
+
+            <div class="card-header">
+
+                <div>
+                    <div class="card-eyebrow">
+                        Historie
+                    </div>
+
+                    <h2>
+                        Anfragen
+                    </h2>
+                </div>
+
+                <div class="request-count">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="empty-requests">
+
+                <div class="empty-icon">
+                    ◌
+                </div>
+
+                <h3>
+                    Noch keine Anfragen
+                </h3>
+
+                <p>
+                    Für diesen Kunden wurden noch keine Anfragen
+                    geladen.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    }
+
+</div>

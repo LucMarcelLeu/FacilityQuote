@@ -59,6 +59,5 @@ const isAccessAllowed = async (
     return true;
 };
 
-
 export const adminGuard =
     createAuthGuard<CanActivateFn>(isAccessAllowed);

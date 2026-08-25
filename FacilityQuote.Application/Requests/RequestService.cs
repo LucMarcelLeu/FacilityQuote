@@ -1,3 +1,4 @@
+using FacilityQuote.Application.Customers;
 using FacilityQuote.Application.Services;
 using FacilityQuote.Domain.Customers;
 using FacilityQuote.Domain.Locations;
@@ -9,13 +10,16 @@ public class RequestService
 {
     private readonly IRequestRepository _requestRepository;
     private readonly IServiceRepository _serviceRepository;
+    private readonly ICustomerRepository _customerRepository;
 
     public RequestService(
         IRequestRepository requestRepository,
-        IServiceRepository serviceRepository)
+        IServiceRepository serviceRepository,
+        ICustomerRepository customerRepository)
     {
         _requestRepository = requestRepository;
         _serviceRepository = serviceRepository;
+        _customerRepository = customerRepository;
     }
 
     public async Task<Request> CreateAsync(
@@ -38,24 +42,41 @@ public class RequestService
                 $"Service '{command.ServiceId}' is not active.");
         }
 
-        var customerAddress = new Address(
-            command.CustomerStreet,
-            command.CustomerPostalCode,
-            command.CustomerCity);
-
-        var customer = new Customer(
-            command.FirstName,
-            command.LastName,
-            command.CompanyName,
-            customerAddress,
+        var customer = await _customerRepository.GetByEmailAsync(
             command.Email,
-            command.Phone);
+            cancellationToken);
 
+        if (customer is null)
+        {
+            var customerAddress = new Address(
+                command.CustomerStreet,
+                command.CustomerPostalCode,
+                command.CustomerCity);
+
+            customer = new Customer(
+                command.FirstName,
+                command.LastName,
+                command.CompanyName,
+                customerAddress,
+                command.Email,
+                command.Phone);
+
+            await _customerRepository.AddAsync(
+                customer,
+                cancellationToken);
+        }
+
+        /*
+         * Standort der Anfrage.
+         */
         var location = new Address(
             command.LocationStreet,
             command.LocationPostalCode,
             command.LocationCity);
 
+        /*
+         * Anfrage erstellen.
+         */
         var request = new Request(
             customer,
             service,

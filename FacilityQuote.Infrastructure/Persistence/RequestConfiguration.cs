@@ -18,11 +18,7 @@ public class RequestConfiguration : IEntityTypeConfiguration<Request>
 
         builder.Property(x => x.CreatedAt)
             .IsRequired();
-
-        builder.HasOne(x => x.Customer)
-            .WithMany()
-            .IsRequired();
-
+            
         builder.HasOne(x => x.Customer)
             .WithMany()
             .HasForeignKey(x => x.CustomerId)

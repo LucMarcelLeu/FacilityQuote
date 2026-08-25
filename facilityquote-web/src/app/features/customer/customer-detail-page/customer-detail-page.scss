@@ -1,0 +1,287 @@
+.customer-detail {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+
+/* Header */
+
+.page-header {
+    margin-bottom: 32px;
+}
+
+.header-main {
+    position: relative;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 28px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #6b7280;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.back-button:hover {
+    color: #111827;
+}
+
+.eyebrow,
+.card-eyebrow {
+    margin-bottom: 6px;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.company {
+    margin: 6px 0 0;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* Content */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.card {
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.requests-card {
+    grid-column: 1 / -1;
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.card-header h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 18px;
+    font-weight: 650;
+}
+
+
+/* Details */
+
+.details {
+    display: grid;
+    gap: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label {
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.value {
+    color: #111827;
+    font-size: 15px;
+}
+
+.link {
+    width: fit-content;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+
+/* Address */
+
+.address {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px;
+    background: #f9fafb;
+    border: 1px solid #f3f4f6;
+    border-radius: 9px;
+}
+
+.address-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #6b7280;
+    font-size: 18px;
+}
+
+.address-street {
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.address-city {
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* Requests */
+
+.coming-soon {
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.empty-requests {
+    padding: 40px 20px;
+    text-align: center;
+    border: 1px dashed #d1d5db;
+    border-radius: 10px;
+}
+
+.empty-icon {
+    margin-bottom: 12px;
+    color: #9ca3af;
+    font-size: 28px;
+}
+
+.empty-requests h3 {
+    margin: 0 0 6px;
+    color: #374151;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.empty-requests p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* Loading */
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 300px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #e5e7eb;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Error */
+
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 20px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 10px;
+    color: #9a3412;
+    font-size: 14px;
+}
+
+.error-message button {
+    padding: 8px 14px;
+    border: 1px solid #fdba74;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #9a3412;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+
+/* Responsive */
+
+@media (max-width: 750px) {
+
+    .customer-detail {
+        padding: 24px 16px;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .requests-card {
+        grid-column: auto;
+    }
+
+    .page-header h1 {
+        font-size: 27px;
+    }
+
+    .error-message {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
