@@ -1,3 +1,5 @@
+import { CustomerRequest } from './customer-request.model';
+
 export interface Customer {
     id: string;
     firstName: string;
@@ -8,4 +10,6 @@ export interface Customer {
     city: string;
     email: string;
     phone: string | null;
+
+    requests: CustomerRequest[];
 }

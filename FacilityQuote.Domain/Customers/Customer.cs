@@ -1,4 +1,5 @@
 using FacilityQuote.Domain.Locations;
+using FacilityQuote.Domain.Requests;
 
 namespace FacilityQuote.Domain.Customers;
 
@@ -17,6 +18,8 @@ public class Customer
     public string Email { get; private set; } = string.Empty;
 
     public string? Phone { get; private set; }
+
+    public ICollection<Request> Requests { get; private set; } = new List<Request>();
 
     private Customer()
     {

@@ -1,0 +1,420 @@
+@if (loading()) {
+
+<div class="loading">
+
+    <div class="spinner"></div>
+
+    <span>Anfrage wird geladen …</span>
+
+</div>
+
+} @else if (error()) {
+
+<div class="error-message">
+
+    <div>
+        {{ error() }}
+    </div>
+
+    <button type="button" (click)="goBack()">
+
+        Zurück zu Kunden
+
+    </button>
+
+</div>
+
+} @else if (request(); as r) {
+
+<header class="page-header">
+
+    <div class="header-main">
+
+        <button type="button" class="back-button" (click)="goBack()">
+
+            <span class="back-icon">←</span>
+            {{ r.customerName }}
+
+        </button>
+
+        <div class="eyebrow">
+            Administration · Anfrage
+        </div>
+
+        <h1>
+            {{ r.service }}
+        </h1>
+
+        <p class="subtitle">
+            Anfrage vom {{ formatDate(r.createdAt) }}
+        </p>
+
+    </div>
+
+</header>
+
+
+<div class="content-grid">
+
+    <!-- Anfrage -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <div class="card-eyebrow">
+                    Anfrage
+                </div>
+
+                <h2>
+                    {{ r.service }}
+                </h2>
+
+            </div>
+
+            <div class="status-control">
+            
+                @if (r.status === 'New') {
+            
+                <div class="current-status status-new">
+                    Neue Anfrage
+                </div>
+            
+                <div class="status-actions">
+                    <button type="button" class="status-action primary" [disabled]="updatingStatus()"
+                        (click)="updateStatus('Reviewing')">
+                        In Prüfung
+                    </button>
+            
+                    <button type="button" class="status-action danger" [disabled]="updatingStatus()"
+                        (click)="updateStatus('Rejected')">
+                        Ablehnen
+                    </button>
+                </div>
+            
+                }
+            
+                @else if (r.status === 'Reviewing') {
+            
+                <div class="current-status status-reviewing">
+                    In Prüfung
+                </div>
+            
+                <div class="status-actions">
+                    <button type="button" class="status-action primary" [disabled]="updatingStatus()"
+                        (click)="updateStatus('QuotationCreated')">
+                        Offerte erstellt
+                    </button>
+            
+                    <button 
+                        type="button" 
+                        class="status-action danger" 
+                        [disabled]="updatingStatus()" 
+                        (click)="confirmReject()">
+                        Ablehnen
+                    </button>
+                </div>
+            
+                }
+            
+                @else if (r.status === 'QuotationCreated') {
+            
+                <div class="current-status status-quotation">
+                    Offerte erstellt
+                </div>
+            
+                }
+            
+                @else if (r.status === 'Rejected') {
+            
+                <div class="current-status status-rejected">
+                    Abgelehnt
+                </div>
+            
+                }
+            
+                @if (updatingStatus()) {
+                <span class="status-updating">
+                    Wird gespeichert …
+                </span>
+                }
+            
+            </div>
+
+        </div>
+
+
+        @if (r.description) {
+
+        <div class="description">
+
+            <div class="detail-label">
+                Beschreibung
+            </div>
+
+            <div class="description-text">
+                {{ r.description }}
+            </div>
+
+        </div>
+
+        } @else {
+
+        <div class="no-description">
+            Keine Beschreibung vorhanden.
+        </div>
+
+        }
+
+    </section>
+
+
+    <!-- Termin -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <div class="card-eyebrow">
+                    Termin
+                </div>
+
+                <h2>
+                    Wunschtermin
+                </h2>
+
+            </div>
+
+            <div class="date-icon">
+                ◷
+            </div>
+
+        </div>
+
+
+        <div class="appointment">
+
+            <div class="appointment-date">
+
+                <div class="detail-label">
+                    Datum
+                </div>
+
+                <div class="appointment-value">
+                    {{ formatDate(r.desiredDate) }}
+                </div>
+
+            </div>
+
+
+            <div class="appointment-time">
+
+                <div class="detail-label">
+                    Zeitfenster
+                </div>
+
+                <div class="appointment-value">
+                    {{ formatTime(r.earliestTime) }}
+                    –
+                    {{ formatTime(r.latestTime) }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Einsatzort -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <div class="card-eyebrow">
+                    Einsatz
+                </div>
+
+                <h2>
+                    Einsatzort
+                </h2>
+
+            </div>
+
+            <div class="address-icon">
+                ⌖
+            </div>
+
+        </div>
+
+
+        <div class="address">
+
+            <div>
+
+                <div class="address-street">
+                    {{ r.street }}
+                </div>
+
+                <div class="address-location">
+                    {{ r.postalCode }}
+                    {{ r.city }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Kunde -->
+
+    <section class="card">
+
+        <div class="card-header">
+
+            <div>
+
+                <div class="card-eyebrow">
+                    Kunde
+                </div>
+
+                <h2>
+                    {{ r.customerName }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="customer-details">
+
+            <div class="detail-row">
+
+                <div class="detail-label">
+                    E-Mail
+                </div>
+
+                <div class="detail-value">
+
+                    <a class="email-link" [href]="'mailto:' + r.email">
+
+                        {{ r.email }}
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            @if (r.phone) {
+
+            <div class="detail-row">
+
+                <div class="detail-label">
+                    Telefon
+                </div>
+
+                <div class="detail-value">
+                    {{ r.phone }}
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+    </section>
+
+
+    <!-- Meta -->
+
+    <section class="card meta-card">
+
+        <div class="meta-item">
+
+            <div class="detail-label">
+                Anfrage-ID
+            </div>
+
+            <div class="meta-value">
+                {{ r.id }}
+            </div>
+
+        </div>
+
+
+        <div class="meta-item">
+
+            <div class="detail-label">
+                Erstellt
+            </div>
+
+            <div class="meta-value">
+                {{ formatDate(r.createdAt) }}
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+@if (showRejectConfirmation()) {
+
+<div class="modal-backdrop" (click)="cancelReject()">
+
+    <div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="reject-dialog-title"
+        (click)="$event.stopPropagation()">
+
+        <div class="confirm-icon">
+            !
+        </div>
+
+        <div class="confirm-content">
+
+            <h2 id="reject-dialog-title">
+                Anfrage ablehnen?
+            </h2>
+
+            <p>
+                Möchtest du diese Anfrage wirklich ablehnen?
+                Dieser Vorgang kann danach nicht rückgängig gemacht werden.
+            </p>
+
+        </div>
+
+        <div class="confirm-actions">
+
+            <button type="button" class="confirm-button cancel" (click)="cancelReject()">
+                Abbrechen
+            </button>
+
+            <button type="button" class="confirm-button reject" [disabled]="updatingStatus()" (click)="rejectRequest()">
+                @if (updatingStatus()) {
+                Wird abgelehnt …
+                } @else {
+                Ja, ablehnen
+                }
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+}
+
+}

@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { DatePipe, SlicePipe } from '@angular/common';
 
 import { ApiService } from '../../../core/services/api.service';
 import { Customer } from '../../customer/models/customer.model';
@@ -7,6 +8,7 @@ import { Customer } from '../../customer/models/customer.model';
 @Component({
     selector: 'app-customer-detail-page',
     standalone: true,
+    imports: [DatePipe, SlicePipe, RouterLink],
     templateUrl: './customer-detail-page.html',
     styleUrl: './customer-detail-page.scss'
 })

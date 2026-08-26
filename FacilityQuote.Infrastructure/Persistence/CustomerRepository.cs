@@ -35,6 +35,8 @@ public class CustomerRepository : ICustomerRepository
         CancellationToken cancellationToken = default)
     {
         return await _context.Customers
+            .Include(c => c.Requests)
+                .ThenInclude(r => r.Service)
             .AsNoTracking()
             .FirstOrDefaultAsync(
                 c => c.Id == id,

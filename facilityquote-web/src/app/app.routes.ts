@@ -4,6 +4,7 @@ import { AvailabilityPage } from './features/availability/availability-page/avai
 import { adminGuard } from './core/guards/admin.guard';
 import { CustomersPage } from './features/customer/customers-page';
 import { CustomerDetailPage } from './features/customer/customer-detail-page/customer-detail-page';
+import { RequestDetailPage } from './features/request/request-detail-page/request-detail-page';
 
 export const routes: Routes = [
     {
@@ -26,5 +27,10 @@ export const routes: Routes = [
         path: 'customers/:id',
         component: CustomerDetailPage,
         canActivate: [adminGuard]
-    }
+    },
+    {
+        path: 'requests/:id',
+        component: RequestDetailPage,
+        canActivate: [adminGuard]
+    },
 ];

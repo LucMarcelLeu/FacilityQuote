@@ -1,3 +1,4 @@
+using FacilityQuote.Application.Customers.Dtos;
 using FacilityQuote.Domain.Customers;
 
 namespace FacilityQuote.Application.Customers;
@@ -11,7 +12,8 @@ public class CustomerService
         _customerRepository = customerRepository;
     }
 
-    public async Task<IReadOnlyList<CustomerDto>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<CustomerDto>> GetAllAsync(
+        CancellationToken cancellationToken = default)
     {
         var customers = await _customerRepository.GetAllAsync(
             cancellationToken);
@@ -21,15 +23,18 @@ public class CustomerService
             .ToList();
     }
 
-
-    public async Task<Customer?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
+    public async Task<Customer?> GetByEmailAsync(
+        string email,
+        CancellationToken cancellationToken = default)
     {
         return await _customerRepository.GetByEmailAsync(
             email,
             cancellationToken);
     }
 
-    public async Task<Customer?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Customer?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
     {
         return await _customerRepository.GetByIdAsync(
             id,
@@ -38,15 +43,39 @@ public class CustomerService
 
     private static CustomerDto ToDto(Customer customer)
     {
-        return new CustomerDto(
-            customer.Id,
-            customer.FirstName,
-            customer.LastName,
-            customer.CompanyName,
-            customer.Address.Street,
-            customer.Address.PostalCode,
-            customer.Address.City,
-            customer.Email,
-            customer.Phone);
+        return new CustomerDto
+        {
+            Id = customer.Id,
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            CompanyName = customer.CompanyName,
+
+            Street = customer.Address.Street,
+            PostalCode = customer.Address.PostalCode,
+            City = customer.Address.City,
+
+            Email = customer.Email,
+            Phone = customer.Phone,
+
+            Requests = customer.Requests
+                .Select(request => new Api.Models.Customers.CustomerRequestDto
+                {
+                    Id = request.Id,
+
+                    Service = request.Service.Name,
+
+                    DesiredDate = request.DesiredDate,
+
+                    EarliestTime = request.EarliestTime,
+                    LatestTime = request.LatestTime,
+
+                    Status = request.Status.ToString(),
+
+                    Street = request.Location.Street,
+                    PostalCode = request.Location.PostalCode,
+                    City = request.Location.City
+                })
+                .ToList()
+        };
     }
 }

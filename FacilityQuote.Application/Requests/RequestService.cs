@@ -92,4 +92,54 @@ public class RequestService
 
         return request;
     }
+
+    public async Task<Request?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        return await _requestRepository.GetByIdAsync(
+            id,
+            cancellationToken);
+    }
+
+    public async Task<Request?> UpdateStatusAsync(
+    Guid id,
+    RequestStatus status,
+    CancellationToken cancellationToken = default)
+    {
+        var request = await _requestRepository.GetByIdAsync(
+            id,
+            cancellationToken);
+
+        if (request is null)
+        {
+            return null;
+        }
+
+        switch (status)
+        {
+            case RequestStatus.Reviewing:
+                request.StartReview();
+                break;
+
+            case RequestStatus.QuotationCreated:
+                request.MarkQuotationCreated();
+                break;
+
+            case RequestStatus.Rejected:
+                request.Reject();
+                break;
+
+            default:
+                throw new ArgumentException(
+                    $"Status '{status}' cannot be set manually.");
+        }
+
+        await _requestRepository.UpdateAsync(
+            request,
+            cancellationToken);
+
+        return request;
+    }
+
 }

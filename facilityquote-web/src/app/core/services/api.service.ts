@@ -8,6 +8,7 @@ import { RequestDraft } from '../../features/request/models/request-draft.model'
 import { Availability } from '../../features/availability/models/availability.model';
 
 import { Customer } from '../../features/customer/models/customer.model';
+import { RequestDetail } from '../../features/request/models/request-detail.model';
 
 @Injectable({
     providedIn: 'root'
@@ -61,6 +62,22 @@ export class ApiService {
         return this.http.post<{ id: string }>(
             `${this.baseUrl}/requests`,
             apiRequest
+        );
+    }
+
+    getRequest(id: string): Observable<RequestDetail> {
+        return this.http.get<RequestDetail>(
+            `/api/admin/requests/${id}`
+        );
+    }
+
+    updateRequestStatus(
+        id: string,
+        status: string
+    ): Observable<{ id: string; status: string }> {
+        return this.http.put<{ id: string; status: string }>(
+            `/api/admin/requests/${id}/status`,
+            { status }
         );
     }
 

@@ -1,3 +1,4 @@
+using FacilityQuote.Api.Models.Customers;
 using FacilityQuote.Application.Customers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,8 @@ public class CustomersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAll(
+        CancellationToken cancellationToken)
     {
         var customers = await _customerService.GetAllAsync(
             cancellationToken);
@@ -39,17 +41,40 @@ public class CustomersController : ControllerBase
             return NotFound();
         }
 
-        return Ok(new
+        var dto = new CustomerDto
         {
-            customer.Id,
-            customer.FirstName,
-            customer.LastName,
-            customer.CompanyName,
-            customer.Email,
-            customer.Phone,
+            Id = customer.Id,
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            CompanyName = customer.CompanyName,
+            Email = customer.Email,
+            Phone = customer.Phone,
+
             Street = customer.Address.Street,
             PostalCode = customer.Address.PostalCode,
-            City = customer.Address.City
-        });
+            City = customer.Address.City,
+
+            Requests = customer.Requests
+                .Select(request => new CustomerRequestDto
+                {
+                    Id = request.Id,
+
+                    Service = request.Service.Name,
+
+                    DesiredDate = request.DesiredDate,
+
+                    EarliestTime = request.EarliestTime,
+                    LatestTime = request.LatestTime,
+
+                    Status = request.Status.ToString(),
+
+                    Street = request.Location.Street,
+                    PostalCode = request.Location.PostalCode,
+                    City = request.Location.City
+                })
+                .ToList()
+        };
+
+        return Ok(dto);
     }
 }

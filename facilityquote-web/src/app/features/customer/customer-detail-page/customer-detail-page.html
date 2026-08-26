@@ -186,45 +186,117 @@
 
 
         <!-- Anfragen -->
-
+        
         <section class="card requests-card">
-
+        
             <div class="card-header">
-
+        
                 <div>
                     <div class="card-eyebrow">
                         Historie
                     </div>
-
+        
                     <h2>
                         Anfragen
                     </h2>
                 </div>
-
+        
                 <div class="request-count">
-                    0
+                    {{ c.requests.length }}
                 </div>
-
+        
             </div>
-
-
+        
+        
+            @if (c.requests.length > 0) {
+        
+            <div class="requests-list">
+        
+                @for (request of c.requests; track request.id) {
+        
+                <article 
+                    class="request-item" 
+                    [routerLink]="['/requests', request.id]">
+        
+                    <div class="request-main">
+        
+                        <div class="request-service">
+                            {{ request.service }}
+                        </div>
+        
+                        <div class="request-meta">
+        
+                            <span>
+                                {{ request.desiredDate | date:'dd.MM.yyyy' }}
+                            </span>
+        
+                            <span class="meta-separator">·</span>
+        
+                            <span>
+                                {{ request.earliestTime | slice:0:5 }}
+                                –
+                                {{ request.latestTime | slice:0:5 }}
+                            </span>
+        
+                        </div>
+        
+                    </div>
+        
+        
+                    <div class="request-status">
+                        <span class="status" [class.status-new]="request.status === 'New'">
+        
+                            {{ request.status }}
+        
+                        </span>
+                    </div>
+        
+        
+                    <div class="request-location">
+        
+                        <span class="location-icon">
+                            ⌖
+                        </span>
+        
+                        <div>
+                            <div class="location-street">
+                                {{ request.street }}
+                            </div>
+        
+                            <div class="location-city">
+                                {{ request.postalCode }}
+                                {{ request.city }}
+                            </div>
+                        </div>
+        
+                    </div>
+        
+                </article>
+        
+                }
+        
+            </div>
+        
+            } @else {
+        
             <div class="empty-requests">
-
+        
                 <div class="empty-icon">
                     ◌
                 </div>
-
+        
                 <h3>
                     Noch keine Anfragen
                 </h3>
-
+        
                 <p>
-                    Für diesen Kunden wurden noch keine Anfragen
-                    geladen.
+                    Für diesen Kunden wurden noch keine Anfragen erfasst.
                 </p>
-
+        
             </div>
-
+        
+            }
+        
         </section>
 
     </div>
