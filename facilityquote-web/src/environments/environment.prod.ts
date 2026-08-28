@@ -1,8 +1,10 @@
 export const environment = {
-    production: false,
+    production: true,
+
     apiUrl: '/api',
+
     keycloak: {
-        url: 'http://localhost:8080',
+        url: 'https://auth.marcelleu.ch',
         realm: 'facilityquote',
         clientId: 'facilityquote-web'
     }

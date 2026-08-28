@@ -1,0 +1,119 @@
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: facilityquote-postgres
+
+    environment:
+      POSTGRES_DB: facilityquote
+      POSTGRES_USER: facilityquote
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      - facilityquote-postgres-data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U facilityquote -d facilityquote"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+    networks:
+      - facilityquote
+
+    restart: unless-stopped
+
+  keycloak-db:
+    image: postgres:17
+    container_name: facilityquote-keycloak-db
+
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+
+    volumes:
+      - keycloak-db-data:/var/lib/postgresql/data
+
+    networks:
+      - facilityquote
+
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4.6
+    container_name: facilityquote-keycloak
+
+    command: start-dev --hostname=https://auth.marcelleu.ch
+
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_PROXY_HEADERS: xforwarded
+
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    depends_on:
+      - keycloak-db
+
+    networks:
+      - facilityquote
+
+    restart: unless-stopped
+
+  api:
+    image: facilityquote-api:latest
+
+    container_name: facilityquote-api
+
+    ports:
+      - "127.0.0.1:8082:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      Keycloak__Authority: http://keycloak:8080/realms/facilityquote
+      ConnectionStrings__FacilityQuote: Host=postgres;Port=5432;Database=facilityquote;Username=facilityquote;Password=${POSTGRES_PASSWORD}
+    
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    networks:
+      - facilityquote
+
+    restart: unless-stopped
+
+  web:
+    image: facilityquote-web:latest
+
+    container_name: facilityquote-web
+
+    ports:
+      - "127.0.0.1:8081:80"
+
+    depends_on:
+      - api
+
+    networks:
+      - facilityquote
+
+    restart: unless-stopped
+
+volumes:
+  facilityquote-postgres-data:
+  keycloak-db-data:
+
+networks:
+  facilityquote:
+    driver: bridge

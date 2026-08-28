@@ -6,6 +6,7 @@ import {
 
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { environment } from '../environments/environment.development';
 
 import {
   provideKeycloak,
@@ -33,7 +34,7 @@ export const appConfig: ApplicationConfig = {
 
     provideKeycloak({
       config: {
-        url: 'http://localhost:8080',
+        url: environment.keycloak.url,
         realm: 'facilityquote',
         clientId: 'facilityquote-web'
       },

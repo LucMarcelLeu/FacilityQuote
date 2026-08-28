@@ -75,7 +75,9 @@ builder.Services
     .AddJwtBearer(options =>
     {
         options.Authority =
-            "http://localhost:8080/realms/facilityquote";
+            builder.Configuration["Keycloak:Authority"]
+            ?? throw new InvalidOperationException(
+                "Keycloak:Authority is not configured.");
 
         options.RequireHttpsMetadata = false;
 
@@ -131,13 +133,19 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider
+        .GetRequiredService<FacilityQuoteDbContext>();
+
+    db.Database.Migrate();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
