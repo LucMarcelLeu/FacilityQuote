@@ -10,6 +10,7 @@ import { Availability } from '../../features/availability/models/availability.mo
 import { Customer } from '../../features/customer/models/customer.model';
 import { RequestDetail } from '../../features/request/models/request-detail.model';
 import { Quote } from '../../features/quote/models/quote.model';
+import { UpdateQuoteRequest } from '../../features/quote/models/quote-update.model';
 
 @Injectable({
     providedIn: 'root'
@@ -57,7 +58,8 @@ export class ApiService {
                     ? '12:00:00'
                     : '17:00:00',
 
-            description: request.description
+            description: request.description,
+            quantity: request.quantity
         };
 
         return this.http.post<{ id: string }>(
@@ -153,5 +155,26 @@ export class ApiService {
 
     getQuotes(): Observable<Quote[]> {
         return this.http.get<Quote[]>('/api/quotes');
+    }
+
+    getQuote(id: string): Observable<Quote> {
+        return this.http.get<Quote>(`/api/quotes/${id}`);
+    }
+
+    createQuote(requestId: string): Observable<Quote> {
+        return this.http.post<Quote>('/api/quotes', {
+            requestId
+        });
+    }
+
+    updateQuote(
+        id: string,
+        request: UpdateQuoteRequest
+    ): Observable<Quote> {
+
+        return this.http.put<Quote>(
+            `/api/quotes/${id}`,
+            request
+        );
     }
 }

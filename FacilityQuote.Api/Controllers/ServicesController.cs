@@ -48,7 +48,8 @@ public class ServicesController : ControllerBase
             x.Id,
             x.Category,
             x.Name,
-            x.Description
+            x.Description,
+            x.Unit
         }));
     }
 }

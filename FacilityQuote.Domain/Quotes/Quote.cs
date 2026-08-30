@@ -12,7 +12,7 @@ public class Quote
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public DateTime? ValidUntil { get; set; }
+    public DateOnly? ValidUntil { get; set; }
 
     public string? Notes { get; set; }
 

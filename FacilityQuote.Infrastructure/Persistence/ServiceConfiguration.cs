@@ -19,5 +19,12 @@ public class ServiceConfiguration : IEntityTypeConfiguration<Service>
 
         builder.Property(x => x.Category)
             .IsRequired();
+
+        builder.Property(s => s.UnitPrice)
+            .HasPrecision(10, 2);
+
+        builder.Property(s => s.Unit)
+            .IsRequired()
+            .HasMaxLength(20);
     }
 }

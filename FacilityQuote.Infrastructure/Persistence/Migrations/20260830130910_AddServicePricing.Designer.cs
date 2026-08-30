@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FacilityQuote.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FacilityQuote.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(FacilityQuoteDbContext))]
-    partial class FacilityQuoteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260830130910_AddServicePricing")]
+    partial class AddServicePricing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,8 +131,8 @@ namespace FacilityQuote.Infrastructure.Persistence.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("numeric(10,2)");
 
-                    b.Property<DateOnly?>("ValidUntil")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("ValidUntil")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

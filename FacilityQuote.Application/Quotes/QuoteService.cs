@@ -1,13 +1,15 @@
 using FacilityQuote.Application.Common;
 using FacilityQuote.Application.Quotes.Dtos;
 using FacilityQuote.Application.Requests;
+using FacilityQuote.Application.Services;
 using FacilityQuote.Domain.Quotes;
 
 namespace FacilityQuote.Application.Quotes;
 
 public class QuoteService(
     IQuoteRepository quoteRepository,
-    IRequestRepository requestRepository)
+    IRequestRepository requestRepository,
+    IServiceRepository serviceRepository)
 {
     public async Task<Quote> CreateAsync(
         Guid requestId,
@@ -19,7 +21,14 @@ public class QuoteService(
 
         if (request is null)
         {
-            throw new InvalidOperationException($"Request '{requestId}' was not found.");
+            throw new ResourceNotFoundException(
+                $"Request '{requestId}' was not found.");
+        }
+
+        if (!request.Quantity.HasValue || request.Quantity <= 0)
+        {
+            throw new BusinessRuleException(
+                "A valid quantity is required to create a quote.");
         }
 
         var existingQuote = await quoteRepository.GetByRequestIdAsync(
@@ -28,12 +37,25 @@ public class QuoteService(
 
         if (existingQuote is not null)
         {
-            throw new BusinessRuleException($"A quote already exists for request '{requestId}'.");
+            throw new BusinessRuleException(
+                $"A quote already exists for request '{requestId}'.");
+        }
+
+        var service = await serviceRepository.GetByIdAsync(
+            request.ServiceId,
+            cancellationToken);
+
+        if (service is null)
+        {
+            throw new ResourceNotFoundException(
+                $"Service '{request.ServiceId}' was not found.");
         }
 
         var createdAt = DateTime.UtcNow;
+        var validUntil = DateOnly.FromDateTime(createdAt).AddDays(14);
 
-        var quoteNumber = await quoteRepository.GetNextQuoteNumberAsync(cancellationToken);
+        var quoteNumber = await quoteRepository.GetNextQuoteNumberAsync(
+            cancellationToken);
 
         var quote = new Quote
         {
@@ -41,8 +63,19 @@ public class QuoteService(
             RequestId = requestId,
             QuoteNumber = $"OFF-{createdAt:yyyy}-{quoteNumber:D4}",
             Status = QuoteStatus.Draft,
-            CreatedAt = createdAt
+            CreatedAt = createdAt,
+            ValidUntil = validUntil
         };
+
+        quote.Items.Add(new QuoteItem
+        {
+            Id = Guid.NewGuid(),
+            QuoteId = quote.Id,
+            Description = service.Name,
+            Quantity = request.Quantity.Value,
+            Unit = service.Unit,
+            UnitPrice = service.UnitPrice
+        });
 
         await quoteRepository.AddAsync(
             quote,

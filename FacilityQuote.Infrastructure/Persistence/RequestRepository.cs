@@ -17,6 +17,8 @@ public class RequestRepository : IRequestRepository
         Request request,
         CancellationToken cancellationToken = default)
     {
+        Console.WriteLine($"Quantity foo: {request.Quantity}");
+
         await _context.Requests.AddAsync(request, cancellationToken);
 
         await _context.SaveChangesAsync(cancellationToken);

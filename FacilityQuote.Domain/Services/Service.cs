@@ -12,6 +12,10 @@ public class Service
 
     public bool IsActive { get; private set; }
 
+    public decimal UnitPrice { get; set; }
+
+    public string Unit { get; set; } = string.Empty;
+
     private Service()
     {
     }

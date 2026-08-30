@@ -84,7 +84,9 @@ public class RequestService
             command.EarliestTime,
             command.LatestTime,
             location,
-            command.Description);
+            command.Description,
+            command.Quantity
+            );
 
         await _requestRepository.AddAsync(
             request,

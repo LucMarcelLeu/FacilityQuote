@@ -1,7 +1,6 @@
 namespace FacilityQuote.Application.Quotes.Dtos;
 
 public record UpdateQuoteRequest(
-    DateTime? ValidUntil,
+    DateOnly? ValidUntil,
     string? Notes,
-    decimal TravelCost,
-    IReadOnlyList<UpdateQuoteItemRequest> Items);
+    decimal TravelCost);

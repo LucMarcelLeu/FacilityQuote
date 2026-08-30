@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FacilityQuote.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FacilityQuote.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(FacilityQuoteDbContext))]
-    partial class FacilityQuoteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260830123252_AddQuantityToRequest")]
+    partial class AddQuantityToRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,6 +78,9 @@ namespace FacilityQuote.Infrastructure.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<decimal?>("Quantity")
+                        .HasColumnType("numeric");
+
                     b.ComplexProperty(typeof(Dictionary<string, object>), "Address", "FacilityQuote.Domain.Customers.Customer.Address#Address", b1 =>
                         {
                             b1.IsRequired();
@@ -128,8 +134,8 @@ namespace FacilityQuote.Infrastructure.Persistence.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("numeric(10,2)");
 
-                    b.Property<DateOnly?>("ValidUntil")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("ValidUntil")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -257,15 +263,6 @@ namespace FacilityQuote.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("numeric(10,2)");
 
                     b.HasKey("Id");
 

@@ -12,6 +12,9 @@ public class RequestConfiguration : IEntityTypeConfiguration<Request>
 
         builder.Property(x => x.Description)
             .HasMaxLength(2000);
+            
+        builder.Property(r => r.Quantity)
+            .HasPrecision(10, 2);
 
         builder.Property(x => x.Status)
             .IsRequired();

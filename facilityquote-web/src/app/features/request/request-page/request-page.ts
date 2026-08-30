@@ -69,13 +69,14 @@ export class RequestPage implements OnInit {
       email: '',
       phone: '',
     },
-    description: ''
+    description: '',
+    quantity: null
   };
 
   availableDates: AvailableDate[] = [];
 
-
   selectedServiceName = '';
+  selectedServiceUnit = '';
 
   ngOnInit(): void {
     this.loadAvailability();
@@ -84,6 +85,7 @@ export class RequestPage implements OnInit {
   selectService(service: Service): void {
     this.draft.serviceId = service.id;
     this.selectedServiceName = service.name;
+    this.selectedServiceUnit = service.unit;
   }
 
   isSelected(service: Service): boolean {
@@ -111,7 +113,9 @@ export class RequestPage implements OnInit {
   }
 
   canContinueFromStep1(): boolean {
-    return this.draft.serviceId !== null;
+    return this.draft.serviceId !== null &&
+      this.draft.quantity !== null &&
+      this.draft.quantity > 0;
   }
 
   canContinueFromStep2(): boolean {

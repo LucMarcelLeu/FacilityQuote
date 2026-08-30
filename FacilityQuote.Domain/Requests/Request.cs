@@ -26,6 +26,8 @@ public class Request
 
     public string? Description { get; private set; }
 
+    public decimal? Quantity { get; set; }
+
     public RequestStatus Status { get; private set; }
 
     public DateTime CreatedAt { get; private set; }
@@ -41,7 +43,8 @@ public class Request
         TimeOnly earliestTime,
         TimeOnly latestTime,
         Address location,
-        string? description)
+        string? description,
+        decimal? quantity)
     {
         if (earliestTime >= latestTime)
             throw new ArgumentException(
@@ -62,6 +65,7 @@ public class Request
         Location = location;
 
         Description = description;
+        Quantity = quantity;
 
         Status = RequestStatus.New;
         CreatedAt = DateTime.UtcNow;

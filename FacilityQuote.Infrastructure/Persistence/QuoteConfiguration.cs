@@ -26,6 +26,9 @@ public class QuoteConfiguration : IEntityTypeConfiguration<Quote>
         builder.Property(q => q.Notes)
             .HasMaxLength(2000);
 
+        builder.Property(q => q.ValidUntil)
+            .HasColumnType("date");
+
         builder.Property(q => q.TravelCost)
             .HasPrecision(10, 2);
 

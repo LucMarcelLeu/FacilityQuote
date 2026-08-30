@@ -1,0 +1,493 @@
+@if (loading()) {
+
+<section class="state-page">
+
+    <div class="spinner"></div>
+    <span>Offerte wird geladen …</span>
+
+</section>
+
+} @else if (error()) {
+
+<section class="state-page error-state">
+
+    <div class="state-icon">!</div>
+
+    <h1>Offerte nicht verfügbar</h1>
+
+    <p>{{ error() }}</p>
+
+    <button type="button" class="secondary-button" (click)="goBack()">
+
+        ← Zurück zu Offerten
+
+    </button>
+
+</section>
+
+} @else if (quote(); as q) {
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+
+<header class="page-header">
+
+    <div class="header-main">
+
+        <button type="button" class="back-button" (click)="goBack()">
+
+            <span class="back-icon">←</span>
+
+            Offerten
+
+        </button>
+
+        <div class="eyebrow">
+            Administration · Offerte
+        </div>
+
+        <div class="title-row">
+
+            <h1>
+                {{ q.quoteNumber }}
+            </h1>
+
+            <span class="status-badge" [class.status-draft]="q.status === 'Draft'"
+                [class.status-sent]="q.status === 'Sent'" [class.status-accepted]="q.status === 'Accepted'"
+                [class.status-rejected]="q.status === 'Rejected'" [class.status-completed]="q.status === 'Completed'">
+
+                {{ statusLabel }}
+
+            </span>
+
+        </div>
+
+        <p class="subtitle">
+            Erstellt am {{ formatDate(q.createdAt) }}
+        </p>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        @if (q.status === 'Draft' && !editing()) {
+
+        <button type="button" class="primary-button" (click)="startEditing()">
+
+            Bearbeiten
+
+        </button>
+
+        }
+
+    </div>
+
+</header>
+
+
+<!-- ============================================================
+     CONTENT
+     ============================================================ -->
+
+<main class="content">
+
+
+    <!-- ========================================================
+         POSITIONEN
+         ======================================================== -->
+
+    <section class="card items-card">
+
+        <div class="card-header">
+
+            <div>
+
+                <span class="card-eyebrow">
+                    Offerte
+                </span>
+
+                <h2>
+                    Positionen
+                </h2>
+
+            </div>
+
+            <span class="item-count">
+                {{ q.items.length }}
+                {{ q.items.length === 1 ? 'Position' : 'Positionen' }}
+            </span>
+
+        </div>
+
+
+        @if (q.items.length > 0) {
+
+        <div class="items-table">
+
+            <div class="items-header">
+
+                <span>
+                    Beschreibung
+                </span>
+
+                <span>
+                    Menge
+                </span>
+
+                <span>
+                    Einzelpreis
+                </span>
+
+                <span>
+                    Total
+                </span>
+
+            </div>
+
+
+            @for (item of q.items; track item.id) {
+
+            <div class="item-row">
+
+                <div class="item-description">
+
+                    <strong>
+                        {{ item.description }}
+                    </strong>
+
+                </div>
+
+
+                <div class="item-quantity">
+
+                    {{ item.quantity }}
+                    <span>{{ item.unit }}</span>
+
+                </div>
+
+
+                <div class="item-unit-price">
+
+                    CHF {{ formatCurrency(item.unitPrice) }}
+
+                </div>
+
+
+                <div class="item-total">
+
+                    CHF {{ formatCurrency(item.total) }}
+
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+        } @else {
+
+        <div class="empty-items">
+
+            <div class="empty-icon">
+                +
+            </div>
+
+            <strong>
+                Noch keine Positionen
+            </strong>
+
+            <span>
+                Fügen Sie der Offerte Positionen hinzu.
+            </span>
+
+        </div>
+
+        }
+
+    </section>
+
+
+
+    <!-- ========================================================
+         SUMMARY
+         ======================================================== -->
+
+    <section class="summary-grid">
+
+
+        <!-- PREISE -->
+
+        <section class="card price-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <span class="card-eyebrow">
+                        Preisübersicht
+                    </span>
+
+                    <h2>
+                        Kosten
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="price-list">
+
+                <div class="price-row">
+
+                    <span>
+                        Zwischensumme
+                    </span>
+
+                    <strong>
+                        CHF {{ formatCurrency(q.subtotal) }}
+                    </strong>
+
+                </div>
+
+
+                <div class="price-row">
+
+                    <span>
+                        Anfahrt
+                    </span>
+
+                    <strong>
+                        CHF {{ formatCurrency(q.travelCost) }}
+                    </strong>
+
+                </div>
+
+
+                <div class="price-divider"></div>
+
+
+                <div class="price-row total-row">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        CHF {{ formatCurrency(q.total) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DETAILS -->
+
+        <section class="card details-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <span class="card-eyebrow">
+                        Gültigkeit
+                    </span>
+
+                    <h2>
+                        Offertendetails
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            @if (editing()) {
+
+            <div class="edit-form">
+
+
+                <div class="form-field">
+
+                    <label for="validUntil">
+                        Gültig bis
+                    </label>
+
+                    <input id="validUntil" type="date" [ngModel]="editValidUntil()"
+                        (ngModelChange)="editValidUntil.set($event)" />
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="travelCost">
+                        Anfahrtskosten
+                    </label>
+
+                    <div class="currency-input">
+
+                        <span>CHF</span>
+
+                        <input id="travelCost" type="number" min="0" step="0.01" [ngModel]="editTravelCost()"
+                            (ngModelChange)="editTravelCost.set($event)" />
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="notes">
+                        Notizen
+                    </label>
+
+                    <textarea id="notes" rows="4" placeholder="Notizen zur Offerte …" [ngModel]="editNotes()"
+                        (ngModelChange)="editNotes.set($event)">
+                    </textarea>
+
+                </div>
+
+
+                <div class="edit-actions">
+
+                    <button type="button" class="secondary-button" [disabled]="saving()" (click)="cancelEditing()">
+
+                        Abbrechen
+
+                    </button>
+
+
+                    <button type="button" class="primary-button" [disabled]="saving()" (click)="saveQuote()">
+
+                        @if (saving()) {
+                        Speichern …
+                        } @else {
+                        Änderungen speichern
+                        }
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            } @else {
+
+            <div class="detail-list">
+
+                <div class="detail-row">
+
+                    <span>
+                        Gültig bis
+                    </span>
+
+                    <strong>
+
+                        @if (q.validUntil) {
+                        {{ formatDate(q.validUntil) }}
+                        } @else {
+                        Nicht festgelegt
+                        }
+
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span>
+                        Anfahrt
+                    </span>
+
+                    <strong>
+                        CHF {{ formatCurrency(q.travelCost) }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            @if (q.notes) {
+
+            <div class="notes">
+
+                <span class="detail-label">
+                    Notizen
+                </span>
+
+                <p>
+                    {{ q.notes }}
+                </p>
+
+            </div>
+
+            }
+
+            }
+
+        </section>
+
+    </section>
+
+
+
+    <!-- ========================================================
+         META
+         ======================================================== -->
+
+    <section class="meta-card">
+
+        <div class="meta-item">
+
+            <span class="detail-label">
+                Offerten-Nr.
+            </span>
+
+            <strong>
+                {{ q.quoteNumber }}
+            </strong>
+
+        </div>
+
+
+        <div class="meta-item">
+
+            <span class="detail-label">
+                Anfrage-ID
+            </span>
+
+            <strong>
+                {{ q.requestId }}
+            </strong>
+
+        </div>
+
+
+        <div class="meta-item">
+
+            <span class="detail-label">
+                Offerte erstellt
+            </span>
+
+            <strong>
+                {{ formatDate(q.createdAt) }}
+            </strong>
+
+        </div>
+
+    </section>
+
+</main>
+
+}

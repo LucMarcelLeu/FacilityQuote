@@ -20,4 +20,5 @@ export interface RequestDraft {
     };
 
     description: string;
+    quantity: number | null;
 }

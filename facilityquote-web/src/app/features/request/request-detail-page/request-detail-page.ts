@@ -124,4 +124,26 @@ export class RequestDetailPage {
         this.showRejectConfirmation.set(false);
         this.updateStatus('Rejected');
     }
+
+    createQuote(): void {
+        const request = this.request();
+
+        if (!request) {
+            return;
+        }
+
+        this.api.createQuote(request.id).subscribe({
+            next: quote => {
+                console.log('Quote created:', quote);
+
+                this.updateStatus('QuotationCreated');
+
+                this.router.navigate(['/quotes', quote.id]);
+            },
+            error: error => {
+                console.error('Failed to create quote:', error);
+                console.error('Detail:', error.error?.detail);
+            }
+        });
+    }
 }

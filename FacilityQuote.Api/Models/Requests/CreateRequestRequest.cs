@@ -16,7 +16,8 @@ public sealed record CreateRequestRequest(
     string LocationPostalCode,
     string LocationCity,
 
-     Guid ServiceId,
+    Guid ServiceId,
+    decimal? Quantity,
 
     DateOnly DesiredDate,
     TimeOnly EarliestTime,

@@ -6,6 +6,7 @@ import { CustomersPage } from './features/customer/customers-page';
 import { CustomerDetailPage } from './features/customer/customer-detail-page/customer-detail-page';
 import { RequestDetailPage } from './features/request/request-detail-page/request-detail-page';
 import { QuotesPage } from './features/quote/quotes-page';
+import { QuoteDetailPage } from './features/quote/quote-detail-page/quote-detail-page';
 
 export const routes: Routes = [
     {
@@ -37,5 +38,9 @@ export const routes: Routes = [
     {
         path: 'quotes',
         component: QuotesPage
+    },
+    {
+        path: 'quotes/:id',
+        component: QuoteDetailPage
     }
 ];

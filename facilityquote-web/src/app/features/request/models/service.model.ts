@@ -8,4 +8,5 @@ export interface Service {
     category: ServiceCategory;
     name: string;
     description?: string;
+    unit: string;
 }

@@ -1346,3 +1346,56 @@ $request-accent-background: #edf3ef;
     font-size: 0.85rem;
     font-weight: 600;
 }
+
+.quantity-card {
+    margin-top: 3rem;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    background: var(--surface);
+}
+
+.quantity-heading {
+    margin-bottom: 1.5rem;
+
+    h3 {
+        margin: 0.35rem 0 0.5rem;
+    }
+
+    p {
+        margin: 0;
+        color: var(--text-muted);
+    }
+}
+
+.quantity-field {
+    max-width: 360px;
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+}
+
+.quantity-input {
+    display: flex;
+    align-items: center;
+
+    input {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 0.6rem 0 0 0.6rem;
+        font-size: 1rem;
+    }
+
+    .quantity-unit {
+        padding: 0.9rem 1rem;
+        background: var(--surface-alt);
+        border: 1px solid var(--border-color);
+        border-left: 0;
+        border-radius: 0 0.6rem 0.6rem 0;
+        white-space: nowrap;
+    }
+}

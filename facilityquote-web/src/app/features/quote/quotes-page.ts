@@ -2,6 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
 import { Quote } from '../quote/models/quote.model';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-quotes',
@@ -14,6 +15,7 @@ import { Quote } from '../quote/models/quote.model';
 })
 export class QuotesPage implements OnInit {
 
+    private readonly router = inject(Router);
     private readonly api = inject(ApiService);
 
     readonly quotes = signal<Quote[]>([]);
@@ -36,5 +38,9 @@ export class QuotesPage implements OnInit {
                 this.loading.set(false);
             }
         });
+    }
+
+    openQuote(id: string): void {
+        this.router.navigate(['/quotes', id]);
     }
 }

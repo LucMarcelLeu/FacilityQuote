@@ -43,6 +43,7 @@ public class RequestsController : ControllerBase
             request.LocationCity,
 
             request.ServiceId,
+            request.Quantity,
 
             request.DesiredDate,
             request.EarliestTime,
