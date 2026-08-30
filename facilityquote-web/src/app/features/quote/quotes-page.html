@@ -1,0 +1,60 @@
+<div class="quotes-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Offerten</h1>
+            <p>Übersicht aller erstellten Offerten</p>
+        </div>
+    </div>
+
+    @if (loading()) {
+    <div class="loading">
+        Offerten werden geladen …
+    </div>
+    } @else if (quotes().length === 0) {
+    <div class="empty-state">
+        <h2>Noch keine Offerten</h2>
+        <p>Es wurden bisher keine Offerten erstellt.</p>
+    </div>
+    } @else {
+
+    <div class="quote-list">
+
+        @for (quote of quotes(); track quote.id) {
+
+        <div class="quote-row">
+
+            <div class="quote-number">
+                <strong>{{ quote.quoteNumber }}</strong>
+                <span>{{ quote.createdAt | date:'dd.MM.yyyy' }}</span>
+            </div>
+
+            <div class="quote-status">
+                <span class="status" [class.draft]="quote.status === 'Draft'" [class.sent]="quote.status === 'Sent'"
+                    [class.accepted]="quote.status === 'Accepted'" [class.rejected]="quote.status === 'Rejected'">
+                    {{ quote.status }}
+                </span>
+            </div>
+
+            <div class="quote-total">
+                <span>Total</span>
+                <strong>
+                    CHF {{ quote.total | number:'1.2-2' }}
+                </strong>
+            </div>
+
+            <div class="quote-action">
+                <button type="button">
+                    Öffnen
+                </button>
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+    }
+
+</div>

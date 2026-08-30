@@ -8,7 +8,6 @@ import {
   ServiceCategory
 } from '../models/service.model';
 import { RequestDraft } from '../models/request-draft.model';
-import { Availability } from '../../availability/models/availability.model';
 
 type RequestStep = 1 | 2 | 3 | 4;
 

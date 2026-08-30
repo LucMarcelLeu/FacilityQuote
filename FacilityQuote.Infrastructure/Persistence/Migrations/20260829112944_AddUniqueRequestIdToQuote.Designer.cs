@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FacilityQuote.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FacilityQuote.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(FacilityQuoteDbContext))]
-    partial class FacilityQuoteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260829112944_AddUniqueRequestIdToQuote")]
+    partial class AddUniqueRequestIdToQuote
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

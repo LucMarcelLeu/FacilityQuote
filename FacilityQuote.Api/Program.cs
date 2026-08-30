@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using FacilityQuote.Application.Availability;
+using FacilityQuote.Application.Quotes;
 using FacilityQuote.Application.Requests;
 using FacilityQuote.Application.Services;
 using FacilityQuote.Infrastructure.Persistence;
@@ -14,6 +15,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.OpenApi;
 using FacilityQuote.Application.Customers;
+using FacilityQuote.Api.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,19 +32,30 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<RequestService>();
-builder.Services.AddScoped<ServicesService>();
 builder.Services.AddScoped<AvailabilityService>();
-builder.Services.AddScoped<IRequestRepository, RequestRepository>();
-builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
+
+builder.Services.AddScoped<RequestService>();
+builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+
+builder.Services.AddScoped<ServicesService>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
+builder.Services.AddScoped<QuoteService>();
+builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
+
+builder.Services.AddExceptionHandler<BusinessRuleExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddDbContext<FacilityQuoteDbContext>(options =>
     options.UseNpgsql(
-        builder.Configuration.GetConnectionString("FacilityQuote"))
+        builder.Configuration.GetConnectionString("FacilityQuote")
+        )
+    .EnableDetailedErrors()
+    .EnableSensitiveDataLogging()
     .UseSeeding((context, _) =>
     {
         FacilityQuoteDataSeeder.Seed(
@@ -149,6 +162,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseExceptionHandler();
 
 app.MapControllers();
 

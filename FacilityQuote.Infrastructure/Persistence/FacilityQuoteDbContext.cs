@@ -1,5 +1,6 @@
 using FacilityQuote.Domain.Availability;
 using FacilityQuote.Domain.Customers;
+using FacilityQuote.Domain.Quotes;
 using FacilityQuote.Domain.Requests;
 using FacilityQuote.Domain.Services;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,9 @@ public class FacilityQuoteDbContext : DbContext
     public DbSet<Request> Requests => Set<Request>();
 
     public DbSet<AvailabilitySlot> Availabilities => Set<AvailabilitySlot>();
+
+    public DbSet<Quote> Quotes => Set<Quote>();
+    public DbSet<QuoteItem> QuoteItems => Set<QuoteItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

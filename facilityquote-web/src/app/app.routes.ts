@@ -5,6 +5,7 @@ import { adminGuard } from './core/guards/admin.guard';
 import { CustomersPage } from './features/customer/customers-page';
 import { CustomerDetailPage } from './features/customer/customer-detail-page/customer-detail-page';
 import { RequestDetailPage } from './features/request/request-detail-page/request-detail-page';
+import { QuotesPage } from './features/quote/quotes-page';
 
 export const routes: Routes = [
     {
@@ -33,4 +34,8 @@ export const routes: Routes = [
         component: RequestDetailPage,
         canActivate: [adminGuard]
     },
+    {
+        path: 'quotes',
+        component: QuotesPage
+    }
 ];

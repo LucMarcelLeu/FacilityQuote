@@ -1,0 +1,106 @@
+.quotes-page {
+    padding: 2rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h1 {
+        margin: 0;
+    }
+
+    p {
+        margin: 0.35rem 0 0;
+        opacity: 0.7;
+    }
+}
+
+.quote-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.quote-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 2rem;
+
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+}
+
+.quote-number {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    strong {
+        font-size: 1rem;
+    }
+
+    span {
+        font-size: 0.85rem;
+        opacity: 0.6;
+    }
+}
+
+.quote-status {
+    min-width: 100px;
+}
+
+.status {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.quote-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+
+    span {
+        font-size: 0.75rem;
+        opacity: 0.6;
+    }
+
+    strong {
+        white-space: nowrap;
+    }
+}
+
+.quote-action {
+    button {
+        border: 0;
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+        font-weight: 600;
+    }
+}
+
+.loading,
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+}

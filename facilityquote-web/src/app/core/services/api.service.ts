@@ -9,6 +9,7 @@ import { Availability } from '../../features/availability/models/availability.mo
 
 import { Customer } from '../../features/customer/models/customer.model';
 import { RequestDetail } from '../../features/request/models/request-detail.model';
+import { Quote } from '../../features/quote/models/quote.model';
 
 @Injectable({
     providedIn: 'root'
@@ -148,5 +149,9 @@ export class ApiService {
         return this.http.get<Customer>(
             `/api/admin/customers/${id}`
         );
+    }
+
+    getQuotes(): Observable<Quote[]> {
+        return this.http.get<Quote[]>('/api/quotes');
     }
 }
