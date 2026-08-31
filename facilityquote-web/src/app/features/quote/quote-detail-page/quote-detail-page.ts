@@ -57,6 +57,9 @@ export class QuoteDetailPage implements OnInit {
   readonly editNotes = signal('');
   readonly editTravelCost = signal(0);
 
+  updatingStatus = signal(false);
+  downloadingPdf = signal(false);
+
   ngOnInit(): void {
 
     const id = this.route.snapshot.paramMap.get('id');
@@ -170,6 +173,50 @@ export class QuoteDetailPage implements OnInit {
     });
   }
 
+  sendQuote(): void {
+    const currentQuote = this.quote();
+
+    if (!currentQuote) {
+      return;
+    }
+
+    if (!confirm(
+      `Offerte ${currentQuote.quoteNumber} wirklich senden?\n\n` +
+      'Danach kann die Offerte nicht mehr bearbeitet werden.'
+    )) {
+      return;
+    }
+
+    this.updatingStatus.set(true);
+
+    this.api.updateQuoteStatus(
+      currentQuote.id,
+      'Sent'
+    ).subscribe({
+      next: updatedQuote => {
+
+        this.quote.update(current => current
+          ? {
+            ...current,
+            status: updatedQuote.status
+          }
+          : current
+        );
+
+        this.updatingStatus.set(false);
+      },
+
+      error: error => {
+        console.error(
+          'Failed to send quote',
+          error
+        );
+
+        this.updatingStatus.set(false);
+      }
+    });
+  }
+
   goBack(): void {
     this.router.navigate(['/quotes']);
   }
@@ -225,5 +272,24 @@ export class QuoteDetailPage implements OnInit {
       default:
         return status ?? '';
     }
+  }
+
+  downloadPdf(): void {
+    const quote = this.quote();
+    if (!quote) { return; } this.downloadingPdf.set(true);
+    this.api.downloadQuotePdf(quote.id)
+      .subscribe({
+        next: blob => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url; link.download = `${quote.quoteNumber}.pdf`;
+          link.click(); window.URL.revokeObjectURL(url);
+          this.downloadingPdf.set(false);
+        },
+          error: error => {
+          console.error('Failed to download quote PDF', error);
+          this.downloadingPdf.set(false);
+        }
+      });
   }
 }

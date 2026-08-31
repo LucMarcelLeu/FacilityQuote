@@ -16,6 +16,9 @@ using System.Text.Json;
 using Microsoft.OpenApi;
 using FacilityQuote.Application.Customers;
 using FacilityQuote.Api.Infrastructure;
+using FacilityQuote.Infrastructure.Pdf;
+using QuestPDF.Infrastructure;
+using FacilityQuote.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +29,8 @@ builder.Services
         options.JsonSerializerOptions.Converters.Add(
             new JsonStringEnumConverter());
     });
+
+builder.Services.Configure<CompanyOptions>(builder.Configuration.GetSection("Company"));
 
 builder.Services.AddControllers();
 
@@ -49,6 +54,9 @@ builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
 
 builder.Services.AddExceptionHandler<BusinessRuleExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddScoped<IQuotePdfService, QuotePdfService>();
+QuestPDF.Settings.License = LicenseType.Community;
 
 builder.Services.AddDbContext<FacilityQuoteDbContext>(options =>
     options.UseNpgsql(
@@ -164,6 +172,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseExceptionHandler();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 

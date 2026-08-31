@@ -21,4 +21,12 @@
     <ProjectReference Include="..\FacilityQuote.Infrastructure\FacilityQuote.Infrastructure.csproj" />
   </ItemGroup>
 
+<ItemGroup>
+  <Content Update="wwwroot\images\logo.png">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+  </Content>
+</ItemGroup>
+
+
 </Project>

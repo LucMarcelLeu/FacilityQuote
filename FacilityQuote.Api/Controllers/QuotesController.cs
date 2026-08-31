@@ -9,7 +9,8 @@ namespace FacilityQuote.Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class QuotesController(
-    QuoteService quoteService) : ControllerBase
+    QuoteService quoteService,
+    IQuotePdfService quotePdfService) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> Create(
@@ -239,6 +240,22 @@ public class QuotesController(
             quote.QuoteNumber,
             quote.Status
         });
+    }
+
+
+    [HttpGet("{id:guid}/pdf")]
+    public async Task<IActionResult> GetPdf(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var result = await quotePdfService.GenerateAsync(
+            id,
+            cancellationToken);
+
+        return File(
+            result.Content,
+            "application/pdf",
+            result.FileName);
     }
 
 }

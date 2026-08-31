@@ -177,4 +177,31 @@ export class ApiService {
             request
         );
     }
+
+    updateQuoteStatus(
+        quoteId: string,
+        status: string
+    ): Observable<{
+        id: string;
+        quoteNumber: string;
+        status: string;
+    }> {
+        return this.http.put<{
+            id: string;
+            quoteNumber: string;
+            status: string;
+        }>(
+            `/api/quotes/${quoteId}/status`,
+            { status }
+        );
+    }
+
+    downloadQuotePdf(quoteId: string): Observable<Blob> {
+        return this.http.get(
+            `/api/quotes/${ quoteId }/pdf`,
+        {
+            responseType: 'blob'
+        }
+        );
+    }
 }

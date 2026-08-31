@@ -1,4 +1,5 @@
 using FacilityQuote.Domain.Quotes;
+using FacilityQuote.Domain.Requests;
 
 namespace FacilityQuote.Application.Quotes;
 
@@ -19,4 +20,6 @@ public interface IQuoteRepository
     void RemoveItem(QuoteItem item);
 
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
+
+    Task<(Quote Quote, Request Request)?> GetForPdfAsync(Guid id, CancellationToken cancellationToken = default);
 }

@@ -322,10 +322,24 @@ public class QuoteService(
             throw new BusinessRuleException($"Invalid quote status transition from '{quote.Status}' to '{newStatus}'.");
         }
 
+        if (quote.Status == QuoteStatus.Draft && newStatus == QuoteStatus.Sent)
+        {
+            if (!quote.ValidUntil.HasValue)
+            {
+                throw new BusinessRuleException(
+                    $"Quote '{quote.QuoteNumber}' cannot be sent without a validity date.");
+            }
+
+            if (quote.Items.Count == 0)
+            {
+                throw new BusinessRuleException(
+                    $"Quote '{quote.QuoteNumber}' cannot be sent without any items.");
+            }
+        }
+
         quote.Status = newStatus;
 
-        await quoteRepository.SaveChangesAsync(
-            cancellationToken);
+        await quoteRepository.SaveChangesAsync(cancellationToken);
 
         return quote;
     }
