@@ -161,6 +161,12 @@ export class ApiService {
         return this.http.get<Quote>(`/api/quotes/${id}`);
     }
 
+    getQuoteByRequestId(requestId: string): Observable<Quote> {
+        return this.http.get<Quote>(
+            `/api/quotes/by-request/${requestId}`
+        );
+    }
+
     createQuote(requestId: string): Observable<Quote> {
         return this.http.post<Quote>('/api/quotes', {
             requestId
@@ -202,6 +208,13 @@ export class ApiService {
         {
             responseType: 'blob'
         }
+        );
+    }
+
+    sendQuote(quoteId: string): Observable<Quote> {
+        return this.http.post<Quote>(
+            `/api/quotes/${quoteId}/send`,
+            {}
         );
     }
 }

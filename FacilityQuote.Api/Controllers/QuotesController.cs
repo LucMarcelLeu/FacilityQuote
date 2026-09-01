@@ -102,6 +102,44 @@ public class QuotesController(
         });
     }
 
+    [HttpGet("by-request/{requestId:guid}")]
+    public async Task<IActionResult> GetByRequestId(
+        Guid requestId,
+        CancellationToken cancellationToken)
+    {
+        var quote = await quoteService.GetByRequestIdAsync(
+            requestId,
+            cancellationToken);
+
+        if (quote is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(new
+        {
+            quote.Id,
+            quote.RequestId,
+            quote.QuoteNumber,
+            quote.Status,
+            quote.CreatedAt,
+            quote.ValidUntil,
+            quote.Notes,
+            quote.TravelCost,
+            quote.Subtotal,
+            quote.Total,
+            Items = quote.Items.Select(item => new
+            {
+                item.Id,
+                item.Description,
+                item.Quantity,
+                item.Unit,
+                item.UnitPrice,
+                item.Total
+            })
+        });
+    }
+
     [HttpPost("{quoteId:guid}/items")]
     public async Task<IActionResult> AddItem(
         Guid quoteId,
@@ -256,6 +294,39 @@ public class QuotesController(
             result.Content,
             "application/pdf",
             result.FileName);
+    }
+
+    [HttpPost("{id:guid}/send")]
+    public async Task<ActionResult> Send(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var quote = await quoteService.SendAsync(
+            id,
+            cancellationToken);
+
+        return Ok(new
+        {
+            quote.Id,
+            quote.RequestId,
+            quote.QuoteNumber,
+            quote.Status,
+            quote.CreatedAt,
+            quote.ValidUntil,
+            quote.Notes,
+            quote.TravelCost,
+            quote.Subtotal,
+            quote.Total,
+            Items = quote.Items.Select(item => new
+            {
+                item.Id,
+                item.Description,
+                item.Quantity,
+                item.Unit,
+                item.UnitPrice,
+                item.Total
+            })
+        });
     }
 
 }

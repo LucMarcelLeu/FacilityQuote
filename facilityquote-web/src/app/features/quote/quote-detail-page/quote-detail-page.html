@@ -74,35 +74,51 @@
 
         @if (q.status === 'Draft' && !editing()) {
 
-        @if (q.status === 'Draft' && !editing()) {
-        
-        <div class="header-actions">
-        
-            <button type="button" class="secondary-button" (click)="startEditing()">
-        
-                Bearbeiten
-        
-            </button>
-        
-            <button type="button" class="primary-button" [disabled]="updatingStatus()" (click)="sendQuote()">
-        
-                @if (updatingStatus()) {
-                Wird gesendet …
-                } @else {
-                Offerte senden
-                }
-        
-            </button>
-        
-        </div>
-        
-        }
+        <button type="button" class="secondary-button" (click)="startEditing()">
+
+            Bearbeiten
+
+        </button>
+
+        <button type="button" class="primary-button" [disabled]="updatingStatus()" (click)="sendQuote()">
+
+            @if (updatingStatus()) {
+
+            Wird gesendet …
+
+            } @else {
+
+            Offerte senden
+
+            }
+
+        </button>
 
         }
 
-<button type="button" class="pdf-button" [disabled]="downloadingPdf()" (click)="downloadPdf()"> @if (downloadingPdf()) {
-    <span class="pdf-spinner"></span> <span> PDF wird erstellt … </span> } @else { <span class="pdf-icon">↓</span>
-    <span> PDF herunterladen </span> } </button>
+        <button type="button" class="pdf-button" [disabled]="downloadingPdf()" (click)="downloadPdf()">
+
+            @if (downloadingPdf()) {
+
+            <span class="pdf-spinner"></span>
+
+            <span>
+                PDF wird erstellt …
+            </span>
+
+            } @else {
+
+            <span class="pdf-icon">
+                ↓
+            </span>
+
+            <span>
+                PDF herunterladen
+            </span>
+
+            }
+
+        </button>
 
     </div>
 

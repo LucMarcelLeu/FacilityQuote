@@ -59,6 +59,7 @@ export class QuoteDetailPage implements OnInit {
 
   updatingStatus = signal(false);
   downloadingPdf = signal(false);
+  sendingQuote = signal(false);
 
   ngOnInit(): void {
 
@@ -174,47 +175,35 @@ export class QuoteDetailPage implements OnInit {
   }
 
   sendQuote(): void {
-    const currentQuote = this.quote();
 
-    if (!currentQuote) {
+    const quote = this.quote();
+
+    if (!quote || quote.status !== 'Draft') {
       return;
     }
 
-    if (!confirm(
-      `Offerte ${currentQuote.quoteNumber} wirklich senden?\n\n` +
-      'Danach kann die Offerte nicht mehr bearbeitet werden.'
-    )) {
-      return;
-    }
+    this.sendingQuote.set(true);
 
-    this.updatingStatus.set(true);
+    this.api.sendQuote(quote.id)
+      .subscribe({
 
-    this.api.updateQuoteStatus(
-      currentQuote.id,
-      'Sent'
-    ).subscribe({
-      next: updatedQuote => {
+        next: updatedQuote => {
 
-        this.quote.update(current => current
-          ? {
-            ...current,
-            status: updatedQuote.status
-          }
-          : current
-        );
+          this.quote.set(updatedQuote);
 
-        this.updatingStatus.set(false);
-      },
+          this.sendingQuote.set(false);
+        },
 
-      error: error => {
-        console.error(
-          'Failed to send quote',
-          error
-        );
+        error: error => {
 
-        this.updatingStatus.set(false);
-      }
-    });
+          console.error(
+            'Failed to send quote',
+            error
+          );
+
+          this.sendingQuote.set(false);
+        }
+      });
   }
 
   goBack(): void {

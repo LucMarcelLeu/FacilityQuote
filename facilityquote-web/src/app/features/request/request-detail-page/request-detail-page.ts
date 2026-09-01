@@ -22,6 +22,7 @@ export class RequestDetailPage {
 
     readonly updatingStatus = signal(false);
     readonly showRejectConfirmation = signal(false);
+    readonly creatingQuote = signal(false);
 
     ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get('id');
@@ -132,18 +133,50 @@ export class RequestDetailPage {
             return;
         }
 
-        this.api.createQuote(request.id).subscribe({
-            next: quote => {
-                console.log('Quote created:', quote);
+        this.creatingQuote.set(true);
 
-                this.updateStatus('QuotationCreated');
+        this.api.createQuote(request.id)
+            .subscribe({
+                next: quote => {
 
-                this.router.navigate(['/quotes', quote.id]);
-            },
-            error: error => {
-                console.error('Failed to create quote:', error);
-                console.error('Detail:', error.error?.detail);
-            }
-        });
+                    this.creatingQuote.set(false);
+
+                    this.router.navigate([
+                        '/quotes',
+                        quote.id
+                    ]);
+                },
+
+                error: error => {
+
+                    console.error(
+                        'Failed to create quote',
+                        error
+                    );
+
+                    this.creatingQuote.set(false);
+                }
+            });
+    }
+
+    openQuote(): void {
+        const request = this.request();
+
+        if (!request) {
+            return;
+        }
+
+        this.api.getQuoteByRequestId(request.id)
+            .subscribe({
+                next: quote => {
+                    this.router.navigate(['/quotes', quote.id]);
+                },
+                error: error => {
+                    console.error(
+                        'Failed to load quote',
+                        error
+                    );
+                }
+            });
     }
 }

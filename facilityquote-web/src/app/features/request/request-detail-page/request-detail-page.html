@@ -92,43 +92,50 @@
                         (click)="updateStatus('Rejected')">
                         Ablehnen
                     </button>
-
-                    <button type="button" class="primary" (click)="createQuote()">
-                        Offerte erstellen
-                    </button>
                 </div>
             
                 }
             
-                @else if (r.status === 'Reviewing') {
-            
-                <div class="current-status status-reviewing">
-                    In Prüfung
-                </div>
-            
+                @if (r.status === 'Reviewing') {
+                
                 <div class="status-actions">
-                    <button type="button" class="status-action primary" [disabled]="updatingStatus()"
-                        (click)="updateStatus('QuotationCreated')">
-                        Offerte erstellt
+                
+                    <button type="button" class="status-action primary" [disabled]="updatingStatus()" (click)="createQuote()">
+                
+                        @if (creatingQuote()) {
+                        Offerte wird erstellt …
+                        } @else {
+                        Offerte erstellen
+                        }
+                
                     </button>
-            
-                    <button 
-                        type="button" 
-                        class="status-action danger" 
-                        [disabled]="updatingStatus()" 
-                        (click)="confirmReject()">
+                
+                    <button type="button" class="status-action danger" [disabled]="updatingStatus()" (click)="confirmReject()">
+                
                         Ablehnen
+                
                     </button>
+                
                 </div>
-            
+                
                 }
-            
+                
                 @else if (r.status === 'QuotationCreated') {
-            
+                
                 <div class="current-status status-quotation">
                     Offerte erstellt
                 </div>
-            
+                
+                <div class="status-actions">
+                
+                    <button type="button" class="status-action primary" (click)="openQuote()">
+                
+                        Offerte öffnen →
+                
+                    </button>
+                
+                </div>
+                
                 }
             
                 @else if (r.status === 'Rejected') {

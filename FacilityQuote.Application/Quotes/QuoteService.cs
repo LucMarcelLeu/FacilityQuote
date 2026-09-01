@@ -77,6 +77,8 @@ public class QuoteService(
             UnitPrice = service.UnitPrice
         });
 
+        request.MarkQuotationCreated();
+
         await quoteRepository.AddAsync(
             quote,
             cancellationToken);
@@ -90,6 +92,13 @@ public class QuoteService(
     public Task<Quote?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return quoteRepository.GetByIdAsync(
+            id,
+            cancellationToken);
+    }
+
+    public Task<Quote?> GetByRequestIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return quoteRepository.GetByRequestIdAsync(
             id,
             cancellationToken);
     }
@@ -386,5 +395,69 @@ public class QuoteService(
             throw new BusinessRuleException(
                 "Item unit price cannot be negative.");
     }
+
+    public async Task<Quote> SendAsync(
+        Guid quoteId,
+        CancellationToken cancellationToken = default)
+    {
+        var quote = await quoteRepository.GetByIdAsync(
+            quoteId,
+            cancellationToken);
+
+        if (quote is null)
+        {
+            throw new ResourceNotFoundException(
+                $"Quote '{quoteId}' was not found.");
+        }
+
+        sendQuote(quote);
+
+        await quoteRepository.SaveChangesAsync(
+            cancellationToken);
+
+        return quote;
+    }
+
+    private void sendQuote(Quote quote)
+    {
+        if (quote.Status != QuoteStatus.Draft)
+        {
+            throw new BusinessRuleException(
+                $"Quote '{quote.QuoteNumber}' can only be sent when its status is 'Draft'.");
+        }
+
+        if (!quote.Items.Any())
+        {
+            throw new BusinessRuleException(
+                "A quote must contain at least one item.");
+        }
+
+        if (quote.Items.Any(item => item.Quantity <= 0))
+        {
+            throw new BusinessRuleException(
+                "All quote items must have a quantity greater than zero.");
+        }
+
+        if (quote.Items.Any(item => string.IsNullOrWhiteSpace(item.Unit)))
+        {
+            throw new BusinessRuleException(
+                "All quote items must have a unit.");
+        }
+
+        if (quote.Items.Any(item => item.UnitPrice < 0))
+        {
+            throw new BusinessRuleException(
+                "Quote item prices cannot be negative.");
+        }
+
+        if (quote.ValidUntil is null)
+        {
+            throw new BusinessRuleException(
+                "A quote must have a validity date.");
+        }
+
+        quote.Status = QuoteStatus.Sent;
+    }
+
 
 }

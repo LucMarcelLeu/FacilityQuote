@@ -31,7 +31,6 @@ public class RequestRepository : IRequestRepository
         return await _context.Requests
             .Include(r => r.Customer)
             .Include(r => r.Service)
-            .AsNoTracking()
             .FirstOrDefaultAsync(
                 r => r.Id == id,
                 cancellationToken);

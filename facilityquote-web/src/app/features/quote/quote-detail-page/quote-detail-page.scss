@@ -905,3 +905,81 @@ h1 {
         transform: rotate(360deg);
     }
 }
+
+.send-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-height: 42px;
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 6px;
+
+    background: #3f51b5;
+    color: white;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background-color 150ms ease,
+        box-shadow 150ms ease,
+        transform 100ms ease;
+
+    &:hover:not(:disabled) {
+        background: #35449a;
+
+        box-shadow:
+            0 2px 6px rgba(0, 0, 0, 0.16);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(1px);
+    }
+
+    &:focus-visible {
+        outline: 2px solid #3f51b5;
+        outline-offset: 2px;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: default;
+    }
+}
+
+.send-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.button-spinner {
+    width: 16px;
+    height: 16px;
+
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: white;
+
+    border-radius: 50%;
+
+    animation: send-spin 700ms linear infinite;
+}
+
+@keyframes send-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
