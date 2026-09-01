@@ -19,6 +19,8 @@ using FacilityQuote.Api.Infrastructure;
 using FacilityQuote.Infrastructure.Pdf;
 using QuestPDF.Infrastructure;
 using FacilityQuote.Infrastructure.Configuration;
+using FacilityQuote.Application.Email;
+using FacilityQuote.Infrastructure.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -149,6 +151,12 @@ builder.Services
                 }
             };
     });
+
+    builder.Services
+        .AddOptions<EmailOptions>()
+        .Bind(builder.Configuration.GetSection("Email"));
+
+    builder.Services.AddScoped<IEmailService, MailpitEmailService>();
 
 builder.Services.AddAuthorization();
 

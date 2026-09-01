@@ -1,4 +1,5 @@
 using FacilityQuote.Application.Common;
+using FacilityQuote.Application.Email;
 using FacilityQuote.Application.Quotes.Dtos;
 using FacilityQuote.Application.Requests;
 using FacilityQuote.Application.Services;
@@ -9,7 +10,9 @@ namespace FacilityQuote.Application.Quotes;
 public class QuoteService(
     IQuoteRepository quoteRepository,
     IRequestRepository requestRepository,
-    IServiceRepository serviceRepository)
+    IServiceRepository serviceRepository,
+    IQuotePdfService quotePdfService,
+    IEmailService emailService)
 {
     public async Task<Quote> CreateAsync(
         Guid requestId,
@@ -410,6 +413,49 @@ public class QuoteService(
                 $"Quote '{quoteId}' was not found.");
         }
 
+        var request = await requestRepository.GetByIdAsync(
+            quote.RequestId,
+            cancellationToken);
+
+        if (request is null)
+        {
+            throw new ResourceNotFoundException(
+                $"Request '{quote.RequestId}' was not found.");
+        }
+
+        var customer = request.Customer;
+
+        if (customer is null)
+        {
+            throw new BusinessRuleException(
+                "The request does not have a customer.");
+        }
+
+        if (string.IsNullOrWhiteSpace(customer.Email))
+        {
+            throw new BusinessRuleException(
+                "The customer does not have an email address.");
+        }
+
+        var pdf = await quotePdfService.GenerateAsync(
+            quote.Id,
+            cancellationToken);
+
+        var subject =
+            $"Ihre Offerte {quote.QuoteNumber}";
+
+        var htmlBody = QuoteEmailTemplate.Build(
+            quote,
+            customer);
+
+        await emailService.SendAsync(
+            customer.Email,
+            subject,
+            htmlBody,
+            pdf.Content,
+            $"{quote.QuoteNumber}.pdf",
+            cancellationToken);
+
         sendQuote(quote);
 
         await quoteRepository.SaveChangesAsync(
@@ -458,6 +504,4 @@ public class QuoteService(
 
         quote.Status = QuoteStatus.Sent;
     }
-
-
 }

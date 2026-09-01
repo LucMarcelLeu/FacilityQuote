@@ -67,6 +67,18 @@ services:
       - facilityquote-pgadmin-data:/var/lib/pgadmin
     restart: unless-stopped
 
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: facilityquote-mailpit
+    restart: unless-stopped
+
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+    networks:
+      - facilityquote
+
 volumes:
   facilityquote-postgres-data:
   facilityquote-pgadmin-data:
