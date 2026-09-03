@@ -44,4 +44,15 @@ public class RequestRepository : IRequestRepository
 
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<IReadOnlyList<Request>> GetByDateRangeAsync(
+        DateOnly from,
+        DateOnly to,
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.Requests
+            .Where(r => r.DesiredDate >= from && r.DesiredDate <= to)
+            .ToListAsync(cancellationToken);
+    }
+
 }

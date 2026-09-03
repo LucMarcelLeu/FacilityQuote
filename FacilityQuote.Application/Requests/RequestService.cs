@@ -12,14 +12,18 @@ public class RequestService
     private readonly IServiceRepository _serviceRepository;
     private readonly ICustomerRepository _customerRepository;
 
+    private readonly IAvailabilityRepository _availabilityRepository;
+
     public RequestService(
         IRequestRepository requestRepository,
         IServiceRepository serviceRepository,
-        ICustomerRepository customerRepository)
+        ICustomerRepository customerRepository,
+        IAvailabilityRepository availabilityRepository)
     {
         _requestRepository = requestRepository;
         _serviceRepository = serviceRepository;
         _customerRepository = customerRepository;
+        _availabilityRepository = availabilityRepository;
     }
 
     public async Task<Request> CreateAsync(
@@ -35,6 +39,23 @@ public class RequestService
             throw new InvalidOperationException(
                 $"Service '{command.ServiceId}' was not found.");
         }
+
+        var availability = await _availabilityRepository.GetByDateAsync(
+            command.DesiredDate,
+            cancellationToken);
+
+        if (availability is null)
+        {
+            throw new InvalidOperationException(
+                $"No availability exists for {command.DesiredDate}.");
+        }
+
+        if (!availability.IsAvailable(command.TimeSlot))
+        {
+            throw new InvalidOperationException(
+                $"The {command.TimeSlot} slot is not available.");
+        }
+
 
         if (!service.IsActive)
         {
@@ -80,13 +101,14 @@ public class RequestService
         var request = new Request(
             customer,
             service,
+            availability,
+            command.TimeSlot,
             command.DesiredDate,
             command.EarliestTime,
             command.LatestTime,
             location,
             command.Description,
-            command.Quantity
-            );
+            command.Quantity);
 
         await _requestRepository.AddAsync(
             request,

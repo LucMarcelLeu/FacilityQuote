@@ -1,3 +1,5 @@
+using FacilityQuote.Domain.Requests;
+
 namespace FacilityQuote.Api.Models.Requests;
 
 public sealed record CreateRequestRequest(
@@ -23,4 +25,6 @@ public sealed record CreateRequestRequest(
     TimeOnly EarliestTime,
     TimeOnly LatestTime,
 
-    string? Description);
+    string? Description,
+    RequestTimeSlot RequestTimeSlot
+    );

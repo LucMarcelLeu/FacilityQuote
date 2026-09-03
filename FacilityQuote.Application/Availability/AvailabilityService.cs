@@ -1,26 +1,55 @@
+using FacilityQuote.Application.Requests;
 using FacilityQuote.Domain.Availability;
+using FacilityQuote.Domain.Requests;
 
 namespace FacilityQuote.Application.Availability;
 
 public class AvailabilityService
 {
     private readonly IAvailabilityRepository _repository;
-
+    private readonly IRequestRepository _requestRepository;
     public AvailabilityService(
-        IAvailabilityRepository repository) 
+        IAvailabilityRepository repository,
+        IRequestRepository requestRepository) 
     {
         _repository = repository;
+        _requestRepository = requestRepository;
     }
 
-    public async Task<IReadOnlyList<AvailabilitySlot>> GetRangeAsync(
+    public async Task<IReadOnlyList<AvailabilityResult>> GetRangeAsync(
         DateOnly from,
         DateOnly to,
         CancellationToken cancellationToken = default)
     {
-        return await _repository.GetRangeAsync(
+        var availability = await _repository.GetRangeAsync(
             from,
             to,
             cancellationToken);
+
+        var requests = await _requestRepository.GetByDateRangeAsync(
+            from,
+            to,
+            cancellationToken);
+
+        return availability
+            .Select(slot =>
+            {
+                var bookedMorning = requests.Any(
+                    r => r.AvailabilitySlotId == slot.Id &&
+                         r.TimeSlot == RequestTimeSlot.Morning);
+
+                var bookedAfternoon = requests.Any(
+                    r => r.AvailabilitySlotId == slot.Id &&
+                         r.TimeSlot == RequestTimeSlot.Afternoon);
+
+                return new AvailabilityResult(
+                    slot.Date,
+                    slot.MorningAvailable,
+                    slot.AfternoonAvailable,
+                    bookedMorning,
+                    bookedAfternoon);
+            })
+            .ToList();
     }
 
     public async Task<AvailabilitySlot> CreateAsync(

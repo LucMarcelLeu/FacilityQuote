@@ -48,6 +48,8 @@ export class ApiService {
 
             desiredDate: request.appointment.date,
 
+            requestTimeSlot: request.appointment.timeSlot,
+
             earliestTime:
                 request.appointment.timeSlot === 'morning'
                     ? '08:00:00'
@@ -61,7 +63,7 @@ export class ApiService {
             description: request.description,
             quantity: request.quantity
         };
-
+        
         return this.http.post<{ id: string }>(
             `${this.baseUrl}/requests`,
             apiRequest

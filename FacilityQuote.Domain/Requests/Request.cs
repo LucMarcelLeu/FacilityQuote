@@ -1,3 +1,4 @@
+using FacilityQuote.Domain.Availability;
 using FacilityQuote.Domain.Customers;
 using FacilityQuote.Domain.Locations;
 using FacilityQuote.Domain.Services;
@@ -15,6 +16,12 @@ public class Request
     public Guid ServiceId { get; private set; }
 
     public Service Service { get; private set; } = null!;
+
+    public Guid AvailabilitySlotId { get; private set; }
+
+    public AvailabilitySlot AvailabilitySlot { get; private set; } = null!;
+
+    public RequestTimeSlot TimeSlot { get; private set; }
 
     public DateOnly DesiredDate { get; private set; }
 
@@ -39,6 +46,8 @@ public class Request
     public Request(
         Customer customer,
         Service service,
+        AvailabilitySlot availabilitySlot,
+        RequestTimeSlot timeSlot,
         DateOnly desiredDate,
         TimeOnly earliestTime,
         TimeOnly latestTime,
@@ -50,13 +59,22 @@ public class Request
             throw new ArgumentException(
                 "Earliest time must be before latest time.");
 
+        if (availabilitySlot.Date != desiredDate)
+            throw new ArgumentException(
+                "The availability slot does not match the desired date.");
+
         Id = Guid.NewGuid();
 
         CustomerId = customer.Id;
         Customer = customer;
-        
+
         ServiceId = service.Id;
         Service = service;
+
+        AvailabilitySlotId = availabilitySlot.Id;
+        AvailabilitySlot = availabilitySlot;
+
+        TimeSlot = timeSlot;
 
         DesiredDate = desiredDate;
         EarliestTime = earliestTime;

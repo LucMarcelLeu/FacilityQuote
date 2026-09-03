@@ -9,4 +9,9 @@ public interface IRequestRepository
     Task<Request?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(Request request, CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyList<Request>> GetByDateRangeAsync(
+        DateOnly from,
+        DateOnly to,
+        CancellationToken cancellationToken = default);
 }

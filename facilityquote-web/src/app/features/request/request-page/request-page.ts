@@ -17,8 +17,12 @@ interface AvailableDate {
   date: string;
   label: string;
   weekday: string;
+
   morningAvailable: boolean;
   afternoonAvailable: boolean;
+
+  morningBooked: boolean;
+  afternoonBooked: boolean;
 }
 
 @Component({
@@ -145,8 +149,8 @@ export class RequestPage implements OnInit {
 
           this.availableDates = availability
             .filter(item =>
-              item.morningAvailable ||
-              item.afternoonAvailable
+              (item.morningAvailable && !item.morningBooked) ||
+              (item.afternoonAvailable && !item.afternoonBooked)
             )
             .map(item => {
 
@@ -167,7 +171,10 @@ export class RequestPage implements OnInit {
                 }),
 
                 morningAvailable: item.morningAvailable,
-                afternoonAvailable: item.afternoonAvailable
+                afternoonAvailable: item.afternoonAvailable,
+
+                morningBooked: item.morningBooked,
+                afternoonBooked: item.afternoonBooked
               };
             });
 
@@ -212,20 +219,39 @@ export class RequestPage implements OnInit {
 
     if (
       this.draft.appointment.timeSlot === 'morning' &&
-      !selected.morningAvailable
+      (!selected.morningAvailable || selected.morningBooked)
     ) {
       this.draft.appointment.timeSlot = null;
     }
 
     if (
       this.draft.appointment.timeSlot === 'afternoon' &&
-      !selected.afternoonAvailable
+      (!selected.afternoonAvailable || selected.afternoonBooked)
     ) {
       this.draft.appointment.timeSlot = null;
     }
   }
 
   selectTimeSlot(slot: TimeSlot): void {
+
+    const selected = this.getSelectedDate();
+
+    if (!selected) {
+      return;
+    }
+
+    if (slot === 'morning') {
+      if (!selected.morningAvailable || selected.morningBooked) {
+        return;
+      }
+    }
+
+    if (slot === 'afternoon') {
+      if (!selected.afternoonAvailable || selected.afternoonBooked) {
+        return;
+      }
+    }
+
     this.draft.appointment.timeSlot = slot;
   }
 
@@ -289,6 +315,9 @@ export class RequestPage implements OnInit {
     }
 
     this.isSubmitting.set(true);
+
+    console.log('Selected time slot:', this.draft.appointment.timeSlot);
+    console.log('Complete draft:', this.draft);
 
     this.api.createRequest(this.draft)
       .subscribe({

@@ -1,4 +1,3 @@
-using FacilityQuote.Api.Models.Availability;
 using FacilityQuote.Application.Availability;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

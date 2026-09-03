@@ -49,7 +49,8 @@ public class RequestsController : ControllerBase
             request.EarliestTime,
             request.LatestTime,
 
-            request.Description);
+            request.Description,
+            request.RequestTimeSlot);
 
         var createdRequest = await _requestService.CreateAsync(
             command,
@@ -74,16 +75,11 @@ public class RequestsController : ControllerBase
                 "The 'from' date must be before or equal to the 'to' date.");
         }
 
-        var availability = await _availabilityService.GetRangeAsync(
+        var result = await _availabilityService.GetRangeAsync(
             from,
             to,
             cancellationToken);
 
-        return Ok(availability.Select(x => new
-        {
-            x.Date,
-            x.MorningAvailable,
-            x.AfternoonAvailable
-        }));
+        return Ok(result);
     }
 }

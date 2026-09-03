@@ -2,12 +2,14 @@ using FacilityQuote.Api.Models.Quotes;
 using FacilityQuote.Application.Quotes;
 using FacilityQuote.Application.Quotes.Dtos;
 using FacilityQuote.Domain.Quotes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FacilityQuote.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "admin")]
 public class QuotesController(
     QuoteService quoteService,
     IQuotePdfService quotePdfService) : ControllerBase

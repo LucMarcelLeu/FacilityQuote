@@ -32,6 +32,19 @@ public class RequestConfiguration : IEntityTypeConfiguration<Request>
             .HasForeignKey(x => x.ServiceId)
             .IsRequired();
 
+        builder
+            .HasOne(x => x.AvailabilitySlot)
+            .WithMany()
+            .HasForeignKey(x => x.AvailabilitySlotId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(x => new
+        {
+            x.AvailabilitySlotId,
+            x.TimeSlot
+        })
+        .IsUnique();
+
         builder.ComplexProperty(x => x.Location, location =>
         {
             location.Property(x => x.Street)

@@ -1,3 +1,5 @@
+using FacilityQuote.Domain.Requests;
+
 namespace FacilityQuote.Domain.Availability;
 
 public class AvailabilitySlot
@@ -24,12 +26,6 @@ public class AvailabilitySlot
         Date = date;
         MorningAvailable = morningAvailable;
         AfternoonAvailable = afternoonAvailable;
-
-        if (!morningAvailable && !afternoonAvailable)
-        {
-            // eventuell später:
-            // ganzer Tag nicht verfügbar
-        }
     }
 
     public void Update(
@@ -39,5 +35,14 @@ public class AvailabilitySlot
         MorningAvailable = morningAvailable;
         AfternoonAvailable = afternoonAvailable;
     }
-    
+
+    public bool IsAvailable(RequestTimeSlot timeSlot)
+    {
+        return timeSlot switch
+        {
+            RequestTimeSlot.Morning => MorningAvailable,
+            RequestTimeSlot.Afternoon => AfternoonAvailable,
+            _ => false
+        };
+    }
 }

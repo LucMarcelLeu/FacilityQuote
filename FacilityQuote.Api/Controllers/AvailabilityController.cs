@@ -28,26 +28,19 @@ public class AvailabilityController : ControllerBase
                 "The 'from' date must be before or equal to the 'to' date.");
         }
 
-        var availability =
+        var result =
             await _availabilityService.GetRangeAsync(
                 from,
                 to,
                 cancellationToken);
-
-        var result = availability
-            .Select(x => new AvailabilityResponse(
-                x.Date,
-                x.MorningAvailable,
-                x.AfternoonAvailable))
-            .ToList();
 
         return Ok(result);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create(
-    CreateAvailabilityRequest request,
-    CancellationToken cancellationToken)
+        CreateAvailabilityRequest request,
+        CancellationToken cancellationToken)
     {
         var availability = await _availabilityService.CreateAsync(
             request.Date,
