@@ -43,10 +43,12 @@ export const routes: Routes = [
     },
     {
         path: 'quotes',
-        component: QuotesPage
+        component: QuotesPage,
+        canActivate: [adminGuard]
     },
     {
         path: 'quotes/:id',
-        component: QuoteDetailPage
+        component: QuoteDetailPage,
+        canActivate: [adminGuard]
     }
 ];

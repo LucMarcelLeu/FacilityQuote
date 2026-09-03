@@ -160,17 +160,17 @@ export class ApiService {
     }
 
     getQuote(id: string): Observable<Quote> {
-        return this.http.get<Quote>(`/api/quotes/${id}`);
+        return this.http.get<Quote>(`/api/admin/quotes/${id}`);
     }
 
     getQuoteByRequestId(requestId: string): Observable<Quote> {
         return this.http.get<Quote>(
-            `/api/quotes/by-request/${requestId}`
+            `/api/admin/quotes/by-request/${requestId}`
         );
     }
 
     createQuote(requestId: string): Observable<Quote> {
-        return this.http.post<Quote>('/api/quotes', {
+        return this.http.post<Quote>('/api/admin/quotes', {
             requestId
         });
     }
@@ -181,7 +181,7 @@ export class ApiService {
     ): Observable<Quote> {
 
         return this.http.put<Quote>(
-            `/api/quotes/${id}`,
+            `/api/admin/quotes/${id}`,
             request
         );
     }
@@ -199,14 +199,14 @@ export class ApiService {
             quoteNumber: string;
             status: string;
         }>(
-            `/api/quotes/${quoteId}/status`,
+            `/api/admin/quotes/${quoteId}/status`,
             { status }
         );
     }
 
     downloadQuotePdf(quoteId: string): Observable<Blob> {
         return this.http.get(
-            `/api/quotes/${ quoteId }/pdf`,
+            `/api/admin/quotes/${ quoteId }/pdf`,
         {
             responseType: 'blob'
         }
@@ -215,7 +215,7 @@ export class ApiService {
 
     sendQuote(quoteId: string): Observable<Quote> {
         return this.http.post<Quote>(
-            `/api/quotes/${quoteId}/send`,
+            `/api/admin/quotes/${quoteId}/send`,
             {}
         );
     }

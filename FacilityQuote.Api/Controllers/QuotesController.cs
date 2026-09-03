@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FacilityQuote.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/admin/[controller]")]
 [Authorize(Roles = "admin")]
 public class QuotesController(
     QuoteService quoteService,
