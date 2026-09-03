@@ -1,0 +1,798 @@
+<header class="site-header">
+
+    <a class="brand" routerLink="/">
+        Leu Gebäudeservice
+    </a>
+
+    <nav class="navigation">
+
+        <a href="#dienstleistungen">
+            Dienstleistungen
+        </a>
+
+        <a href="#ueber-uns">
+            Über uns
+        </a>
+
+        <a href="#team">
+            Team
+        </a>
+
+        <a href="#kontakt">
+            Kontakt
+        </a>
+
+    </nav>
+
+    <a class="header-button" routerLink="/offerte">
+        Offerte anfragen
+    </a>
+
+</header>
+
+
+<main>
+
+    <!-- ==================================================
+         HERO
+    =================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="eyebrow">
+                GEBÄUDESERVICE AUS EINER HAND
+            </span>
+
+            <h1>
+                Sauber.<br>
+                Zuverlässig.<br>
+                Persönlich.
+            </h1>
+
+            <p class="hero-text">
+                Reinigung, Räumung und Gartenarbeiten –
+                professionell ausgeführt und unkompliziert angefragt.
+            </p>
+
+            <div class="hero-actions">
+
+                <a class="primary-button" routerLink="/offerte">
+                    Offerte anfragen
+                </a>
+
+                <a class="secondary-link" href="#dienstleistungen">
+
+                    Unsere Dienstleistungen
+
+                    <span>↓</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-info">
+
+            <div class="info-card">
+
+                <span class="info-number">
+                    01
+                </span>
+
+                <div>
+
+                    <strong>
+                        Unkompliziert
+                    </strong>
+
+                    <span>
+                        Online Anfrage in wenigen Schritten
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span class="info-number">
+                    02
+                </span>
+
+                <div>
+
+                    <strong>
+                        Persönlich
+                    </strong>
+
+                    <span>
+                        Direkter Kontakt und individuelle Beratung
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span class="info-number">
+                    03
+                </span>
+
+                <div>
+
+                    <strong>
+                        Zuverlässig
+                    </strong>
+
+                    <span>
+                        Saubere Arbeit zum vereinbarten Termin
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         SERVICES
+    =================================================== -->
+
+    <section id="dienstleistungen" class="services-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                UNSERE LEISTUNGEN
+            </span>
+
+            <h2>
+                Was dürfen wir<br>
+                für Sie erledigen?
+            </h2>
+
+            <p>
+                Von der regelmässigen Reinigung bis zur kompletten
+                Räumung oder Unterstützung im Garten – wir bieten
+                praktische Lösungen aus einer Hand.
+            </p>
+
+        </div>
+
+
+        <div class="service-grid">
+
+            @if (services$ | async; as services) {
+
+            @for (
+            category of categories;
+            track category.key
+            ) {
+
+            <article class="service-card">
+
+                <div class="service-number">
+                    {{ category.number }}
+                </div>
+
+                <div class="service-content">
+
+                    <span class="service-category">
+                        {{ category.title }}
+                    </span>
+
+                    <h3>
+                        {{ category.title }}
+                    </h3>
+
+                    <p>
+                        {{ category.description }}
+                    </p>
+
+
+                    <div class="service-list">
+
+                        @for (
+                        service of getServices(
+                        category.key,
+                        services
+                        );
+                        track service.id
+                        ) {
+
+                        <span>
+                            {{ service.name }}
+                        </span>
+
+                        }
+
+                    </div>
+
+
+                    <a class="service-link" routerLink="/offerte">
+
+                        Offerte anfragen
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </article>
+
+            }
+
+            }
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+     HOW IT WORKS
+================================================== -->
+
+    <section class="process-section">
+
+        <div class="section-heading process-heading">
+
+            <span class="eyebrow">
+                SO FUNKTIONIERT'S
+            </span>
+
+            <h2>
+                Von der Anfrage<br>
+                bis zum Einsatz.
+            </h2>
+
+            <p>
+                Eine Offerte bei Leu Gebäudeservice anzufragen,
+                geht unkompliziert und in wenigen Schritten.
+            </p>
+
+        </div>
+
+
+        <div class="process-grid">
+
+            <article class="process-step">
+
+                <span class="process-number">
+                    01
+                </span>
+
+                <div class="process-content">
+
+                    <h3>
+                        Leistung auswählen
+                    </h3>
+
+                    <p>
+                        Wählen Sie die gewünschte Dienstleistung –
+                        Reinigung, Räumung oder Gartenarbeiten.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="process-step">
+
+                <span class="process-number">
+                    02
+                </span>
+
+                <div class="process-content">
+
+                    <h3>
+                        Einsatzort angeben
+                    </h3>
+
+                    <p>
+                        Teilen Sie uns mit, wo die Arbeiten
+                        durchgeführt werden sollen.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="process-step">
+
+                <span class="process-number">
+                    03
+                </span>
+
+                <div class="process-content">
+
+                    <h3>
+                        Wunschtermin wählen
+                    </h3>
+
+                    <p>
+                        Wählen Sie einen passenden Tag und
+                        ein verfügbares Zeitfenster.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="process-step">
+
+                <span class="process-number">
+                    04
+                </span>
+
+                <div class="process-content">
+
+                    <h3>
+                        Anfrage senden
+                    </h3>
+
+                    <p>
+                        Anfrage abschicken – wir prüfen die Angaben
+                        und melden uns persönlich bei Ihnen.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <div class="process-action">
+
+            <a class="primary-button" routerLink="/offerte">
+
+                Offerte anfragen
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         PLACEHOLDERS
+         
+         Diese Sections bauen wir später.
+    =================================================== -->
+
+    <!-- ==================================================
+     ABOUT US
+================================================== -->
+
+    <section id="ueber-uns" class="about-section">
+
+        <div class="about-intro">
+
+            <span class="eyebrow">
+                ÜBER UNS
+            </span>
+
+            <h2>
+                Persönlicher Service,<br>
+                auf den man zählen kann.
+            </h2>
+
+        </div>
+
+
+        <div class="about-content">
+
+            <div class="about-text">
+
+                <p class="about-lead">
+                    Wir sind Leu Gebäudeservice – ein persönlicher
+                    und zuverlässiger Partner für Reinigung,
+                    Räumungen und Gartenarbeiten.
+                </p>
+
+                <p>
+                    Uns ist wichtig, dass die Zusammenarbeit für
+                    unsere Kundinnen und Kunden unkompliziert bleibt.
+                    Von der ersten Anfrage bis zur Ausführung
+                    stehen wir für direkte Kommunikation,
+                    saubere Arbeit und verlässliche Termine.
+                </p>
+
+                <p>
+                    Ob regelmässige Reinigung, eine komplette
+                    Räumung oder Unterstützung rund um Haus und
+                    Garten – wir kümmern uns darum, dass die Arbeit
+                    sorgfältig und zuverlässig erledigt wird.
+                </p>
+
+            </div>
+
+
+            <div class="about-values">
+
+                <div class="about-value">
+
+                    <span>
+                        01
+                    </span>
+
+                    <div>
+                        <strong>
+                            Persönlich
+                        </strong>
+
+                        <p>
+                            Direkter Kontakt statt anonymer
+                            Vermittlung.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="about-value">
+
+                    <span>
+                        02
+                    </span>
+
+                    <div>
+                        <strong>
+                            Zuverlässig
+                        </strong>
+
+                        <p>
+                            Vereinbarte Termine und Absprachen
+                            sind für uns verbindlich.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="about-value">
+
+                    <span>
+                        03
+                    </span>
+
+                    <div>
+                        <strong>
+                            Sorgfältig
+                        </strong>
+
+                        <p>
+                            Wir legen Wert auf saubere und
+                            ordentliche Arbeit.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+     TEAM
+================================================== -->
+
+    <section id="team" class="team-section">
+
+        <div class="team-heading">
+
+            <span class="eyebrow">
+                UNSER TEAM
+            </span>
+
+            <h2>
+                Menschen, die<br>
+                anpacken.
+            </h2>
+
+            <p>
+                Hinter Leu Gebäudeservice stehen Menschen,
+                die ihre Arbeit persönlich nehmen und Wert
+                auf einen zuverlässigen Service legen.
+            </p>
+
+        </div>
+
+
+        <div class="team-grid">
+
+            <article class="team-card">
+
+                <div class="team-photo team-photo-placeholder">
+                    <span>
+                        Foto
+                    </span>
+                </div>
+
+                <div class="team-info">
+
+                    <div>
+                        <h3>
+                            [Name]
+                        </h3>
+
+                        <span>
+                            Geschäftsführung
+                        </span>
+                    </div>
+
+                    <p>
+                        Ihr direkter Ansprechpartner für
+                        Offerten, Termine und persönliche Beratung.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="team-card">
+
+                <div class="team-photo team-photo-placeholder">
+                    <span>
+                        Foto
+                    </span>
+                </div>
+
+                <div class="team-info">
+
+                    <div>
+                        <h3>
+                            [Name]
+                        </h3>
+
+                        <span>
+                            Gebäudeservice
+                        </span>
+                    </div>
+
+                    <p>
+                        Zuverlässig im Einsatz und mit einem
+                        Auge fürs Detail.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <article class="team-card team-card-message">
+
+                <div class="team-message">
+
+                    <span class="team-message-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Persönlich statt anonym.
+                    </h3>
+
+                    <p>
+                        Wir möchten, dass Sie wissen,
+                        mit wem Sie zusammenarbeiten.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- ==================================================
+     CONTACT / CTA
+================================================== -->
+
+    <section id="kontakt" class="contact-section">
+
+        <div class="contact-content">
+
+            <span class="eyebrow">
+                KONTAKT
+            </span>
+
+            <h2>
+                Sie haben eine Aufgabe.<br>
+                Wir kümmern uns darum.
+            </h2>
+
+            <p>
+                Ob Reinigung, Räumung oder Gartenarbeit –
+                fragen Sie unverbindlich eine Offerte an.
+                Wir melden uns persönlich bei Ihnen.
+            </p>
+
+            <a class="contact-button" routerLink="/offerte">
+
+                Offerte anfragen
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <div class="contact-info">
+
+            <div class="contact-item">
+
+                <span>
+                    TELEFON
+                </span>
+
+                <a href="tel:+41441234567">
+                    044 123 45 67
+                </a>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <span>
+                    E-MAIL
+                </span>
+
+                <a href="mailto:info@leu-gebaeudeservice.ch">
+                    info@leu-gebaeudeservice.ch
+                </a>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <span>
+                    REGION
+                </span>
+
+                <strong>
+                    Zürich und Umgebung
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+     FOOTER
+================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a class="footer-logo" routerLink="/">
+                    Leu Gebäudeservice
+                </a>
+
+                <p>
+                    Reinigung, Räumung und Gartenarbeiten –
+                    zuverlässig und persönlich.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <span class="footer-heading">
+                    NAVIGATION
+                </span>
+
+                <a href="#dienstleistungen">
+                    Dienstleistungen
+                </a>
+
+                <a href="#ueber-uns">
+                    Über uns
+                </a>
+
+                <a href="#team">
+                    Team
+                </a>
+
+                <a href="#kontakt">
+                    Kontakt
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <span class="footer-heading">
+                    DIENSTLEISTUNGEN
+                </span>
+
+                <a href="#dienstleistungen">
+                    Reinigung
+                </a>
+
+                <a href="#dienstleistungen">
+                    Räumung
+                </a>
+
+                <a href="#dienstleistungen">
+                    Garten
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <span class="footer-heading">
+                    DIREKT
+                </span>
+
+                <a href="tel:+41441234567">
+                    044 123 45 67
+                </a>
+
+                <a href="mailto:info@leu-gebaeudeservice.ch">
+                    info@leu-gebaeudeservice.ch
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © {{ currentYear }} Leu Gebäudeservice
+            </span>
+
+            <div class="footer-legal">
+
+                <a href="#">
+                    Impressum
+                </a>
+
+                <a href="#">
+                    Datenschutz
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</main>
