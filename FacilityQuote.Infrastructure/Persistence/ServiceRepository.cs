@@ -27,6 +27,14 @@ public class ServiceRepository : IServiceRepository
         CancellationToken cancellationToken = default)
     {
         return await _context.Services
+            .OrderBy(x => x.Name)
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<Service>> GetActiveAsync(
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.Services
             .Where(x => x.IsActive)
             .OrderBy(x => x.Name)
             .ToListAsync(cancellationToken);
@@ -37,6 +45,15 @@ public class ServiceRepository : IServiceRepository
         CancellationToken cancellationToken = default)
     {
         await _context.Services.AddAsync(service, cancellationToken);
+
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task UpdateAsync(
+        Service service,
+        CancellationToken cancellationToken = default)
+    {
+        _context.Services.Update(service);
 
         await _context.SaveChangesAsync(cancellationToken);
     }

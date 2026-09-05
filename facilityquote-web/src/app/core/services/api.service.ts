@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment.development';
-import { Service } from '../../features/request/models/service.model';
+import { Service, ServiceCategory } from '../../features/request/models/service.model';
 import { RequestDraft } from '../../features/request/models/request-draft.model';
 import { Availability } from '../../features/availability/models/availability.model';
 
@@ -21,6 +21,12 @@ export class ApiService {
     private readonly baseUrl = environment.apiUrl;
 
     getServices(): Observable<Service[]> {
+        return this.http.get<Service[]>(
+            `${this.baseUrl}/services/active`
+        );
+    }
+
+    getAllServices(): Observable<Service[]> {
         return this.http.get<Service[]>(
             `${this.baseUrl}/services`
         );
@@ -217,6 +223,53 @@ export class ApiService {
         return this.http.post<Quote>(
             `/api/admin/quotes/${quoteId}/send`,
             {}
+        );
+    }
+
+    createService(request: {
+        serviceCategory: ServiceCategory;
+        name: string;
+        description: string;
+        unit: string;
+        unitPrice: number;
+        isActive: boolean;
+    }): Observable<{ id: string }> {
+        return this.http.post<{ id: string }>(
+            '/api/services',
+            request
+        );
+    }
+
+    updateService(
+        id: string,
+        request: {
+            serviceCategory: ServiceCategory;
+            name: string;
+            description: string;
+            unit: string;
+            unitPrice: number;
+            isActive: boolean;
+        }
+    ): Observable<{
+        id: string;
+        category: ServiceCategory;
+        name: string;
+        description?: string;
+        unit: string;
+        unitPrice: number;
+        isActive: boolean;
+    }> {
+        return this.http.put<{
+            id: string;
+            category: ServiceCategory;
+            name: string;
+            description?: string;
+            unit: string;
+            unitPrice: number;
+            isActive: boolean;
+        }>(
+            `/api/services/${id}`,
+            request
         );
     }
 }

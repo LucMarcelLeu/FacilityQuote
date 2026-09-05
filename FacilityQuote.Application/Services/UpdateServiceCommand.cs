@@ -2,7 +2,7 @@ using FacilityQuote.Domain.Services;
 
 namespace FacilityQuote.Application.Services;
 
-public sealed record CreateServiceCommand(
+public sealed record UpdateServiceCommand(
 
     ServiceCategory ServiceCategory,
 

@@ -9,4 +9,6 @@ export interface Service {
     name: string;
     description?: string;
     unit: string;
+    unitPrice: number;
+    isActive: boolean;
 }

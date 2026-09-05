@@ -50,5 +50,12 @@ export const routes: Routes = [
         path: 'quotes/:id',
         component: QuoteDetailPage,
         canActivate: [adminGuard]
-    }
+    },
+    {
+        path: 'services',
+        loadComponent: () =>
+            import('./features/service/services-page/services-page')
+                .then(m => m.ServicesPage),
+        canActivate: [adminGuard]
+    },
 ];

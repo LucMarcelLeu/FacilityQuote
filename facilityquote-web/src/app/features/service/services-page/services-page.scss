@@ -1,0 +1,419 @@
+$dark: #17352b;
+$dark-soft: #23483c;
+$background: #f5f6f2;
+$surface: #ffffff;
+$text: #1f2924;
+$muted: #718078;
+$border: #dfe4df;
+$accent-background: #edf3ef;
+
+:host {
+    display: block;
+    min-height: 100vh;
+    background: $background;
+}
+
+.services-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 10px;
+
+    color: $muted;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+h1 {
+    margin: 0;
+    color: $text;
+    font-size: 36px;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+}
+
+.page-header p {
+    margin: 12px 0 0;
+    color: $muted;
+    font-size: 15px;
+}
+
+.primary-button {
+    flex-shrink: 0;
+
+    border: 0;
+    border-radius: 999px;
+    padding: 13px 22px;
+
+    background: $dark;
+    color: white;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.primary-button:hover {
+    background: $dark-soft;
+}
+
+.services-card {
+    overflow: hidden;
+
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 16px;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns:
+        minmax(220px, 2fr) minmax(140px, 1fr) 100px 120px 100px 120px;
+
+    gap: 20px;
+    padding: 16px 24px;
+
+    background: $accent-background;
+    border-bottom: 1px solid $border;
+
+    color: $muted;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.empty-state {
+    padding: 72px 24px;
+    text-align: center;
+}
+
+.empty-state h2 {
+    margin: 0;
+    color: $text;
+    font-size: 20px;
+}
+
+.empty-state p {
+    margin: 8px 0 0;
+    color: $muted;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+    .form-overlay {
+        padding: 12px;
+    }
+
+    .form-header {
+        padding: 24px 20px 20px;
+    }
+
+    form {
+        padding: 24px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .form-actions button {
+        width: 100%;
+    }
+}
+
+.service-list {
+    width: 100%;
+}
+
+.service-row {
+    display: grid;
+    grid-template-columns:
+        minmax(220px, 2fr) minmax(140px, 1fr) 100px 120px 100px 120px;
+
+    gap: 20px;
+    align-items: center;
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid $border;
+
+    color: $text;
+    font-size: 14px;
+}
+
+.service-row:last-child {
+    border-bottom: 0;
+}
+
+.service-name {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.service-name strong {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.service-name span {
+    color: $muted;
+    font-size: 13px;
+}
+
+.service-price {
+    font-weight: 600;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+
+    border-radius: 999px;
+    padding: 5px 10px;
+
+    background: $accent-background;
+    color: $dark;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-inactive {
+    background: #f1f1ef;
+    color: $muted;
+}
+
+.service-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.service-actions button {
+    border: 0;
+    background: transparent;
+
+    color: $dark;
+
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.service-actions button:hover {
+    text-decoration: underline;
+}
+
+.form-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(23, 53, 43, 0.35);
+}
+
+.form-dialog {
+    width: min(620px, 100%);
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: 20px;
+
+    box-shadow: 0 24px 60px rgba(23, 53, 43, 0.18);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 28px 32px 24px;
+
+    border-bottom: 1px solid $border;
+}
+
+.form-header h2 {
+    margin: 0;
+
+    color: $text;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+}
+
+.form-header p {
+    margin: 8px 0 0;
+
+    color: $muted;
+    font-size: 14px;
+}
+
+.close-button {
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: $accent-background;
+    color: $text;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+form {
+    padding: 28px 32px 32px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    color: $text;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid $border;
+    border-radius: 10px;
+
+    background: $surface;
+    color: $text;
+
+    font: inherit;
+    font-size: 14px;
+
+    outline: none;
+}
+
+.form-field textarea {
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: $dark;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.price-input {
+    position: relative;
+}
+
+.price-input span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: $muted;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.price-input input {
+    padding-left: 48px;
+}
+
+.checkbox-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 4px 0 28px;
+
+    color: $text;
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.checkbox-field input {
+    width: 17px;
+    height: 17px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    padding-top: 24px;
+
+    border-top: 1px solid $border;
+}
+
+.secondary-button {
+    border: 1px solid $border;
+    border-radius: 999px;
+    padding: 12px 20px;
+
+    background: $surface;
+    color: $text;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.secondary-button:hover {
+    background: $accent-background;
+}

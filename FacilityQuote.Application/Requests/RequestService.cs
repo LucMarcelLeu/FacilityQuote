@@ -56,7 +56,6 @@ public class RequestService
                 $"The {command.TimeSlot} slot is not available.");
         }
 
-
         if (!service.IsActive)
         {
             throw new InvalidOperationException(

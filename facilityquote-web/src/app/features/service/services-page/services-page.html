@@ -1,0 +1,259 @@
+<div class="services-page">
+
+    <header class="page-header">
+
+        <div>
+            <span class="eyebrow">
+                {{ editingService ? 'DIENSTLEISTUNG BEARBEITEN' : 'NEUE DIENSTLEISTUNG' }}
+            </span>
+
+            <h2>
+                {{ editingService
+                ? 'Dienstleistung bearbeiten'
+                : 'Dienstleistung anlegen' }}
+            </h2>
+
+            <p>
+                {{ editingService
+                ? 'Bearbeiten Sie die Angaben zur Dienstleistung.'
+                : 'Erfassen Sie die Angaben zur neuen Dienstleistung.' }}
+            </p>
+        </div>
+
+        <button type="button" class="primary-button" (click)="openCreateForm()">
+
+            + Neue Dienstleistung
+
+        </button>
+
+    </header>
+
+
+    <section class="services-card">
+
+        <div class="table-header">
+            <span>Dienstleistung</span>
+            <span>Kategorie</span>
+            <span>Einheit</span>
+            <span>Preis</span>
+            <span>Status</span>
+            <span></span>
+        </div>
+
+
+        @if (services$ | async; as services) {
+
+        @if (services.length > 0) {
+
+        <div class="service-list">
+
+            @for (service of services; track service.id) {
+
+            <div class="service-row">
+
+                <div class="service-name">
+                    <strong>{{ service.name }}</strong>
+
+                    @if (service.description) {
+                    <span>
+                        {{ service.description }}
+                    </span>
+                    }
+                </div>
+
+                <div>
+                    {{ getCategoryLabel(service.category) }}
+                </div>
+
+                <div>
+                    {{ service.unit }}
+                </div>
+
+                <div class="service-price">
+                    CHF {{ service.unitPrice | number:'1.2-2' }}
+                </div>
+
+                <div>
+                    <span class="status" [class.status-inactive]="!service.isActive">
+                        {{ service.isActive ? 'Aktiv' : 'Inaktiv' }}
+                    </span>
+                </div>
+
+                <div class="service-actions">
+                    <button type="button" (click)="openEditForm(service)">
+
+                        Bearbeiten
+
+                    </button>
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+        } @else {
+
+        <div class="empty-state">
+            <h2>Noch keine Dienstleistungen</h2>
+
+            <p>
+                Legen Sie die erste Dienstleistung an.
+            </p>
+        </div>
+
+        }
+
+        }
+
+    </section>
+
+    @if (showForm()) {
+
+    <div class="form-overlay">
+
+        <div class="form-dialog">
+
+            <div class="form-header">
+                <div>
+                    <span class="eyebrow">NEUE DIENSTLEISTUNG</span>
+
+                    <h2>Dienstleistung anlegen</h2>
+
+                    <p>
+                        Erfassen Sie die Angaben zur neuen Dienstleistung.
+                    </p>
+                </div>
+
+                <button type="button" class="close-button" (click)="closeForm()">
+
+                    ×
+
+                </button>
+            </div>
+
+
+            <form [formGroup]="serviceForm" (ngSubmit)="saveService()">
+
+                <div class="form-field">
+
+                    <label for="serviceCategory">
+                        Kategorie
+                    </label>
+
+                    <select id="serviceCategory" formControlName="serviceCategory">
+
+                        <option value="Cleaning">
+                            Reinigung
+                        </option>
+
+                        <option value="Clearance">
+                            Räumung
+                        </option>
+
+                        <option value="Gardening">
+                            Garten
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="name">
+                        Name
+                    </label>
+
+                    <input id="name" type="text" formControlName="name" placeholder="z. B. Fensterreinigung">
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="description">
+                        Beschreibung
+                    </label>
+
+                    <textarea id="description" rows="3" formControlName="description"
+                        placeholder="Kurze Beschreibung der Dienstleistung">
+                    </textarea>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-field">
+
+                        <label for="unit">
+                            Einheit
+                        </label>
+
+                        <input id="unit" type="text" formControlName="unit" placeholder="z. B. m²">
+
+                    </div>
+
+
+                    <div class="form-field">
+
+                        <label for="unitPrice">
+                            Preis
+                        </label>
+
+                        <div class="price-input">
+                            <span>CHF</span>
+
+                            <input id="unitPrice" type="number" min="0" step="0.01" formControlName="unitPrice">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <label class="checkbox-field">
+
+                    <input type="checkbox" formControlName="isActive">
+
+                    <span>
+                        Dienstleistung ist aktiv
+                    </span>
+
+                </label>
+
+
+                <div class="form-actions">
+
+                    <button type="button" class="secondary-button" (click)="closeForm()">
+
+                        Abbrechen
+
+                    </button>
+
+                    <button type="submit" class="primary-button" [disabled]="isSaving()">
+
+                        {{ isSaving()
+                        ? 'Wird gespeichert ...'
+                        : editingService
+                        ? 'Änderungen speichern'
+                        : 'Dienstleistung anlegen' }}
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    }
+
+
+</div>

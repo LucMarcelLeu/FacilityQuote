@@ -24,14 +24,19 @@ public class Service
         ServiceCategory category,
         string name,
         bool isActive,
-        string? description = null
-        )
+        string unit,
+        decimal unitPrice,
+        string? description = null)
     {
         Id = Guid.NewGuid();
+
         Category = category;
         Name = name;
         IsActive = isActive;
         Description = description;
+
+        Unit = unit;
+        UnitPrice = unitPrice;
     }
 
     public void Deactivate()
@@ -42,5 +47,21 @@ public class Service
     public void Activate()
     {
         IsActive = true;
+    }
+
+    public void Update(
+        ServiceCategory category,
+        string name,
+        bool isActive,
+        string? description,
+        string unit,
+        decimal unitPrice)
+    {
+        Category = category;
+        Name = name;
+        IsActive = isActive;
+        Description = description;
+        Unit = unit;
+        UnitPrice = unitPrice;
     }
 }

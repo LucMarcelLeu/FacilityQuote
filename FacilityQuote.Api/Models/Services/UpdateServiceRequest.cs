@@ -1,8 +1,8 @@
 using FacilityQuote.Domain.Services;
 
-namespace FacilityQuote.Application.Services;
+namespace FacilityQuote.Api.Models.Services;
 
-public sealed record CreateServiceCommand(
+public sealed record UpdateServiceRequest(
 
     ServiceCategory ServiceCategory,
 
