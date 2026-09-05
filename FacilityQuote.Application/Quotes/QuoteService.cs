@@ -448,6 +448,8 @@ public class QuoteService(
             quote,
             customer);
 
+        SendQuote(quote);
+
         await emailService.SendAsync(
             customer.Email,
             subject,
@@ -456,15 +458,13 @@ public class QuoteService(
             $"{quote.QuoteNumber}.pdf",
             cancellationToken);
 
-        sendQuote(quote);
-
         await quoteRepository.SaveChangesAsync(
             cancellationToken);
 
         return quote;
     }
 
-    private void sendQuote(Quote quote)
+    private void SendQuote(Quote quote)
     {
         if (quote.Status != QuoteStatus.Draft)
         {

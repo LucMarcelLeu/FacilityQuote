@@ -34,10 +34,7 @@ builder.Services
 
 builder.Services.Configure<CompanyOptions>(builder.Configuration.GetSection("Company"));
 
-builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<AvailabilityService>();
 builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
