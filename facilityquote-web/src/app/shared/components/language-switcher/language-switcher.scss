@@ -1,0 +1,19 @@
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    button {
+        border: 0;
+        background: none;
+        padding: 0;
+        cursor: pointer;
+        font: inherit;
+        opacity: 0.5;
+
+        &.active {
+            opacity: 1;
+            font-weight: 600;
+        }
+    }
+}

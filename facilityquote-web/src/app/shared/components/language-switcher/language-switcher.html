@@ -1,0 +1,13 @@
+<div class="language-switcher">
+
+    <button type="button" [class.active]="language === 'de'" (click)="setLanguage('de')">
+        DE
+    </button>
+
+    <span>|</span>
+
+    <button type="button" [class.active]="language === 'en'" (click)="setLanguage('en')">
+        EN
+    </button>
+
+</div>

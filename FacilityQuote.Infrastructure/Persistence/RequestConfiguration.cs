@@ -19,6 +19,9 @@ public class RequestConfiguration : IEntityTypeConfiguration<Request>
         builder.Property(x => x.Status)
             .IsRequired();
 
+        builder.Property(x => x.Language)
+            .IsRequired();
+
         builder.Property(x => x.CreatedAt)
             .IsRequired();
 

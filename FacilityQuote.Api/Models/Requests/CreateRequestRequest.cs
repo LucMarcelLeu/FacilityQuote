@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+using FacilityQuote.Api.Serialization;
 using FacilityQuote.Domain.Requests;
 
 namespace FacilityQuote.Api.Models.Requests;
@@ -26,5 +28,8 @@ public sealed record CreateRequestRequest(
     TimeOnly LatestTime,
 
     string? Description,
-    RequestTimeSlot RequestTimeSlot
+    RequestTimeSlot RequestTimeSlot,
+
+[property: JsonConverter(typeof(RequestLanguageJsonConverter))]
+    RequestLanguage RequestLanguage
     );

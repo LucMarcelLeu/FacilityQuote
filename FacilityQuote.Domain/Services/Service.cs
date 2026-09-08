@@ -10,6 +10,8 @@ public class Service
 
     public string? Description { get; private set; }
 
+    public ICollection<ServiceTranslation> Translations { get; private set; } = new List<ServiceTranslation>();
+
     public bool IsActive { get; private set; }
 
     public decimal UnitPrice { get; set; }

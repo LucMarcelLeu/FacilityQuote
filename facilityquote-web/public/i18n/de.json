@@ -1,0 +1,235 @@
+{
+    "HOME": {
+        "TITLE": "Leu Gebäudeservice",
+        "SUBTITLE": "Sauber. Zuverlässig. Persönlich.",
+        "HERO": {
+            "EYEBROW": "GEBÄUDESERVICE AUS EINER HAND",
+            "TITLE_LINE_1": "Sauber.",
+            "TITLE_LINE_2": "Zuverlässig.",
+            "TITLE_LINE_3": "Persönlich.",
+            "TEXT": "Reinigung, Räumung und Gartenarbeiten – professionell ausgeführt und unkompliziert angefragt.",
+            "REQUEST": "Offerte anfragen",
+            "SERVICES": "Unsere Dienstleistungen"
+        },
+        "BENEFITS": {
+            "SIMPLE": "Unkompliziert",
+            "SIMPLE_TEXT": "Online Anfrage in wenigen Schritten",
+            "PERSONAL": "Persönlich",
+            "PERSONAL_TEXT": "Direkter Kontakt und individuelle Beratung",
+            "RELIABLE": "Zuverlässig",
+            "RELIABLE_TEXT": "Saubere Arbeit zum vereinbarten Termin"
+        },
+        "SERVICES": {
+            "EYEBROW": "UNSERE LEISTUNGEN",
+            "TITLE_LINE_1": "Was dürfen wir",
+            "TITLE_LINE_2": "für Sie erledigen?",
+            "DESCRIPTION": "Von der regelmässigen Reinigung bis zur kompletten Räumung oder Unterstützung im Garten – wir bieten praktische Lösungen aus einer Hand.",
+            "CLEANING": {
+                "TITLE": "Reinigung",
+                "DESCRIPTION": "Saubere Lösungen für private und gewerbliche Räume."
+            },
+            "CLEARANCE": {
+                "TITLE": "Räumung",
+                "DESCRIPTION": "Zuverlässige Räumungen und fachgerechte Entsorgung."
+            },
+            "GARDENING": {
+                "TITLE": "Garten",
+                "DESCRIPTION": "Unterstützung bei Pflege, Unterhalt und Gartenarbeiten."
+            },
+            "REQUEST": "Offerte anfragen"
+        },
+        "PROCESS": {
+            "EYEBROW": "SO FUNKTIONIERT'S",
+            "TITLE_LINE_1": "Von der Anfrage",
+            "TITLE_LINE_2": "bis zum Einsatz.",
+            "DESCRIPTION": "Eine Offerte bei Leu Gebäudeservice anzufragen, geht unkompliziert und in wenigen Schritten.",
+            "STEPS": {
+                "01": {
+                    "TITLE": "Leistung auswählen",
+                    "TEXT": "Wählen Sie die gewünschte Dienstleistung – Reinigung, Räumung oder Gartenarbeiten."
+                },
+                "02": {
+                    "TITLE": "Einsatzort angeben",
+                    "TEXT": "Teilen Sie uns mit, wo die Arbeiten durchgeführt werden sollen."
+                },
+                "03": {
+                    "TITLE": "Wunschtermin wählen",
+                    "TEXT": "Wählen Sie einen passenden Tag und ein verfügbares Zeitfenster."
+                },
+                "04": {
+                    "TITLE": "Anfrage senden",
+                    "TEXT": "Anfrage abschicken – wir prüfen die Angaben und melden uns persönlich bei Ihnen."
+                }
+            },
+            "REQUEST": "Offerte anfragen"
+        },
+        "ABOUT": {
+            "EYEBROW": "ÜBER UNS",
+            "TITLE_LINE_1": "Persönlicher Service,",
+            "TITLE_LINE_2": "auf den man zählen kann.",
+            "LEAD": "Wir sind Leu Gebäudeservice – ein persönlicher und zuverlässiger Partner für Reinigung, Räumungen und Gartenarbeiten.",
+            "TEXT_1": "Uns ist wichtig, dass die Zusammenarbeit für unsere Kundinnen und Kunden unkompliziert bleibt. Von der ersten Anfrage bis zur Ausführung stehen wir für direkte Kommunikation, saubere Arbeit und verlässliche Termine.",
+            "TEXT_2": "Ob regelmässige Reinigung, eine komplette Räumung oder Unterstützung rund um Haus und Garten – wir kümmern uns darum, dass die Arbeit sorgfältig und zuverlässig erledigt wird.",
+            "VALUES": {
+                "PERSONAL": {
+                    "TITLE": "Persönlich",
+                    "TEXT": "Direkter Kontakt statt anonymer Vermittlung."
+                },
+                "RELIABLE": {
+                    "TITLE": "Zuverlässig",
+                    "TEXT": "Vereinbarte Termine und Absprachen sind für uns verbindlich."
+                },
+                "CAREFUL": {
+                    "TITLE": "Sorgfältig",
+                    "TEXT": "Wir legen Wert auf saubere und ordentliche Arbeit."
+                }
+            }
+        },
+        "TEAM": {
+            "EYEBROW": "UNSER TEAM",
+            "TITLE_LINE_1": "Menschen, die",
+            "TITLE_LINE_2": "anpacken.",
+            "DESCRIPTION": "Hinter Leu Gebäudeservice stehen Menschen, die ihre Arbeit persönlich nehmen und Wert auf einen zuverlässigen Service legen.",
+            "PHOTO": "Foto",
+            "MANAGEMENT": "Geschäftsführung",
+            "MANAGEMENT_TEXT": "Ihr direkter Ansprechpartner für Offerten, Termine und persönliche Beratung.",
+            "SERVICE": "Gebäudeservice",
+            "SERVICE_TEXT": "Zuverlässig im Einsatz und mit einem Auge fürs Detail.",
+            "MESSAGE_TITLE": "Persönlich statt anonym.",
+            "MESSAGE_TEXT": "Wir möchten, dass Sie wissen, mit wem Sie zusammenarbeiten."
+        },
+        "CONTACT": {
+            "EYEBROW": "KONTAKT",
+            "TITLE_LINE_1": "Sie haben eine Aufgabe.",
+            "TITLE_LINE_2": "Wir kümmern uns darum.",
+            "DESCRIPTION": "Ob Reinigung, Räumung oder Gartenarbeit – fragen Sie unverbindlich eine Offerte an. Wir melden uns persönlich bei Ihnen.",
+            "REQUEST": "Offerte anfragen",
+            "PHONE": "TELEFON",
+            "EMAIL": "E-MAIL",
+            "REGION": "REGION",
+            "REGION_VALUE": "Zürich und Umgebung"
+        },
+        "FOOTER": {
+            "DESCRIPTION": "Reinigung, Räumung und Gartenarbeiten – zuverlässig und persönlich.",
+            "NAVIGATION": "NAVIGATION",
+            "SERVICES": "DIENSTLEISTUNGEN",
+            "DIRECT": "DIREKT",
+            "CLEANING": "Reinigung",
+            "CLEARANCE": "Räumung",
+            "GARDENING": "Garten",
+            "IMPRINT": "Impressum",
+            "PRIVACY": "Datenschutz"
+        }
+    },
+    "NAV": {
+        "REQUEST": "Anfrage",
+        "AVAILABILITY": "Verfügbarkeit",
+        "CUSTOMERS": "Kunden",
+        "LOGIN": "Anmelden",
+        "LOGOUT": "Abmelden",
+        "ADMIN": "Administration",
+        "SERVICES": "Dienstleistungen",
+        "ABOUT": "Über uns",
+        "TEAM": "Team",
+        "CONTACT": "Kontakt"
+    },
+    "REQUEST": {
+        "PROGRESS": {
+            "SERVICE": "Dienstleistung",
+            "LOCATION": "Einsatzort",
+            "DATE": "Termin",
+            "CONTACT": "Ihre Angaben",
+            "PROGRESS_LABEL": "Anfragefortschritt"
+        },
+        "STEP1": {
+            "EYEBROW": "Schritt 1 von 4",
+            "TITLE": "Wählen Sie eine Dienstleistung",
+            "DESCRIPTION": "Was können wir für Sie tun?",
+            "QUANTITY": {
+                "EYEBROW": "Menge",
+                "TITLE": "Wie viel wird benötigt?",
+                "DESCRIPTION": "Bitte geben Sie die gewünschte Menge an.",
+                "LABEL": "Menge",
+                "PLACEHOLDER": "z. B. 13.5"
+            }
+        },
+        "STEP2": {
+            "EYEBROW": "Schritt 2 von 4",
+            "TITLE": "Wo findet der Einsatz statt?",
+            "DESCRIPTION": "Bitte geben Sie uns die Adresse des Einsatzortes an.",
+            "STREET": {
+                "LABEL": "Strasse / Hausnummer",
+                "PLACEHOLDER": "z. B. Bahnhofstrasse 25"
+            },
+            "POSTAL_CODE": {
+                "LABEL": "PLZ",
+                "PLACEHOLDER": "8000"
+            },
+            "CITY": {
+                "LABEL": "Ort",
+                "PLACEHOLDER": "Zürich"
+            },
+            "HINT": "Der Einsatzort hilft uns später dabei, den möglichen Anfahrtsaufwand zu berücksichtigen."
+        },
+        "STEP3": {
+            "EYEBROW": "Schritt 3 von 4",
+            "TITLE": "Wann passt es Ihnen?",
+            "DESCRIPTION": "Wählen Sie einen gewünschten Termin und ein Zeitfenster.",
+            "DATE": "Gewünschter Termin",
+            "TIME": "Gewünschtes Zeitfenster",
+            "MORNING": "Vormittag",
+            "AFTERNOON": "Nachmittag",
+            "MORNING_TIME": "08:00 – 12:00",
+            "AFTERNOON_TIME": "13:00 – 17:00"
+        },
+        "STEP4": {
+            "EYEBROW": "Schritt 4 von 4",
+            "TITLE": "Wie können wir Sie erreichen?",
+            "DESCRIPTION": "Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu bearbeiten und Sie zu kontaktieren.",
+            "CONTACT": {
+                "TITLE": "Ihre Kontaktdaten",
+                "DESCRIPTION": "Damit wir uns bei Ihnen melden können.",
+                "FIRST_NAME": "Vorname",
+                "LAST_NAME": "Nachname",
+                "EMAIL": "E-Mail",
+                "PHONE": "Telefon",
+                "FIRST_NAME_PLACEHOLDER": "Max",
+                "LAST_NAME_PLACEHOLDER": "Muster",
+                "EMAIL_PLACEHOLDER": "max@muster.ch",
+                "PHONE_PLACEHOLDER": "+41 79 123 45 67"
+            },
+            "MESSAGE": {
+                "TITLE": "Weitere Informationen",
+                "DESCRIPTION": "Gibt es etwas, das wir über den Auftrag wissen sollten?",
+                "LABEL": "Ihre Nachricht",
+                "PLACEHOLDER": "Beschreiben Sie den Auftrag gerne etwas genauer..."
+            },
+            "SUMMARY": {
+                "EYEBROW": "Ihre Anfrage",
+                "TITLE": "Fast geschafft",
+                "SERVICE": "Dienstleistung",
+                "LOCATION": "Einsatzort",
+                "DATE": "Wunschtermin",
+                "TIME": "Zeitfenster"
+            },
+            "SUBMIT": "Anfrage senden",
+            "SUBMITTING": "Anfrage wird gesendet ..."
+        },
+        "SUCCESS": {
+            "EYEBROW": "Anfrage erhalten",
+            "TITLE": "Vielen Dank für Ihre Anfrage!",
+            "TEXT": "Wir haben Ihre Anfrage erfolgreich erhalten und melden uns schnellstmöglich bei Ihnen.",
+            "REQUEST_NUMBER": "Anfrage-Nr."
+        }
+
+    },
+    "SERVICE_CATEGORY": {
+        "Cleaning": "Reinigung",
+        "Clearance": "Räumung",
+        "Gardening": "Garten"
+    },
+    "ACTIONS": {
+        "NEXT": "Weiter",
+        "BACK": "Zurück"
+    }
+}

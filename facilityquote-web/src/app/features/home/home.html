@@ -1,35 +1,4 @@
-<header class="site-header">
-
-    <a class="brand" routerLink="/">
-        Leu Gebäudeservice
-    </a>
-
-    <nav class="navigation">
-
-        <a href="#dienstleistungen">
-            Dienstleistungen
-        </a>
-
-        <a href="#ueber-uns">
-            Über uns
-        </a>
-
-        <a href="#team">
-            Team
-        </a>
-
-        <a href="#kontakt">
-            Kontakt
-        </a>
-
-    </nav>
-
-    <a class="header-button" routerLink="/offerte">
-        Offerte anfragen
-    </a>
-
-</header>
-
+<app-site-header />
 
 <main>
 
@@ -42,35 +11,33 @@
         <div class="hero-content">
 
             <span class="eyebrow">
-                GEBÄUDESERVICE AUS EINER HAND
-            </span>
+                {{ 'HOME.HERO.EYEBROW' | translate }}< </span>
 
-            <h1>
-                Sauber.<br>
-                Zuverlässig.<br>
-                Persönlich.
-            </h1>
+                    <h1>
+                        {{ 'HOME.HERO.TITLE_LINE_1' | translate }}<br>
+                        {{ 'HOME.HERO.TITLE_LINE_2' | translate }}<br>
+                        {{ 'HOME.HERO.TITLE_LINE_3' | translate }}
+                    </h1>
 
-            <p class="hero-text">
-                Reinigung, Räumung und Gartenarbeiten –
-                professionell ausgeführt und unkompliziert angefragt.
-            </p>
+                    <p class="hero-text">
+                        {{ 'HOME.HERO.TEXT' | translate }}
+                    </p>
 
-            <div class="hero-actions">
+                    <div class="hero-actions">
 
-                <a class="primary-button" routerLink="/offerte">
-                    Offerte anfragen
-                </a>
+                        <a class="primary-button" routerLink="/offerte">
+                            {{ 'HOME.HERO.REQUEST' | translate }}
+                        </a>
 
-                <a class="secondary-link" href="#dienstleistungen">
+                        <a class="secondary-link" href="#dienstleistungen">
 
-                    Unsere Dienstleistungen
+                            {{ 'HOME.HERO.SERVICES' | translate }}
 
-                    <span>↓</span>
+                            <span>↓</span>
 
-                </a>
+                        </a>
 
-            </div>
+                    </div>
 
         </div>
 
@@ -86,11 +53,11 @@
                 <div>
 
                     <strong>
-                        Unkompliziert
+                        {{ 'HOME.BENEFITS.SIMPLE' | translate }}
                     </strong>
 
                     <span>
-                        Online Anfrage in wenigen Schritten
+                        {{ 'HOME.BENEFITS.SIMPLE_TEXT' | translate }}
                     </span>
 
                 </div>
@@ -107,11 +74,11 @@
                 <div>
 
                     <strong>
-                        Persönlich
+                        {{ 'HOME.BENEFITS.PERSONAL' | translate }}
                     </strong>
 
                     <span>
-                        Direkter Kontakt und individuelle Beratung
+                        {{ 'HOME.BENEFITS.PERSONAL_TEXT' | translate }}
                     </span>
 
                 </div>
@@ -128,13 +95,12 @@
                 <div>
 
                     <strong>
-                        Zuverlässig
+                        {{ 'HOME.BENEFITS.RELIABLE' | translate }}
                     </strong>
 
                     <span>
-                        Saubere Arbeit zum vereinbarten Termin
+                        {{ 'HOME.BENEFITS.RELIABLE_TEXT' | translate }}
                     </span>
-
                 </div>
 
             </div>
@@ -153,18 +119,16 @@
         <div class="section-heading">
 
             <span class="eyebrow">
-                UNSERE LEISTUNGEN
+                {{ 'HOME.SERVICES.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Was dürfen wir<br>
-                für Sie erledigen?
+                {{ 'HOME.SERVICES.TITLE_LINE_1' | translate }}<br>
+                {{ 'HOME.SERVICES.TITLE_LINE_2' | translate }}
             </h2>
 
             <p>
-                Von der regelmässigen Reinigung bis zur kompletten
-                Räumung oder Unterstützung im Garten – wir bieten
-                praktische Lösungen aus einer Hand.
+                {{ 'HOME.SERVICES.DESCRIPTION' | translate }}
             </p>
 
         </div>
@@ -188,15 +152,15 @@
                 <div class="service-content">
 
                     <span class="service-category">
-                        {{ category.title }}
+                        {{ category.titleKey | translate }}
                     </span>
 
                     <h3>
-                        {{ category.title }}
+                        {{ category.titleKey | translate }}
                     </h3>
 
                     <p>
-                        {{ category.description }}
+                        {{ category.descriptionKey | translate }}
                     </p>
 
 
@@ -221,7 +185,7 @@
 
                     <a class="service-link" routerLink="/offerte">
 
-                        Offerte anfragen
+                        {{ 'HOME.SERVICES.REQUEST' | translate }}
 
                         <span>
                             →
@@ -241,30 +205,24 @@
 
     </section>
 
-    <!-- ==================================================
-     HOW IT WORKS
-================================================== -->
-
     <section class="process-section">
 
         <div class="section-heading process-heading">
 
             <span class="eyebrow">
-                SO FUNKTIONIERT'S
+                {{ 'HOME.PROCESS.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Von der Anfrage<br>
-                bis zum Einsatz.
+                {{ 'HOME.PROCESS.TITLE_LINE_1' | translate }}<br>
+                {{ 'HOME.PROCESS.TITLE_LINE_2' | translate }}
             </h2>
 
             <p>
-                Eine Offerte bei Leu Gebäudeservice anzufragen,
-                geht unkompliziert und in wenigen Schritten.
+                {{ 'HOME.PROCESS.DESCRIPTION' | translate }}
             </p>
 
         </div>
-
 
         <div class="process-grid">
 
@@ -277,12 +235,11 @@
                 <div class="process-content">
 
                     <h3>
-                        Leistung auswählen
+                        {{ 'HOME.PROCESS.STEPS.01.TITLE' | translate }}
                     </h3>
 
                     <p>
-                        Wählen Sie die gewünschte Dienstleistung –
-                        Reinigung, Räumung oder Gartenarbeiten.
+                        {{ 'HOME.PROCESS.STEPS.01.TEXT' | translate }}
                     </p>
 
                 </div>
@@ -299,12 +256,11 @@
                 <div class="process-content">
 
                     <h3>
-                        Einsatzort angeben
+                        {{ 'HOME.PROCESS.STEPS.02.TITLE' | translate }}
                     </h3>
 
                     <p>
-                        Teilen Sie uns mit, wo die Arbeiten
-                        durchgeführt werden sollen.
+                        {{ 'HOME.PROCESS.STEPS.02.TEXT' | translate }}
                     </p>
 
                 </div>
@@ -321,12 +277,11 @@
                 <div class="process-content">
 
                     <h3>
-                        Wunschtermin wählen
+                        {{ 'HOME.PROCESS.STEPS.03.TITLE' | translate }}
                     </h3>
 
                     <p>
-                        Wählen Sie einen passenden Tag und
-                        ein verfügbares Zeitfenster.
+                        {{ 'HOME.PROCESS.STEPS.03.TEXT' | translate }}
                     </p>
 
                 </div>
@@ -343,12 +298,11 @@
                 <div class="process-content">
 
                     <h3>
-                        Anfrage senden
+                        {{ 'HOME.PROCESS.STEPS.04.TITLE' | translate }}
                     </h3>
 
                     <p>
-                        Anfrage abschicken – wir prüfen die Angaben
-                        und melden uns persönlich bei Ihnen.
+                        {{ 'HOME.PROCESS.STEPS.04.TEXT' | translate }}
                     </p>
 
                 </div>
@@ -362,7 +316,7 @@
 
             <a class="primary-button" routerLink="/offerte">
 
-                Offerte anfragen
+                {{ 'HOME.PROCESS.REQUEST' | translate }}
 
             </a>
 
@@ -371,27 +325,17 @@
     </section>
 
 
-    <!-- ==================================================
-         PLACEHOLDERS
-         
-         Diese Sections bauen wir später.
-    =================================================== -->
-
-    <!-- ==================================================
-     ABOUT US
-================================================== -->
-
     <section id="ueber-uns" class="about-section">
 
         <div class="about-intro">
 
             <span class="eyebrow">
-                ÜBER UNS
+                {{ 'HOME.ABOUT.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Persönlicher Service,<br>
-                auf den man zählen kann.
+                {{ 'HOME.ABOUT.TITLE_LINE_1' | translate }}<br>
+                {{ 'HOME.ABOUT.TITLE_LINE_2' | translate }}
             </h2>
 
         </div>
@@ -402,24 +346,15 @@
             <div class="about-text">
 
                 <p class="about-lead">
-                    Wir sind Leu Gebäudeservice – ein persönlicher
-                    und zuverlässiger Partner für Reinigung,
-                    Räumungen und Gartenarbeiten.
+                    {{ 'HOME.ABOUT.LEAD' | translate }}
                 </p>
 
                 <p>
-                    Uns ist wichtig, dass die Zusammenarbeit für
-                    unsere Kundinnen und Kunden unkompliziert bleibt.
-                    Von der ersten Anfrage bis zur Ausführung
-                    stehen wir für direkte Kommunikation,
-                    saubere Arbeit und verlässliche Termine.
+                    {{ 'HOME.ABOUT.TEXT_1' | translate }}
                 </p>
 
                 <p>
-                    Ob regelmässige Reinigung, eine komplette
-                    Räumung oder Unterstützung rund um Haus und
-                    Garten – wir kümmern uns darum, dass die Arbeit
-                    sorgfältig und zuverlässig erledigt wird.
+                    {{ 'HOME.ABOUT.TEXT_2' | translate }}
                 </p>
 
             </div>
@@ -434,14 +369,15 @@
                     </span>
 
                     <div>
+
                         <strong>
-                            Persönlich
+                            {{ 'HOME.ABOUT.VALUES.PERSONAL.TITLE' | translate }}
                         </strong>
 
                         <p>
-                            Direkter Kontakt statt anonymer
-                            Vermittlung.
+                            {{ 'HOME.ABOUT.VALUES.PERSONAL.TEXT' | translate }}
                         </p>
+
                     </div>
 
                 </div>
@@ -454,14 +390,15 @@
                     </span>
 
                     <div>
+
                         <strong>
-                            Zuverlässig
+                            {{ 'HOME.ABOUT.VALUES.RELIABLE.TITLE' | translate }}
                         </strong>
 
                         <p>
-                            Vereinbarte Termine und Absprachen
-                            sind für uns verbindlich.
+                            {{ 'HOME.ABOUT.VALUES.RELIABLE.TEXT' | translate }}
                         </p>
+
                     </div>
 
                 </div>
@@ -474,14 +411,15 @@
                     </span>
 
                     <div>
+
                         <strong>
-                            Sorgfältig
+                            {{ 'HOME.ABOUT.VALUES.CAREFUL.TITLE' | translate }}
                         </strong>
 
                         <p>
-                            Wir legen Wert auf saubere und
-                            ordentliche Arbeit.
+                            {{ 'HOME.ABOUT.VALUES.CAREFUL.TEXT' | translate }}
                         </p>
+
                     </div>
 
                 </div>
@@ -492,27 +430,21 @@
 
     </section>
 
-    <!-- ==================================================
-     TEAM
-================================================== -->
-
     <section id="team" class="team-section">
 
         <div class="team-heading">
 
             <span class="eyebrow">
-                UNSER TEAM
+                {{ 'HOME.TEAM.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Menschen, die<br>
-                anpacken.
+                {{ 'HOME.TEAM.TITLE_LINE_1' | translate }}<br>
+                {{ 'HOME.TEAM.TITLE_LINE_2' | translate }}
             </h2>
 
             <p>
-                Hinter Leu Gebäudeservice stehen Menschen,
-                die ihre Arbeit persönlich nehmen und Wert
-                auf einen zuverlässigen Service legen.
+                {{ 'HOME.TEAM.DESCRIPTION' | translate }}
             </p>
 
         </div>
@@ -523,26 +455,29 @@
             <article class="team-card">
 
                 <div class="team-photo team-photo-placeholder">
+
                     <span>
-                        Foto
+                        {{ 'HOME.TEAM.PHOTO' | translate }}
                     </span>
+
                 </div>
 
                 <div class="team-info">
 
                     <div>
+
                         <h3>
                             [Name]
                         </h3>
 
                         <span>
-                            Geschäftsführung
+                            {{ 'HOME.TEAM.MANAGEMENT' | translate }}
                         </span>
+
                     </div>
 
                     <p>
-                        Ihr direkter Ansprechpartner für
-                        Offerten, Termine und persönliche Beratung.
+                        {{ 'HOME.TEAM.MANAGEMENT_TEXT' | translate }}
                     </p>
 
                 </div>
@@ -553,26 +488,29 @@
             <article class="team-card">
 
                 <div class="team-photo team-photo-placeholder">
+
                     <span>
-                        Foto
+                        {{ 'HOME.TEAM.PHOTO' | translate }}
                     </span>
+
                 </div>
 
                 <div class="team-info">
 
                     <div>
+
                         <h3>
                             [Name]
                         </h3>
 
                         <span>
-                            Gebäudeservice
+                            {{ 'HOME.TEAM.SERVICE' | translate }}
                         </span>
+
                     </div>
 
                     <p>
-                        Zuverlässig im Einsatz und mit einem
-                        Auge fürs Detail.
+                        {{ 'HOME.TEAM.SERVICE_TEXT' | translate }}
                     </p>
 
                 </div>
@@ -589,12 +527,11 @@
                     </span>
 
                     <h3>
-                        Persönlich statt anonym.
+                        {{ 'HOME.TEAM.MESSAGE_TITLE' | translate }}
                     </h3>
 
                     <p>
-                        Wir möchten, dass Sie wissen,
-                        mit wem Sie zusammenarbeiten.
+                        {{ 'HOME.TEAM.MESSAGE_TEXT' | translate }}
                     </p>
 
                 </div>
@@ -605,32 +542,26 @@
 
     </section>
 
-    <!-- ==================================================
-     CONTACT / CTA
-================================================== -->
-
     <section id="kontakt" class="contact-section">
 
         <div class="contact-content">
 
             <span class="eyebrow">
-                KONTAKT
+                {{ 'HOME.CONTACT.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Sie haben eine Aufgabe.<br>
-                Wir kümmern uns darum.
+                {{ 'HOME.CONTACT.TITLE_LINE_1' | translate }}<br>
+                {{ 'HOME.CONTACT.TITLE_LINE_2' | translate }}
             </h2>
 
             <p>
-                Ob Reinigung, Räumung oder Gartenarbeit –
-                fragen Sie unverbindlich eine Offerte an.
-                Wir melden uns persönlich bei Ihnen.
+                {{ 'HOME.CONTACT.DESCRIPTION' | translate }}
             </p>
 
             <a class="contact-button" routerLink="/offerte">
 
-                Offerte anfragen
+                {{ 'HOME.CONTACT.REQUEST' | translate }}
 
                 <span>
                     →
@@ -646,7 +577,7 @@
             <div class="contact-item">
 
                 <span>
-                    TELEFON
+                    {{ 'HOME.CONTACT.PHONE' | translate }}
                 </span>
 
                 <a href="tel:+41441234567">
@@ -659,7 +590,7 @@
             <div class="contact-item">
 
                 <span>
-                    E-MAIL
+                    {{ 'HOME.CONTACT.EMAIL' | translate }}
                 </span>
 
                 <a href="mailto:info@leu-gebaeudeservice.ch">
@@ -672,11 +603,11 @@
             <div class="contact-item">
 
                 <span>
-                    REGION
+                    {{ 'HOME.CONTACT.REGION' | translate }}
                 </span>
 
                 <strong>
-                    Zürich und Umgebung
+                    {{ 'HOME.CONTACT.REGION_VALUE' | translate }}
                 </strong>
 
             </div>
@@ -684,11 +615,6 @@
         </div>
 
     </section>
-
-
-    <!-- ==================================================
-     FOOTER
-================================================== -->
 
     <footer class="site-footer">
 
@@ -701,8 +627,7 @@
                 </a>
 
                 <p>
-                    Reinigung, Räumung und Gartenarbeiten –
-                    zuverlässig und persönlich.
+                    {{ 'HOME.FOOTER.DESCRIPTION' | translate }}
                 </p>
 
             </div>
@@ -711,23 +636,23 @@
             <div class="footer-column">
 
                 <span class="footer-heading">
-                    NAVIGATION
+                    {{ 'HOME.FOOTER.NAVIGATION' | translate }}
                 </span>
 
                 <a href="#dienstleistungen">
-                    Dienstleistungen
+                    {{ 'HOME.FOOTER.SERVICES' | translate }}
                 </a>
 
                 <a href="#ueber-uns">
-                    Über uns
+                    {{ 'NAV.ABOUT' | translate }}
                 </a>
 
                 <a href="#team">
-                    Team
+                    {{ 'NAV.TEAM' | translate }}
                 </a>
 
                 <a href="#kontakt">
-                    Kontakt
+                    {{ 'NAV.CONTACT' | translate }}
                 </a>
 
             </div>
@@ -736,19 +661,19 @@
             <div class="footer-column">
 
                 <span class="footer-heading">
-                    DIENSTLEISTUNGEN
+                    {{ 'HOME.FOOTER.SERVICES' | translate }}
                 </span>
 
                 <a href="#dienstleistungen">
-                    Reinigung
+                    {{ 'HOME.FOOTER.CLEANING' | translate }}
                 </a>
 
                 <a href="#dienstleistungen">
-                    Räumung
+                    {{ 'HOME.FOOTER.CLEARANCE' | translate }}
                 </a>
 
                 <a href="#dienstleistungen">
-                    Garten
+                    {{ 'HOME.FOOTER.GARDENING' | translate }}
                 </a>
 
             </div>
@@ -757,7 +682,7 @@
             <div class="footer-column">
 
                 <span class="footer-heading">
-                    DIREKT
+                    {{ 'HOME.FOOTER.DIRECT' | translate }}
                 </span>
 
                 <a href="tel:+41441234567">
@@ -782,11 +707,11 @@
             <div class="footer-legal">
 
                 <a href="#">
-                    Impressum
+                    {{ 'HOME.FOOTER.IMPRINT' | translate }}
                 </a>
 
                 <a href="#">
-                    Datenschutz
+                    {{ 'HOME.FOOTER.PRIVACY' | translate }}
                 </a>
 
             </div>

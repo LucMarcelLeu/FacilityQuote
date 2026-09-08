@@ -1,3 +1,5 @@
+<app-site-header />
+
 @if (submitSuccess()) {
 
 <section class="success-section">
@@ -9,26 +11,22 @@
         </div>
 
         <span class="eyebrow">
-            Anfrage erhalten
+            {{ 'REQUEST.SUCCESS.EYEBROW' | translate }}
         </span>
 
         <h1>
-            Vielen Dank für Ihre Anfrage!
+            {{ 'REQUEST.SUCCESS.TITLE' | translate }}
         </h1>
-
         <p>
-            Wir haben Ihre Anfrage erfolgreich erhalten
-            und melden uns schnellstmöglich bei Ihnen.
+            {{ 'REQUEST.SUCCESS.TEXT' | translate }}
         </p>
 
         @if (requestId()) {
 
         <div class="request-number">
-
             <span>
-                Anfrage-Nr.
+                {{ 'REQUEST.SUCCESS.REQUEST_NUMBER' | translate }}
             </span>
-
             <strong>
                 {{ requestId() }}
             </strong>
@@ -43,53 +41,10 @@
 
 } @else {
 
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-
-<header class="hero">
-
-    <div class="hero-content">
-
-        <div class="brand">
-            Leu Gebäudeservice
-        </div>
-
-        <div class="hero-copy">
-
-            <span class="eyebrow">
-                Ihre Anfrage
-            </span>
-
-            <h1>
-                Was dürfen wir<br />
-                für Sie erledigen?
-            </h1>
-
-            <p>
-                Reinigung, Räumung und Gartenarbeiten –
-                einfach und unverbindlich anfragen.
-            </p>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- ============================================================
-     MAIN
-     ============================================================ -->
 
 <main class="content">
 
-
-    <!-- ========================================================
-         PROGRESS
-         ======================================================== -->
-
-    <nav class="progress" aria-label="Anfragefortschritt">
+    <nav class="progress" [attr.aria-label]="'REQUEST.PROGRESS_LABEL' | translate">
 
         <!-- Schritt 1 -->
 
@@ -106,7 +61,7 @@
             </span>
 
             <span>
-                Dienstleistung
+                {{ 'REQUEST.PROGRESS.SERVICE' | translate }}
             </span>
 
         </div>
@@ -130,7 +85,7 @@
             </span>
 
             <span>
-                Einsatzort
+                {{ 'REQUEST.PROGRESS.LOCATION' | translate }}
             </span>
 
         </div>
@@ -154,7 +109,7 @@
             </span>
 
             <span>
-                Termin
+                {{ 'REQUEST.PROGRESS.DATE' | translate }}
             </span>
 
         </div>
@@ -172,7 +127,7 @@
             </span>
 
             <span>
-                Ihre Angaben
+                {{ 'REQUEST.PROGRESS.CONTACT' | translate }}
             </span>
 
         </div>
@@ -192,17 +147,16 @@
         <div class="section-heading">
 
             <span class="eyebrow">
-                Schritt 1 von 4
+                {{ 'REQUEST.STEP1.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Wählen Sie eine Dienstleistung
+                {{ 'REQUEST.STEP1.TITLE' | translate }}
             </h2>
 
             <p>
-                Was können wir für Sie tun?
+                {{ 'REQUEST.STEP1.DESCRIPTION' | translate }}
             </p>
-
         </div>
 
 
@@ -215,7 +169,7 @@
             <div class="category-heading">
 
                 <h3>
-                    {{ getCategoryLabel(category) }}
+                    {{ 'SERVICE_CATEGORY.' + category | translate }}
                 </h3>
 
             </div>
@@ -231,10 +185,6 @@
                     (click)="selectService(service)">
 
                     <div class="card-top">
-
-                        <span class="category-label">
-                            {{ getCategoryLabel(service.category) }}
-                        </span>
 
                         <span class="selection-indicator">
 
@@ -279,44 +229,44 @@
         @if (draft.serviceId) {
 
         <div class="quantity-card">
-
+        
             <div class="quantity-heading">
-
+        
                 <span class="eyebrow">
-                    Menge
+                    {{ 'REQUEST.STEP1.QUANTITY.EYEBROW' | translate }}
                 </span>
-
+        
                 <h3>
-                    Wie viel wird benötigt?
+                    {{ 'REQUEST.STEP1.QUANTITY.TITLE' | translate }}
                 </h3>
-
+        
                 <p>
-                    Bitte geben Sie die gewünschte Menge an.
+                    {{ 'REQUEST.STEP1.QUANTITY.DESCRIPTION' | translate }}
                 </p>
-
+        
             </div>
-
+        
             <div class="quantity-field">
-
+        
                 <label for="quantity">
-                    Menge
+                    {{ 'REQUEST.STEP1.QUANTITY.LABEL' | translate }}
                 </label>
-
+        
                 <div class="quantity-input">
-
+        
                     <input id="quantity" type="number" min="0.01" step="0.01" [(ngModel)]="draft.quantity"
-                        placeholder="z. B. 13.5" />
-
+                        [placeholder]="'REQUEST.STEP1.QUANTITY.PLACEHOLDER' | translate" />
+        
                     @if (selectedServiceUnit) {
                     <span class="quantity-unit">
                         {{ selectedServiceUnit }}
                     </span>
                     }
-
+        
                 </div>
-
+        
             </div>
-
+        
         </div>
 
         }
@@ -326,7 +276,7 @@
             <button type="button" class="next-button" [disabled]="!canContinueFromStep1()" (click)="goToStep(2)">
 
                 <span>
-                    Weiter
+                    {{ 'ACTIONS.NEXT' | translate }}
                 </span>
 
                 <span class="button-arrow">
@@ -341,8 +291,6 @@
 
     }
 
-
-
     <!-- ========================================================
          STEP 2 - LOCATION
          ======================================================== -->
@@ -354,15 +302,15 @@
         <div class="section-heading">
 
             <span class="eyebrow">
-                Schritt 2 von 4
+                {{ 'REQUEST.STEP2.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Wo findet der Einsatz statt?
+                {{ 'REQUEST.STEP2.TITLE' | translate }}
             </h2>
 
             <p>
-                Bitte geben Sie uns die Adresse des Einsatzortes an.
+                {{ 'REQUEST.STEP2.DESCRIPTION' | translate }}
             </p>
 
         </div>
@@ -370,14 +318,13 @@
 
         <div class="location-card">
 
-
             <div class="form-field">
 
                 <label for="street">
-                    Strasse / Hausnummer
+                    {{ 'REQUEST.STEP2.STREET.LABEL' | translate }}
                 </label>
 
-                <input id="street" type="text" placeholder="z. B. Bahnhofstrasse 25"
+                <input id="street" type="text" [placeholder]="'REQUEST.STEP2.STREET.PLACEHOLDER' | translate"
                     [(ngModel)]="draft.location.street" />
 
             </div>
@@ -388,27 +335,26 @@
                 <div class="form-field postal-code">
 
                     <label for="postalCode">
-                        PLZ
+                        {{ 'REQUEST.STEP2.POSTAL_CODE.LABEL' | translate }}
                     </label>
 
-                    <input id="postalCode" type="text" inputmode="numeric" maxlength="4" placeholder="8000"
+                    <input id="postalCode" type="text" inputmode="numeric" maxlength="4"
+                        [placeholder]="'REQUEST.STEP2.POSTAL_CODE.PLACEHOLDER' | translate"
                         [(ngModel)]="draft.location.postalCode" />
 
                 </div>
 
-
                 <div class="form-field">
 
                     <label for="city">
-                        Ort
+                        {{ 'REQUEST.STEP2.CITY.LABEL' | translate }}
                     </label>
 
-                    <input id="city" type="text" placeholder="Zürich" [(ngModel)]="draft.location.city" />
-
+                    <input id="city" type="text" [placeholder]="'REQUEST.STEP2.CITY.PLACEHOLDER' | translate"
+                        [(ngModel)]="draft.location.city" />
                 </div>
 
             </div>
-
 
             <div class="location-hint">
 
@@ -417,8 +363,7 @@
                 </span>
 
                 <p>
-                    Der Einsatzort hilft uns später dabei,
-                    den möglichen Anfahrtsaufwand zu berücksichtigen.
+                    {{ 'REQUEST.STEP2.HINT' | translate }}
                 </p>
 
             </div>
@@ -435,16 +380,15 @@
                 </span>
 
                 <span>
-                    Zurück
+                    {{ 'ACTIONS.BACK' | translate }}
                 </span>
 
             </button>
 
-
             <button type="button" class="next-button" [disabled]="!canContinueFromStep2()" (click)="goToStep(3)">
 
                 <span>
-                    Weiter
+                    {{ 'ACTIONS.NEXT' | translate }}
                 </span>
 
                 <span class="button-arrow">
@@ -459,8 +403,6 @@
 
     }
 
-
-
     <!-- ========================================================
          STEP 3 - APPOINTMENT
          ======================================================== -->
@@ -472,15 +414,15 @@
         <div class="section-heading">
 
             <span class="eyebrow">
-                Schritt 3 von 4
+                {{ 'REQUEST.STEP3.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Wann passt es Ihnen?
+                {{ 'REQUEST.STEP3.TITLE' | translate }}
             </h2>
 
             <p>
-                Wählen Sie einen gewünschten Termin und ein Zeitfenster.
+                {{ 'REQUEST.STEP3.DESCRIPTION' | translate }}
             </p>
 
         </div>
@@ -491,7 +433,7 @@
             <div class="date-heading">
 
                 <span>
-                    Gewünschter Termin
+                    {{ 'REQUEST.STEP3.DATE' | translate }}
                 </span>
 
             </div>
@@ -526,7 +468,7 @@
                 <div class="time-heading">
 
                     <span>
-                        Gewünschtes Zeitfenster
+                        {{ 'REQUEST.STEP3.TIME' | translate }}
                     </span>
 
                 </div>
@@ -548,11 +490,11 @@
                         <span class="time-content">
 
                             <strong>
-                                Vormittag
+                                {{ 'REQUEST.STEP3.MORNING' | translate }}
                             </strong>
 
                             <small>
-                                08:00 – 12:00
+                                {{ 'REQUEST.STEP3.MORNING_TIME' | translate }}
                             </small>
 
                         </span>
@@ -560,7 +502,6 @@
                     </button>
 
                     }
-
 
                     <!-- Nachmittag -->
                     @if (getSelectedDate()?.afternoonAvailable &&
@@ -576,11 +517,11 @@
                         <span class="time-content">
 
                             <strong>
-                                Nachmittag
+                                {{ 'REQUEST.STEP3.AFTERNOON' | translate }}
                             </strong>
 
                             <small>
-                                13:00 – 17:00
+                                {{ 'REQUEST.STEP3.AFTERNOON_TIME' | translate }}
                             </small>
 
                         </span>
@@ -606,7 +547,7 @@
                 </span>
 
                 <span>
-                    Zurück
+                    {{ 'ACTIONS.BACK' | translate }}
                 </span>
 
             </button>
@@ -615,7 +556,7 @@
             <button type="button" class="next-button" [disabled]="!canContinueFromStep3()" (click)="goToStep(4)">
 
                 <span>
-                    Weiter
+                    {{ 'ACTIONS.NEXT' | translate }}
                 </span>
 
                 <span class="button-arrow">
@@ -630,8 +571,6 @@
 
     }
 
-
-
     <!-- ========================================================
          STEP 4 - CUSTOMER
          ======================================================== -->
@@ -643,21 +582,18 @@
         <div class="section-heading">
 
             <span class="eyebrow">
-                Schritt 4 von 4
+                {{ 'REQUEST.STEP4.EYEBROW' | translate }}
             </span>
 
             <h2>
-                Wie können wir Sie erreichen?
+                {{ 'REQUEST.STEP4.TITLE' | translate }}
             </h2>
 
             <p>
-                Wir verwenden Ihre Angaben nur, um Ihre Anfrage
-                zu bearbeiten und Sie zu kontaktieren.
+                {{ 'REQUEST.STEP4.DESCRIPTION' | translate }}
             </p>
 
         </div>
-
-
 
         <!-- ====================================================
              CUSTOMER
@@ -672,41 +608,39 @@
                 </span>
 
                 <div>
-
                     <h3>
-                        Ihre Kontaktdaten
+                        {{ 'REQUEST.STEP4.CONTACT.TITLE' | translate }}
                     </h3>
 
                     <p>
-                        Damit wir uns bei Ihnen melden können.
+                        {{ 'REQUEST.STEP4.CONTACT.DESCRIPTION' | translate }}
                     </p>
-
                 </div>
 
             </div>
-
 
             <div class="form-row">
 
                 <div class="form-field">
 
                     <label for="firstName">
-                        Vorname
+                        {{ 'REQUEST.STEP4.CONTACT.FIRST_NAME' | translate }}
                     </label>
 
-                    <input id="firstName" type="text" autocomplete="given-name" placeholder="Max"
+                    <input id="firstName" type="text" autocomplete="given-name"
+                        [placeholder]="'REQUEST.STEP4.CONTACT.FIRST_NAME_PLACEHOLDER' | translate"
                         [(ngModel)]="draft.customer.firstName" />
 
                 </div>
 
-
                 <div class="form-field">
 
-                    <label for="lastName">
-                        Nachname
+                    <label for="firstName">
+                        {{ 'REQUEST.STEP4.CONTACT.LAST_NAME' | translate }}
                     </label>
 
-                    <input id="lastName" type="text" autocomplete="family-name" placeholder="Muster"
+                    <input id="lastName" type="text" autocomplete="family-name"
+                        [placeholder]="'REQUEST.STEP4.CONTACT.LAST_NAME_PLACEHOLDER' | translate"
                         [(ngModel)]="draft.customer.lastName" />
 
                 </div>
@@ -719,10 +653,11 @@
                 <div class="form-field">
 
                     <label for="email">
-                        E-Mail
+                        {{ 'REQUEST.STEP4.CONTACT.EMAIL' | translate }}
                     </label>
 
-                    <input id="email" type="email" autocomplete="email" placeholder="max@muster.ch"
+                    <input id="email" type="email" autocomplete="email"
+                        [placeholder]="'REQUEST.STEP4.CONTACT.EMAIL_PLACEHOLDER' | translate"
                         [(ngModel)]="draft.customer.email" />
 
                 </div>
@@ -731,10 +666,11 @@
                 <div class="form-field">
 
                     <label for="phone">
-                        Telefon
+                        {{ 'REQUEST.STEP4.CONTACT.PHONE' | translate }}
                     </label>
 
-                    <input id="phone" type="tel" autocomplete="tel" placeholder="+41 79 123 45 67"
+                    <input id="phone" type="tel" autocomplete="tel"
+                        [placeholder]="'REQUEST.STEP4.CONTACT.PHONE_PLACEHOLDER' | translate"
                         [(ngModel)]="draft.customer.phone" />
 
                 </div>
@@ -742,8 +678,6 @@
             </div>
 
         </div>
-
-
 
         <!-- ====================================================
              MESSAGE
@@ -760,11 +694,11 @@
                 <div>
 
                     <h3>
-                        Weitere Informationen
+                        {{ 'REQUEST.STEP4.MESSAGE.TITLE' | translate }}
                     </h3>
 
                     <p>
-                        Gibt es etwas, das wir über den Auftrag wissen sollten?
+                        {{ 'REQUEST.STEP4.MESSAGE.DESCRIPTION' | translate }}
                     </p>
 
                 </div>
@@ -775,17 +709,15 @@
             <div class="form-field">
 
                 <label for="message">
-                    Ihre Nachricht
+                    {{ 'REQUEST.STEP4.MESSAGE.LABEL' | translate }}
                 </label>
 
-                <textarea id="message" rows="5" placeholder="Beschreiben Sie den Auftrag gerne etwas genauer..."
+                <textarea id="message" rows="5" [placeholder]="'REQUEST.STEP4.MESSAGE.PLACEHOLDER' | translate"
                     [(ngModel)]="draft.description"></textarea>
 
             </div>
 
         </div>
-
-
 
         <!-- ====================================================
              SUMMARY
@@ -796,11 +728,11 @@
             <div class="summary-heading">
 
                 <span class="eyebrow">
-                    Ihre Anfrage
+                    {{ 'REQUEST.STEP4.SUMMARY.EYEBROW' | translate }}
                 </span>
 
                 <h3>
-                    Fast geschafft
+                    {{ 'REQUEST.STEP4.SUMMARY.TITLE' | translate }}
                 </h3>
 
             </div>
@@ -808,11 +740,10 @@
 
             <div class="summary-list">
 
-
                 <div class="summary-item">
 
                     <span class="summary-label">
-                        Dienstleistung
+                        {{ 'REQUEST.STEP4.SUMMARY.SERVICE' | translate }}
                     </span>
 
                     <strong>
@@ -821,11 +752,10 @@
 
                 </div>
 
-
                 <div class="summary-item">
 
                     <span class="summary-label">
-                        Einsatzort
+                        {{ 'REQUEST.STEP4.SUMMARY.LOCATION' | translate }}
                     </span>
 
                     <strong>
@@ -836,11 +766,10 @@
 
                 </div>
 
-
                 <div class="summary-item">
 
                     <span class="summary-label">
-                        Wunschtermin
+                        {{ 'REQUEST.STEP4.SUMMARY.DATE' | translate }}
                     </span>
 
                     <strong>
@@ -849,11 +778,10 @@
 
                 </div>
 
-
                 <div class="summary-item">
 
                     <span class="summary-label">
-                        Zeitfenster
+                        {{ 'REQUEST.STEP4.SUMMARY.TIME' | translate }}
                     </span>
 
                     <strong>
@@ -866,15 +794,11 @@
 
         </div>
 
-
-
         <!-- ====================================================
              ACTIONS
              ==================================================== -->
 
         <div class="actions">
-
-
             <button type="button" class="back-button" (click)="goToStep(3)">
 
                 <span>
@@ -882,7 +806,7 @@
                 </span>
 
                 <span>
-                    Zurück
+                    {{ 'ACTIONS.BACK' | translate }}
                 </span>
 
             </button>
@@ -894,13 +818,13 @@
                 @if (isSubmitting()) {
 
                 <span>
-                    Anfrage wird gesendet ...
+                    {{ 'REQUEST.STEP4.SUBMITTING' | translate }}
                 </span>
 
                 } @else {
 
                 <span>
-                    Anfrage senden
+                    {{ 'REQUEST.STEP4.SUBMIT' | translate }}
                 </span>
 
                 <span class="button-arrow">

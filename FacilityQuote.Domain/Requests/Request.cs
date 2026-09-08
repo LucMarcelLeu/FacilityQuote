@@ -35,6 +35,8 @@ public class Request
 
     public decimal? Quantity { get; set; }
 
+    public RequestLanguage Language { get; private set; }
+
     public RequestStatus Status { get; private set; }
 
     public DateTime CreatedAt { get; private set; }
@@ -53,7 +55,8 @@ public class Request
         TimeOnly latestTime,
         Address location,
         string? description,
-        decimal? quantity)
+        decimal? quantity,
+        RequestLanguage language)
     {
         if (earliestTime >= latestTime)
             throw new ArgumentException(
@@ -84,6 +87,7 @@ public class Request
 
         Description = description;
         Quantity = quantity;
+        Language = language;
 
         Status = RequestStatus.New;
         CreatedAt = DateTime.UtcNow;
@@ -103,4 +107,10 @@ public class Request
     {
         Status = RequestStatus.Rejected;
     }
+}
+
+public enum RequestLanguage
+{
+    German,
+    English
 }

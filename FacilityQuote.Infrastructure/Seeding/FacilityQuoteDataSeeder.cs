@@ -1,12 +1,20 @@
+using FacilityQuote.Domain.Requests;
 using FacilityQuote.Domain.Services;
 using FacilityQuote.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 
 namespace FacilityQuote.Infrastructure.Seeding;
 
 public static class FacilityQuoteDataSeeder
 {
     public static void Seed(FacilityQuoteDbContext context)
+    {
+        SeedServices(context);
+        SeedServiceTranslations(context);
+
+        context.SaveChanges();
+    }
+
+    private static void SeedServices(FacilityQuoteDbContext context)
     {
         if (context.Services.Any())
         {
@@ -22,6 +30,7 @@ public static class FacilityQuoteDataSeeder
                 "m2",
                 13,
                 "Regelmässige Reinigung von Wohnungen und Büros"),
+
             new Service(
                 ServiceCategory.Cleaning,
                 "Endreinigung",
@@ -88,6 +97,119 @@ public static class FacilityQuoteDataSeeder
         };
 
         context.Services.AddRange(services);
-        context.SaveChanges();
+    }
+
+    private static void SeedServiceTranslations(
+        FacilityQuoteDbContext context)
+    {
+        var services = context.Services.ToList();
+
+        foreach (var service in services)
+        {
+            AddTranslation(
+                context,
+                service,
+                RequestLanguage.German,
+                GetGermanName(service),
+                GetGermanDescription(service));
+
+            AddTranslation(
+                context,
+                service,
+                RequestLanguage.English,
+                GetEnglishName(service),
+                GetEnglishDescription(service));
+        }
+    }
+
+    private static void AddTranslation(
+        FacilityQuoteDbContext context,
+        Service service,
+        RequestLanguage language,
+        string name,
+        string description)
+    {
+        var exists = context.Set<ServiceTranslation>()
+            .Any(x =>
+                x.ServiceId == service.Id &&
+                x.Language == language);
+
+        if (exists)
+        {
+            return;
+        }
+
+        context.Set<ServiceTranslation>().Add(
+            new ServiceTranslation(
+                service,
+                language,
+                name,
+                description)
+        );
+    }
+
+    private static string GetGermanName(Service service)
+    {
+        return service.Name;
+    }
+
+    private static string GetGermanDescription(Service service)
+    {
+        return service.Description ?? string.Empty;
+    }
+
+    private static string GetEnglishName(Service service)
+    {
+        return service.Name switch
+        {
+            "Unterhaltsreinigung" => "Regular Cleaning",
+            "Endreinigung" => "End-of-Tenancy Cleaning",
+            "Fensterreinigung" => "Window Cleaning",
+
+            "Wohnungsräumung" => "Apartment Clearance",
+            "Keller- und Estrichräumung" => "Basement & Attic Clearance",
+            "Entsorgung" => "Disposal",
+
+            "Rasenpflege" => "Lawn Care",
+            "Heckenschnitt" => "Hedge Trimming",
+            "Gartenräumung" => "Garden Clearance",
+
+            _ => service.Name
+        };
+    }
+
+    private static string GetEnglishDescription(Service service)
+    {
+        return service.Name switch
+        {
+            "Unterhaltsreinigung" =>
+                "Regular cleaning of apartments and offices",
+
+            "Endreinigung" =>
+                "Cleaning of apartments when moving out",
+
+            "Fensterreinigung" =>
+                "Cleaning of windows and glass surfaces",
+
+            "Wohnungsräumung" =>
+                "Complete clearance of apartments",
+
+            "Keller- und Estrichräumung" =>
+                "Clearance of basements and attics",
+
+            "Entsorgung" =>
+                "Disposal of furniture and bulky waste",
+
+            "Rasenpflege" =>
+                "Lawn mowing and maintenance",
+
+            "Heckenschnitt" =>
+                "Trimming and shaping of hedges",
+
+            "Gartenräumung" =>
+                "General clearance and gardening work",
+
+            _ => service.Description ?? string.Empty
+        };
     }
 }

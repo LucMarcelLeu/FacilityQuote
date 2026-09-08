@@ -1,6 +1,8 @@
 export interface RequestDraft {
     serviceId: string | null;
 
+    language: 'de' | 'en';
+
     location: {
         street: string;
         postalCode: string;

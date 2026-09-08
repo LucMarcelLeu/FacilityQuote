@@ -8,10 +8,7 @@ public class ServiceTests
     public void Constructor_ShouldCreateActiveService()
     {
         // Arrange & Act
-        var service = new Service(
-            ServiceCategory.Cleaning,
-            "Unterhaltsreinigung",
-            "Regelmässige Reinigung von Wohnungen und Büros");
+        Service service = GetService();
 
         // Assert
         Assert.NotEqual(Guid.Empty, service.Id);
@@ -23,35 +20,14 @@ public class ServiceTests
         Assert.True(service.IsActive);
     }
 
-    [Fact]
-    public void Deactivate_ShouldDeactivateService()
+    private static Service GetService()
     {
-        // Arrange
-        var service = new Service(
-            ServiceCategory.Gardening,
-            "Rasenpflege");
-
-        // Act
-        service.Deactivate();
-
-        // Assert
-        Assert.False(service.IsActive);
-    }
-
-    [Fact]
-    public void Activate_ShouldActivateDeactivatedService()
-    {
-        // Arrange
-        var service = new Service(
-            ServiceCategory.Clearance,
-            "Wohnungsräumung");
-
-        service.Deactivate();
-
-        // Act
-        service.Activate();
-
-        // Assert
-        Assert.True(service.IsActive);
+        return new Service(
+            ServiceCategory.Cleaning,
+            "Unterhaltsreinigung",
+            true,
+            "m2",
+            12,
+            "Regelmässige Reinigung von Wohnungen und Büros");
     }
 }

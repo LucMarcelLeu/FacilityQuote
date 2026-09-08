@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FacilityQuote.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FacilityQuote.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(FacilityQuoteDbContext))]
-    partial class FacilityQuoteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260907161938_AddRequestLanguage")]
+    partial class AddRequestLanguage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,35 +287,6 @@ namespace FacilityQuote.Infrastructure.Persistence.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("FacilityQuote.Domain.Services.ServiceTranslation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<int>("Language")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<Guid>("ServiceId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceId", "Language")
-                        .IsUnique();
-
-                    b.ToTable("ServiceTranslation");
-                });
-
             modelBuilder.Entity("FacilityQuote.Domain.Quotes.Quote", b =>
                 {
                     b.HasOne("FacilityQuote.Domain.Requests.Request", null)
@@ -360,17 +334,6 @@ namespace FacilityQuote.Infrastructure.Persistence.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("FacilityQuote.Domain.Services.ServiceTranslation", b =>
-                {
-                    b.HasOne("FacilityQuote.Domain.Services.Service", "Service")
-                        .WithMany("Translations")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Service");
-                });
-
             modelBuilder.Entity("FacilityQuote.Domain.Customers.Customer", b =>
                 {
                     b.Navigation("Requests");
@@ -379,11 +342,6 @@ namespace FacilityQuote.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("FacilityQuote.Domain.Quotes.Quote", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("FacilityQuote.Domain.Services.Service", b =>
-                {
-                    b.Navigation("Translations");
                 });
 #pragma warning restore 612, 618
         }

@@ -26,4 +26,5 @@ public sealed record CreateRequestCommand(
     TimeOnly LatestTime,
 
     string? Description,
-    RequestTimeSlot TimeSlot);
+    RequestTimeSlot TimeSlot,
+    RequestLanguage Language);

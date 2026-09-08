@@ -1,0 +1,37 @@
+<header class="site-header">
+
+    <a class="brand" routerLink="/">
+        {{ 'HOME.TITLE' | translate }}
+    </a>
+
+    <nav class="navigation">
+
+        <a href="/#dienstleistungen">
+            {{ 'NAV.SERVICES' | translate }}
+        </a>
+
+        <a href="/#ueber-uns">
+            {{ 'NAV.ABOUT' | translate }}
+        </a>
+
+        <a href="/#team">
+            {{ 'NAV.TEAM' | translate }}
+        </a>
+
+        <a href="/#kontakt">
+            {{ 'NAV.CONTACT' | translate }}
+        </a>
+
+    </nav>
+
+    <div class="header-actions">
+
+        <app-language-switcher />
+        
+        <a class="header-button" routerLink="/offerte">
+            {{ 'NAV.REQUEST' | translate }}
+        </a>
+
+    </div>
+
+</header>

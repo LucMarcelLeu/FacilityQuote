@@ -1,4 +1,5 @@
 using FacilityQuote.Api.Models.Services;
+using FacilityQuote.Api.Serialization;
 using FacilityQuote.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,20 +60,29 @@ public class ServicesController : ControllerBase
 
     [HttpGet("active")]
     public async Task<IActionResult> GetActive(
-        CancellationToken cancellationToken)
+    [FromQuery] string language = "de",
+    CancellationToken cancellationToken = default)
     {
+        var requestLanguage = RequestLanguageParser.Parse(language);
+
         var services = await _serviceService.GetActiveAsync(
             cancellationToken);
 
-        return Ok(services.Select(x => new
+        return Ok(services.Select(x =>
         {
-            x.Id,
-            x.Category,
-            x.Name,
-            x.Description,
-            x.Unit,
-            x.UnitPrice,
-            x.IsActive
+            var translation = x.Translations
+                .FirstOrDefault(t => t.Language == requestLanguage);
+
+            return new
+            {
+                x.Id,
+                x.Category,
+                Name = translation?.Name ?? x.Name,
+                Description = translation?.Description ?? x.Description,
+                x.Unit,
+                x.UnitPrice,
+                x.IsActive
+            };
         }));
     }
 

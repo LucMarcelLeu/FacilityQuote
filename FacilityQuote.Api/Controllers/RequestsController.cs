@@ -50,7 +50,8 @@ public class RequestsController : ControllerBase
             request.LatestTime,
 
             request.Description,
-            request.RequestTimeSlot);
+            request.RequestTimeSlot,
+            request.RequestLanguage);
 
         var createdRequest = await _requestService.CreateAsync(
             command,

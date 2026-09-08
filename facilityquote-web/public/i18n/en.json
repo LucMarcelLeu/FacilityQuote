@@ -1,0 +1,234 @@
+{
+    "HOME": {
+        "TITLE": "Leu Building Services",
+        "SUBTITLE": "Clean. Reliable. Personal.",
+        "HERO": {
+            "EYEBROW": "BUILDING SERVICES FROM A SINGLE SOURCE",
+            "TITLE_LINE_1": "Clean.",
+            "TITLE_LINE_2": "Reliable.",
+            "TITLE_LINE_3": "Personal.",
+            "TEXT": "Cleaning, clearance and gardening services – professionally delivered and easy to request.",
+            "REQUEST": "Request a quote",
+            "SERVICES": "Our services"
+        },
+        "BENEFITS": {
+            "SIMPLE": "Simple",
+            "SIMPLE_TEXT": "Online request in just a few steps",
+            "PERSONAL": "Personal",
+            "PERSONAL_TEXT": "Direct contact and individual advice",
+            "RELIABLE": "Reliable",
+            "RELIABLE_TEXT": "Quality work at the agreed appointment"
+        },
+        "SERVICES": {
+            "EYEBROW": "OUR SERVICES",
+            "TITLE_LINE_1": "What can we",
+            "TITLE_LINE_2": "do for you?",
+            "DESCRIPTION": "From regular cleaning to complete clearances or help with your garden – we provide practical solutions from a single source.",
+            "CLEANING": {
+                "TITLE": "Cleaning",
+                "DESCRIPTION": "Clean solutions for private and commercial spaces."
+            },
+            "CLEARANCE": {
+                "TITLE": "Clearance",
+                "DESCRIPTION": "Reliable clearances and professional disposal."
+            },
+            "GARDENING": {
+                "TITLE": "Gardening",
+                "DESCRIPTION": "Support with garden maintenance, care and outdoor work."
+            },
+            "REQUEST": "Request a quote"
+        },
+        "PROCESS": {
+            "EYEBROW": "HOW IT WORKS",
+            "TITLE_LINE_1": "From your request",
+            "TITLE_LINE_2": "to the service.",
+            "DESCRIPTION": "Requesting a quote from Leu Gebäudeservice is simple and only takes a few steps.",
+            "STEPS": {
+                "01": {
+                    "TITLE": "Choose a service",
+                    "TEXT": "Choose the service you need – cleaning, clearance or gardening."
+                },
+                "02": {
+                    "TITLE": "Provide the location",
+                    "TEXT": "Tell us where the work needs to be carried out."
+                },
+                "03": {
+                    "TITLE": "Choose a preferred date",
+                    "TEXT": "Choose a suitable day and an available time slot."
+                },
+                "04": {
+                    "TITLE": "Submit your request",
+                    "TEXT": "Submit your request – we will review the details and get back to you personally."
+                }
+            },
+            "REQUEST": "Request a quote"
+        },
+        "ABOUT": {
+            "EYEBROW": "ABOUT US",
+            "TITLE_LINE_1": "Personal service,",
+            "TITLE_LINE_2": "you can rely on.",
+            "LEAD": "We are Leu Gebäudeservice – a personal and reliable partner for cleaning, clearance and gardening services.",
+            "TEXT_1": "We believe that working with us should be simple and straightforward. From your first request to the completed job, we stand for direct communication, quality work and reliable appointments.",
+            "TEXT_2": "Whether you need regular cleaning, a complete clearance or support around your home and garden – we make sure the work is carried out carefully and reliably.",
+            "VALUES": {
+                "PERSONAL": {
+                    "TITLE": "Personal",
+                    "TEXT": "Direct contact instead of anonymous intermediaries."
+                },
+                "RELIABLE": {
+                    "TITLE": "Reliable",
+                    "TEXT": "Agreed appointments and arrangements are binding for us."
+                },
+                "CAREFUL": {
+                    "TITLE": "Careful",
+                    "TEXT": "We value clean and tidy work."
+                }
+            }
+        },
+        "TEAM": {
+            "EYEBROW": "OUR TEAM",
+            "TITLE_LINE_1": "People who",
+            "TITLE_LINE_2": "get things done.",
+            "DESCRIPTION": "Behind Leu Gebäudeservice are people who take pride in their work and value providing reliable service.",
+            "PHOTO": "Photo",
+            "MANAGEMENT": "Management",
+            "MANAGEMENT_TEXT": "Your direct contact for quotes, appointments and personal advice.",
+            "SERVICE": "Building Services",
+            "SERVICE_TEXT": "Reliable on site and with an eye for detail.",
+            "MESSAGE_TITLE": "Personal, not anonymous.",
+            "MESSAGE_TEXT": "We want you to know who you are working with."
+        },
+        "CONTACT": {
+            "EYEBROW": "CONTACT",
+            "TITLE_LINE_1": "You have a job to do.",
+            "TITLE_LINE_2": "We'll take care of it.",
+            "DESCRIPTION": "Whether cleaning, clearance or gardening – request a quote without obligation. We will get back to you personally.",
+            "REQUEST": "Request a quote",
+            "PHONE": "PHONE",
+            "EMAIL": "EMAIL",
+            "REGION": "REGION",
+            "REGION_VALUE": "Zurich and surrounding area"
+        },
+        "FOOTER": {
+            "DESCRIPTION": "Cleaning, clearance and gardening – reliable and personal.",
+            "NAVIGATION": "NAVIGATION",
+            "SERVICES": "SERVICES",
+            "DIRECT": "DIRECT",
+            "CLEANING": "Cleaning",
+            "CLEARANCE": "Clearance",
+            "GARDENING": "Gardening",
+            "IMPRINT": "Legal notice",
+            "PRIVACY": "Privacy policy"
+        }
+    },
+    "NAV": {
+        "REQUEST": "Request",
+        "AVAILABILITY": "Availability",
+        "CUSTOMERS": "Customers",
+        "LOGIN": "Login",
+        "LOGOUT": "Logout",
+        "ADMIN": "Administration",
+        "SERVICES": "Services",
+        "ABOUT": "About us",
+        "TEAM": "Team",
+        "CONTACT": "Contact"
+    },
+    "REQUEST": {
+        "PROGRESS": {
+            "SERVICE": "Service",
+            "LOCATION": "Service location",
+            "DATE": "Appointment",
+            "CONTACT": "Your details",
+            "PROGRESS_LABEL": "Request progress"
+        },
+        "STEP1": {
+            "EYEBROW": "Step 1 of 4",
+            "TITLE": "Choose a service",
+            "DESCRIPTION": "How can we help you?",
+            "QUANTITY": {
+                "EYEBROW": "Quantity",
+                "TITLE": "How much is needed?",
+                "DESCRIPTION": "Please enter the required quantity.",
+                "LABEL": "Quantity",
+                "PLACEHOLDER": "e.g. 13.5"
+            }
+        },
+        "STEP2": {
+            "EYEBROW": "Step 2 of 4",
+            "TITLE": "Where will the service take place?",
+            "DESCRIPTION": "Please provide us with the address of the service location.",
+            "STREET": {
+                "LABEL": "Street / House number",
+                "PLACEHOLDER": "e.g. Bahnhofstrasse 25"
+            },
+            "POSTAL_CODE": {
+                "LABEL": "Postal code",
+                "PLACEHOLDER": "8000"
+            },
+            "CITY": {
+                "LABEL": "City",
+                "PLACEHOLDER": "Zurich"
+            },
+            "HINT": "The service location helps us determine the possible travel costs."
+        },
+        "STEP3": {
+            "EYEBROW": "Step 3 of 4",
+            "TITLE": "When would suit you?",
+            "DESCRIPTION": "Choose a preferred date and time slot.",
+            "DATE": "Preferred date",
+            "TIME": "Preferred time slot",
+            "MORNING": "Morning",
+            "AFTERNOON": "Afternoon",
+            "MORNING_TIME": "08:00 – 12:00",
+            "AFTERNOON_TIME": "13:00 – 17:00"
+        },
+        "STEP4": {
+            "EYEBROW": "Step 4 of 4",
+            "TITLE": "How can we reach you?",
+            "DESCRIPTION": "We use your information only to process your request and contact you.",
+            "CONTACT": {
+                "TITLE": "Your contact details",
+                "DESCRIPTION": "So that we can get in touch with you.",
+                "FIRST_NAME": "First name",
+                "LAST_NAME": "Last name",
+                "EMAIL": "Email",
+                "PHONE": "Phone",
+                "FIRST_NAME_PLACEHOLDER": "Max",
+                "LAST_NAME_PLACEHOLDER": "Muster",
+                "EMAIL_PLACEHOLDER": "max@muster.ch",
+                "PHONE_PLACEHOLDER": "+41 79 123 45 67"
+            },
+            "MESSAGE": {
+                "TITLE": "Additional information",
+                "DESCRIPTION": "Is there anything we should know about the job?",
+                "LABEL": "Your message",
+                "PLACEHOLDER": "Please describe the job in a little more detail..."
+            },
+            "SUMMARY": {
+                "EYEBROW": "Your request",
+                "TITLE": "Almost done",
+                "SERVICE": "Service",
+                "LOCATION": "Service location",
+                "DATE": "Preferred date",
+                "TIME": "Time slot"
+            },
+            "SUBMIT": "Submit request",
+            "SUBMITTING": "Sending request ..."
+        },
+        "SUCCESS": {
+            "EYEBROW": "Request received",
+            "TITLE": "Thank you for your request!",
+            "TEXT": "We have received your request successfully and will get back to you as soon as possible.",
+            "REQUEST_NUMBER": "Request No."
+        }
+    },
+    "SERVICE_CATEGORY": {
+        "Cleaning": "Cleaning",
+        "Clearance": "Clearance",
+        "Gardening": "Gardening"
+    },
+    "ACTIONS": {
+        "NEXT": "Next",
+        "BACK": "Back"
+    }
+}

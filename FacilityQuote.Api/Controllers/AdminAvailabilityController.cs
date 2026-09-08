@@ -57,4 +57,6 @@ public class AdminAvailabilityController : ControllerBase
             availability.AfternoonAvailable
         });
     }
+
+    
 }

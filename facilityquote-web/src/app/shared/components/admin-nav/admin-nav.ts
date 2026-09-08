@@ -1,8 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import {
-    KEYCLOAK_EVENT_SIGNAL
-} from 'keycloak-angular';
+import { TranslatePipe } from '@ngx-translate/core';
 import Keycloak from 'keycloak-js';
 
 @Component({
@@ -10,7 +8,8 @@ import Keycloak from 'keycloak-js';
     standalone: true,
     imports: [
         RouterLink,
-        RouterLinkActive
+        RouterLinkActive,
+        TranslatePipe
     ],
     templateUrl: './admin-nav.html',
     styleUrl: './admin-nav.scss'
@@ -18,9 +17,6 @@ import Keycloak from 'keycloak-js';
 export class AdminNavComponent {
 
     private readonly keycloak = inject(Keycloak);
-
-    // sorgt dafür, dass Angular auf Keycloak-Events reagiert
-    private readonly keycloakEvent = inject(KEYCLOAK_EVENT_SIGNAL);
 
     get isLoggedIn(): boolean {
         return this.keycloak.authenticated ?? false;

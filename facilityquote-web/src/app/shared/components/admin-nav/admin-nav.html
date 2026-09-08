@@ -1,20 +1,20 @@
 <nav class="admin-nav">
-        @if (isLoggedIn && isAdmin) {
-            <div class="admin-nav__brand">
-                <span class="admin-nav__title">Leu Gebäudeservice</span>
-                <span class="admin-nav__subtitle">Administration</span>
-            </div>
-            <div class="admin-nav__links">
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                    Anfrage
-                </a>
-                <a routerLink="/availability" routerLinkActive="active">
-                    Verfügbarkeit
-                </a>
-                <a routerLink="/customers" routerLinkActive="active">
-                    Kunden
-                </a>
-            </div>
+    @if (isLoggedIn && isAdmin) {
+    <div class="admin-nav__brand">
+        <span class="admin-nav__title">Leu Gebäudeservice</span>
+        <span class="admin-nav__subtitle">Administration</span>
+    </div>
+    <div class="admin-nav__links">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            {{ 'NAV.REQUEST' | translate }}
+        </a>
+        <a routerLink="/availability" routerLinkActive="active">
+            {{ 'NAV.AVAILABILITY' | translate }}
+        </a>
+        <a routerLink="/customers" routerLinkActive="active">
+            {{ 'NAV.CUSTOMERS' | translate }}
+        </a>
+    </div>
     }
 
     <div class="admin-nav__actions">
@@ -30,13 +30,13 @@
         </span>
 
         <button type="button" (click)="logout()">
-            Abmelden
+            {{ 'NAV.LOGOUT' | translate }}
         </button>
 
         } @else {
 
         <button type="button" (click)="login()">
-            Anmelden
+            {{ 'NAV.LOGIN' | translate }}
         </button>
 
         }

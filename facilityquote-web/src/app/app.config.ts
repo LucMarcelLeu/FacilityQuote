@@ -8,6 +8,9 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
 
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import {
   provideKeycloak,
   createInterceptorCondition,
@@ -58,7 +61,16 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         includeBearerTokenInterceptor
       ])
-    )
+    ),
+
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: '/i18n/',
+        suffix: '.json'
+      }),
+      fallbackLang: 'de',
+      lang: 'de'
+    }),
 
   ]
 

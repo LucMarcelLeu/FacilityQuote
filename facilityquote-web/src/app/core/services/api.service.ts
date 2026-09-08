@@ -11,18 +11,25 @@ import { Customer } from '../../features/customer/models/customer.model';
 import { RequestDetail } from '../../features/request/models/request-detail.model';
 import { Quote } from '../../features/quote/models/quote.model';
 import { UpdateQuoteRequest } from '../../features/quote/models/quote-update.model';
+import { LanguageService } from './language.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApiService {
     private readonly http = inject(HttpClient);
+    private readonly languageService = inject(LanguageService);
 
     private readonly baseUrl = environment.apiUrl;
 
     getServices(): Observable<Service[]> {
         return this.http.get<Service[]>(
-            `${this.baseUrl}/services/active`
+            `${this.baseUrl}/services/active`,
+            {
+                params: {
+                    language: this.languageService.language
+                }
+            }
         );
     }
 
@@ -67,7 +74,8 @@ export class ApiService {
                     : '17:00:00',
 
             description: request.description,
-            quantity: request.quantity
+            quantity: request.quantity,
+            requestLanguage: request.language,
         };
         
         return this.http.post<{ id: string }>(

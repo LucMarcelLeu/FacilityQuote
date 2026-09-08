@@ -24,9 +24,10 @@ public class ServiceRepository : IServiceRepository
     }
 
     public async Task<IReadOnlyList<Service>> GetAllAsync(
-        CancellationToken cancellationToken = default)
+    CancellationToken cancellationToken = default)
     {
         return await _context.Services
+            .Include(x => x.Translations)
             .OrderBy(x => x.Name)
             .ToListAsync(cancellationToken);
     }
@@ -35,6 +36,7 @@ public class ServiceRepository : IServiceRepository
         CancellationToken cancellationToken = default)
     {
         return await _context.Services
+            .Include(x => x.Translations)
             .Where(x => x.IsActive)
             .OrderBy(x => x.Name)
             .ToListAsync(cancellationToken);

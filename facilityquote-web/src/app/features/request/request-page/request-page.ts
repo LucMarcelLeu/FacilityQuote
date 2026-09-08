@@ -1,8 +1,17 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { startWith, switchMap, tap } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { ApiService } from '../../../core/services/api.service';
+import { SiteHeaderComponent } from '../../../shared/components/site-header/site-header';
+
+import {
+  LanguageService
+} from '../../../core/services/language.service';
+
 import {
   Service,
   ServiceCategory
@@ -30,7 +39,9 @@ interface AvailableDate {
   standalone: true,
   imports: [
     AsyncPipe,
-    FormsModule
+    FormsModule,
+    SiteHeaderComponent,
+    TranslatePipe
   ],
   templateUrl: './request-page.html',
   styleUrl: './request-page.scss'
@@ -38,8 +49,13 @@ interface AvailableDate {
 
 export class RequestPage implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly translate = inject(TranslateService);
+  private readonly languageService = inject(LanguageService);
 
-  readonly services$ = this.api.getServices();
+  readonly services$ = this.translate.onLangChange.pipe(
+    startWith(null),
+    switchMap(() => this.api.getServices())
+  );
 
   readonly categories: ServiceCategory[] = [
     'Cleaning',
@@ -55,6 +71,8 @@ export class RequestPage implements OnInit {
 
   draft: RequestDraft = {
     serviceId: null,
+
+    language: this.languageService.language,
 
     location: {
       street: '',
@@ -84,6 +102,23 @@ export class RequestPage implements OnInit {
 
   ngOnInit(): void {
     this.loadAvailability();
+
+    this.translate.onLangChange.subscribe(() => {
+      this.draft.language = this.languageService.language;
+
+      if (this.draft.serviceId) {
+        this.api.getServices().subscribe(services => {
+          const selectedService = services.find(
+            service => service.id === this.draft.serviceId
+          );
+
+          if (selectedService) {
+            this.selectedServiceName = selectedService.name;
+            this.selectedServiceUnit = selectedService.unit;
+          }
+        });
+      }
+    });
   }
 
   selectService(service: Service): void {
@@ -96,21 +131,6 @@ export class RequestPage implements OnInit {
     return this.draft.serviceId === service.id;
   }
 
-  getCategoryLabel(category: ServiceCategory): string {
-    switch (category) {
-      case 'Cleaning':
-        return 'Reinigung';
-
-      case 'Clearance':
-        return 'Räumung';
-
-      case 'Gardening':
-        return 'Garten';
-
-      default:
-        return category;
-    }
-  }
 
   goToStep(step: RequestStep): void {
     this.currentStep = step;
@@ -161,12 +181,12 @@ export class RequestPage implements OnInit {
               return {
                 date: item.date,
 
-                label: date.toLocaleDateString('de-CH', {
+                label: date.toLocaleDateString(this.getDateLocale(), {
                   day: '2-digit',
                   month: '2-digit'
                 }),
 
-                weekday: date.toLocaleDateString('de-CH', {
+                weekday: date.toLocaleDateString(this.getDateLocale(), {
                   weekday: 'short'
                 }),
 
@@ -276,7 +296,7 @@ export class RequestPage implements OnInit {
     }
 
     return new Date(date + 'T12:00:00').toLocaleDateString(
-      'de-CH',
+      this.getDateLocale(),
       {
         weekday: 'long',
         day: '2-digit',
@@ -288,16 +308,21 @@ export class RequestPage implements OnInit {
 
   get selectedTimeSlotLabel(): string {
     switch (this.draft.appointment.timeSlot) {
-
       case 'morning':
-        return 'Vormittag · 08:00 – 12:00';
+        return `${this.translate.instant('REQUEST.STEP3.MORNING')} · ${this.translate.instant('REQUEST.STEP3.MORNING_TIME')}`;
 
       case 'afternoon':
-        return 'Nachmittag · 13:00 – 17:00';
+        return `${this.translate.instant('REQUEST.STEP3.AFTERNOON')} · ${this.translate.instant('REQUEST.STEP3.AFTERNOON_TIME')}`;
 
       default:
         return '';
     }
+  }
+
+  private getDateLocale(): string {
+    return this.languageService.language === 'de'
+      ? 'de-CH'
+      : 'en-GB';
   }
 
   canSubmit(): boolean {
@@ -316,8 +341,7 @@ export class RequestPage implements OnInit {
 
     this.isSubmitting.set(true);
 
-    console.log('Selected time slot:', this.draft.appointment.timeSlot);
-    console.log('Complete draft:', this.draft);
+    this.draft.language = this.languageService.language;
 
     this.api.createRequest(this.draft)
       .subscribe({

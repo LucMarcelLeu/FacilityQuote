@@ -107,7 +107,8 @@ public class RequestService
             command.LatestTime,
             location,
             command.Description,
-            command.Quantity);
+            command.Quantity,
+            command.Language);
 
         await _requestRepository.AddAsync(
             request,
