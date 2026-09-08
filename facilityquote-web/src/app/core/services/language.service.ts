@@ -10,9 +10,14 @@ export class LanguageService {
 
     private readonly translate = inject(TranslateService);
 
-    private currentLanguage: Language = 'de';
+    private currentLanguage: Language;
 
     constructor() {
+        const savedLanguage = localStorage.getItem('language');
+
+        this.currentLanguage =
+            savedLanguage === 'en' ? 'en' : 'de';
+
         this.translate.use(this.currentLanguage);
     }
 
@@ -22,6 +27,9 @@ export class LanguageService {
 
     setLanguage(language: Language): void {
         this.currentLanguage = language;
+
+        localStorage.setItem('language', language);
+
         this.translate.use(language);
     }
 }
